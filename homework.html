@@ -26,7 +26,7 @@
 <div class="hero">
   <div class="wrap">
     <div class="copy">
-      <nav class="subnav" aria-label="Homework"><a href="homework.html" aria-current="page">Overview</a><a href="homework-translation.html">Translation (SL)</a><a href="homework-derivations.html">Derivations (SL)</a><a href="homework-pl-translation.html">Translation (PL)</a></nav>
+      <nav class="subnav" aria-label="Homework"><a href="homework.html" aria-current="page">Overview</a><a href="homework-translation.html">Translation (SL)</a><a href="homework-derivations.html">Derivations (SL)</a><a href="homework-pl-translation.html">Translation (PL)</a><a href="homework-pl-derivations.html">Derivations (PL)</a></nav>
       <div class="eyebrow">Practice between sessions</div>
       <h1>Home<em>work</em></h1>
       <p class="lede">Practice problems that never run out. Each kind of homework has its own page, its own difficulty levels, and instant feedback. Your progress is saved in this browser.</p>
@@ -34,7 +34,7 @@
     <div class="card" aria-label="Assigning problems">
       <div class="cap">Assigning problems</div>
       <p>Every problem has a short code. The same code always gives the same problem, so a tutor can set homework by sending a list of codes, and the student enters them in the "Load a code" box.</p>
-      <p class="note">SL sentence codes start with T (T2-k3j9a), PL sentence codes with P (P2-k3j9a), and derivation codes with a level number (2A-0-k3j9a).</p>
+      <p class="note">SL sentence codes start with T (T2-k3j9a), PL sentence codes with P (P2-k3j9a), SL derivation codes with a level number (2A-0-k3j9a), and PL derivation codes with D (D2A-0-k3j9a).</p>
     </div>
   </div>
 </div>
@@ -71,8 +71,16 @@
         <p class="note" id="plcount"></p>
         <div class="cta"><a class="btn" href="homework-pl-translation.html">Start translating</a></div>
       </div>
+      <div class="hwcard">
+        <div class="eyebrow">Chapter 10</div>
+        <h3>Derivations (PL)</h3>
+        <p>Prove quantifier and identity arguments in PD, PD+ or PDE with the click-to-build checker: ∀E, ∀I, ∃E, ∃I and =E, with hints and sample solutions.</p>
+        <p class="eg">{(∀x)(Fx ⊃ Gx), (∃x)Fx} ⊢ (∃x)Gx</p>
+        <p class="note" id="pdcount"></p>
+        <div class="cta"><a class="btn" href="homework-pl-derivations.html">Start deriving</a></div>
+      </div>
     </div>
-    <p class="note" style="margin-top:18px">More kinds of homework, such as truth-trees or predicate logic derivations, can be added here as we reach those chapters.</p>
+    <p class="note" style="margin-top:18px">More kinds of homework, such as truth-trees, can be added here as they become useful.</p>
   </div>
 </section>
 </main>
@@ -86,6 +94,8 @@ const n1=Object.keys(SL.store.get('vm-tr-solved',{})).length,n2=Object.keys(SL.s
 document.getElementById('trcount').textContent=n1?n1+' sentence'+(n1===1?'':'s')+' done so far.':'Not started yet.';
 const n3=Object.keys(SL.store.get('vm-plt-solved',{})).length;
 document.getElementById('plcount').textContent=n3?n3+' sentence'+(n3===1?'':'s')+' done so far.':'Not started yet.';
+const n4=Object.keys(SL.store.get('vm-pd-solved',{})).length;
+document.getElementById('pdcount').textContent=n4?n4+' problem'+(n4===1?'':'s')+' solved so far.':'Not started yet.';
 document.getElementById('sdcount').textContent=n2?n2+' problem'+(n2===1?'':'s')+' solved so far.':'Not started yet.';
 })();
 </script>
