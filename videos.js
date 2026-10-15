@@ -4,7 +4,8 @@
 (function(){
 const VIDEOS={
   1:'pGBNoRk-AmU',
-  2:'pTGAbiBqrU4'
+  2:'pTGAbiBqrU4',
+  3:'qVNQEWN2fYI'
 };
 /* what to listen for while watching, per chapter */
 const WATCH_FOR={
