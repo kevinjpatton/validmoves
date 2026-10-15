@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Homework · Valid Moves</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600&family=Spectral:ital,wght@0,400;0,500;1,400&display=swap">
+<link rel="stylesheet" href="site.css">
+<style>
+.settings{display:grid;gap:14px;background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:16px 18px}
+.setrow{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.setrow>.lbl{font-family:var(--display);font-weight:600;font-size:.88rem;min-width:7.5rem}
+.rulechips{display:flex;flex-wrap:wrap;gap:6px}
+.problem{display:grid;gap:8px;border-left:3px solid var(--accent);padding:6px 0 6px 16px}
+.problem .stmt{font-family:var(--mono);font-size:1.15rem;overflow-wrap:anywhere}
+.codebox{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:.92rem}
+.codebox code{background:var(--accent-soft);padding:3px 8px;border-radius:4px;font-size:.95rem}
+.codebox input{font-family:var(--mono);padding:5px 8px;border:1px solid var(--rule);border-radius:4px;background:var(--surface);width:10rem}
+.hints{display:grid;gap:8px}
+.hints p{border-left:3px solid var(--hl);padding:4px 0 4px 12px}
+.history{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+.history li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--rule)}
+.history button{background:none;border:0;padding:0;font-family:var(--mono);font-size:.92rem;color:var(--accent);cursor:pointer;text-align:left;overflow-wrap:anywhere}
+.history .ok{color:var(--true);font-weight:600}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html">Valid Moves <span>⊢</span></a>
+    <nav aria-label="Site">
+      <a href="index.html">Home</a>
+      <a href="index.html#chapters">Chapters</a>
+      <a href="homework.html" aria-current="page">Homework</a>
+      <a href="index.html#texts">Other texts</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="copy">
+      <div class="eyebrow">Practice between sessions</div>
+      <h1>Home<em>work</em></h1>
+      <p class="lede">Fresh derivation problems whenever you want them. Choose a difficulty and the rules you want to practise, then build the proof with the same click-to-build checker used in Chapter 5. Hints and a sample solution are there if you get stuck.</p>
+      <nav class="toc" aria-label="On this page"><a href="#sd">SL derivations</a><a href="#recent">Recent problems</a></nav>
+    </div>
+    <div class="card" aria-label="Your progress">
+      <div class="cap">Your progress</div>
+      <h2 id="solvedcount">0 problems solved</h2>
+      <p class="note">Every problem has a code, like <code>2A-0-k3j9a</code>. Anyone who enters the same code gets the same problem, so a tutor can assign one by sending its code. Progress is saved in this browser.</p>
+    </div>
+  </div>
+</div>
+
+<main>
+<section id="sd">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Chapter 5 · SD</div>
+      <h2>Sentential logic derivations</h2>
+      <p class="lede">Problems are drawn from a library of classic argument patterns (hypothetical syllogism, dilemma, De Morgan and more), filled in with fresh sentence letters. Every problem comes with a model proof that the checker has already verified.</p>
+    </div>
+    <div class="lab">
+      <div class="settings">
+        <div class="setrow"><span class="lbl">Difficulty</span>
+          <div class="seg" role="group" aria-label="Difficulty" id="lvl">
+            <button type="button" data-v="1">Warm-up</button><button type="button" data-v="2">Standard</button><button type="button" data-v="3">Challenge</button>
+          </div>
+        </div>
+        <div class="setrow"><span class="lbl">Kind of problem</span>
+          <div class="seg" role="group" aria-label="Kind of problem" id="kind">
+            <button type="button" data-v="A">Argument</button><button type="button" data-v="T">Theorem</button>
+          </div>
+        </div>
+        <div class="setrow"><span class="lbl">Rules to practise</span>
+          <div class="rulechips" id="rules" aria-label="Rules to practise"></div>
+          <span class="note">Optional. Leave all off for a mix.</span>
+        </div>
+        <div class="setrow"><span class="lbl">Solve in</span>
+          <div class="seg" role="group" aria-label="Derivation system" id="sys">
+            <button type="button" data-v="SD">SD</button><button type="button" data-v="SD+">SD+</button>
+          </div>
+        </div>
+        <div class="cta"><button type="button" class="btn" id="new">New problem</button></div>
+      </div>
+
+      <div class="problem" id="problem" aria-live="polite"></div>
+      <div class="codebox">
+        <span>Problem code:</span><code id="code">—</code>
+        <button type="button" class="key" id="copy">Copy</button>
+        <span class="note" id="copied"></span>
+        <span style="margin-left:auto"></span>
+        <label for="codein" class="note">Load a code:</label><input id="codein" type="text" spellcheck="false" autocomplete="off" placeholder="2A-0-k3j9a"><button type="button" class="key" id="load">Load</button>
+      </div>
+      <p class="err" id="codeerr"></p>
+
+      <div class="two" style="gap:20px">
+        <div class="stack">
+          <div class="status" id="verdict" aria-live="polite"></div>
+          <div id="out"></div>
+          <div class="hints" id="hints"></div>
+          <div class="cta"><button type="button" class="btn ghost" id="hint">Show a hint</button></div>
+          <div id="solution"></div>
+        </div>
+        <div class="stack">
+          <div id="builder"></div>
+          <details class="textmode">
+            <summary>Or type the whole derivation as text</summary>
+            <textarea class="formulas" id="src" spellcheck="false" aria-label="Derivation as text" style="min-height:220px"></textarea>
+            <div id="keys"></div>
+            <p class="note">One line per derivation line. Each <code>|</code> is a scope line. Justifications look like <code>Assumption</code>, <code>A / ⊃I</code>, <code>1, 3 ⊃E</code>, <code>2–4 ~I</code>.</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="recent">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">History</div>
+      <h2>Recent problems</h2>
+      <p class="lede">Your last 15 problems, newest first. Click one to go back to it; your work on it is kept.</p>
+    </div>
+    <ul class="history" id="history"></ul>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">Valid Moves · homework for <i>The Logic Book</i>, 6th edition. Problems and model proofs are our own.</div></footer>
+
+<script src="logic.js"></script>
+<script src="derive.js"></script>
+<script src="derive-ui.js"></script>
+<script src="sdgen.js"></script>
+<script>
+(function(){
+const {esc,store,showTop}=SL;
+const RULES=SDGEN.RULES.filter(r=>r!=='R');
+let set=store.get('vm-hw-set',{level:2,kind:'A',rules:[],sys:'SD'});
+let solved=store.get('vm-hw-solved',{}),work=store.get('vm-hw-work',{}),hist=store.get('vm-hw-hist',[]);
+let cur=null,code=null,shown=0,last=null,builder=null;
+const $=id=>document.getElementById(id);
+const src=$('src'),out=$('out'),V=$('verdict');
+
+function paintSettings(){
+  document.querySelectorAll('#lvl button').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.v===set.level));
+  document.querySelectorAll('#kind button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===set.kind));
+  document.querySelectorAll('#sys button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===set.sys));
+  $('rules').innerHTML=RULES.map(r=>'<button type="button" class="key rb" data-r="'+esc(r)+'" aria-pressed="'+set.rules.includes(r)+'">'+esc(r)+'</button>').join('');
+  store.set('vm-hw-set',set);
+}
+$('lvl').addEventListener('click',e=>{const b=e.target.closest('button');if(b){set.level=+b.dataset.v;paintSettings()}});
+$('kind').addEventListener('click',e=>{const b=e.target.closest('button');if(b){set.kind=b.dataset.v;paintSettings()}});
+$('sys').addEventListener('click',e=>{const b=e.target.closest('button');if(b){set.sys=b.dataset.v;paintSettings();run();builder&&builder.refresh()}});
+$('rules').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const r=b.dataset.r;set.rules=set.rules.includes(r)?set.rules.filter(x=>x!==r):[...set.rules,r];paintSettings()});
+
+function loadCode(c,fresh){
+  const o=SDGEN.decode(c);if(!o){$('codeerr').textContent='That code isn\'t in the right form. Codes look like 2A-0-k3j9a.';return false}
+  const p=SDGEN.generate(o);if(!p){$('codeerr').textContent='No problem could be made from that code.';return false}
+  $('codeerr').textContent='';
+  cur=p;code=c;shown=0;
+  $('code').textContent=c;$('copied').textContent='';
+  $('problem').innerHTML='<div class="eyebrow">'+esc(SDGEN.LEVELS[o.level].name)+(o.theorem?' · theorem':'')+'</div><div class="stmt">'+
+    (p.premises.length?'{'+p.premises.map(x=>esc(showTop(x))).join(', ')+'} ⊢ '+esc(showTop(p.goal)):'⊢ '+esc(showTop(p.goal)))+'</div>'+
+    '<p class="note">'+(p.premises.length?'Derive the conclusion from the premises.':'Prove the theorem: derive it with no premises.')+'</p>';
+  $('hints').innerHTML='';$('solution').innerHTML='';$('hint').textContent='Show a hint';$('hint').disabled=false;
+  src.value=work[c]??p.start;
+  hist=[{code:c,goal:showTop(p.goal),prem:p.premises.map(showTop)},...hist.filter(h=>h.code!==c)].slice(0,15);store.set('vm-hw-hist',hist);
+  store.set('vm-hw-cur',c);
+  builder&&builder.clear();
+  run();paintHistory();
+  return true;
+}
+function newProblem(){
+  const seed=Math.floor(Math.random()*4294967296);
+  loadCode(SDGEN.encode({level:set.level,theorem:set.kind==='T',rules:set.rules,seed}),true);
+}
+function run(){
+  if(!cur)return;
+  work[code]=src.value;
+  const keys=Object.keys(work);if(keys.length>40)delete work[keys[0]];
+  store.set('vm-hw-work',work);
+  const r=SDX.check(src.value,set.sys);last=r;
+  builder&&builder.refresh();
+  out.innerHTML=SDX.render(r);
+  if(!r.lines.length){V.innerHTML='<span class="note">Add the first line with the panel on the right.</span>';return}
+  const s=r.summary;
+  const target=SL.show(cur.goal),prem=cur.premises.map(SL.show).sort().join('|');
+  const sameProblem=s.ok&&r.goal&&SL.show(r.goal)===target&&s.prim.map(SL.show).sort().join('|')===prem;
+  if(sameProblem){
+    V.innerHTML='<span class="pill good">Solved</span><span class="note">This was the pattern: '+esc(cur.pattern)+'.</span>';
+    if(!solved[code]){solved[code]=Date.now();store.set('vm-hw-solved',solved);paintHistory()}
+  }else if(s.ok){V.innerHTML='<span class="pill mid">Every line checks out, but this isn\'t a derivation of the problem as given.</span>'}
+  else V.innerHTML='<span class="pill '+(r.lines.some(l=>l.errs.length)?'bad':'mid')+'">'+esc(s.text)+'</span>';
+}
+function paintHistory(){
+  const n=Object.keys(solved).length;
+  $('solvedcount').textContent=n+' problem'+(n===1?'':'s')+' solved';
+  $('history').innerHTML=hist.length?hist.map(h=>'<li><span class="'+(solved[h.code]?'ok':'note')+'">'+(solved[h.code]?'✓':'·')+'</span><button type="button" data-c="'+esc(h.code)+'">'+esc((h.prem.length?'{'+h.prem.join(', ')+'} ⊢ ':'⊢ ')+h.goal)+'</button><code class="note">'+esc(h.code)+'</code></li>').join(''):'<li><span></span><span class="note">No problems yet. Click "New problem" above.</span><span></span></li>';
+}
+$('history').addEventListener('click',e=>{const b=e.target.closest('[data-c]');if(b){loadCode(b.dataset.c);$('sd').scrollIntoView()}});
+$('new').addEventListener('click',newProblem);
+$('load').addEventListener('click',()=>loadCode($('codein').value.trim()));
+$('codein').addEventListener('keydown',e=>{if(e.key==='Enter')loadCode($('codein').value.trim())});
+$('copy').addEventListener('click',()=>{if(!code)return;const done=()=>{$('copied').textContent='Copied.'};
+  try{navigator.clipboard.writeText(code).then(done,()=>{selectCode();$('copied').textContent='Press Ctrl+C to copy.'})}catch(e){selectCode()}});
+function selectCode(){const r=document.createRange();r.selectNodeContents($('code'));const s=getSelection();s.removeAllRanges();s.addRange(r)}
+$('hint').addEventListener('click',()=>{
+  if(!cur)return;
+  const hs=cur.hintList;
+  if(shown<hs.length){$('hints').insertAdjacentHTML('beforeend','<p>'+esc(hs[shown])+'</p>');shown++;
+    $('hint').textContent=shown<hs.length?'Show another hint':'Show a sample solution'}
+  else{
+    $('solution').innerHTML='<h3 style="font-size:1rem;margin:6px 0">A sample solution</h3><p class="note">One correct derivation. Yours can differ and still be right.</p>'+SDX.render(SDX.check(cur.solution,'SD'));
+    $('hint').disabled=true;
+  }
+});
+src.addEventListener('input',()=>{
+  const pos=src.selectionStart,before=src.value;
+  const after=before.split('\n').map(line=>{
+    const g=line.match(/^(\s*Derive\s*:)(.*)$/i);if(g)return g[1]+SL.normalize(g[2]);
+    const m=line.match(/^([\s\d.)]*[\s│|]*)(.*)$/);return m[1]+SL.normalize(m[2]).replace(/Equi∨/g,'Equiv');
+  }).join('\n');
+  if(after!==before){const d=after.length-before.length;src.value=after;try{src.setSelectionRange(pos+d,pos+d)}catch(e){}}
+  run();
+});
+const keys=$('keys');
+keys.innerHTML=SL.KEYS_HTML.replace('<div class="keys" aria-label="Insert a symbol">','<div class="keys" aria-label="Insert a symbol"><button type="button" class="key" data-ins="| " title="Scope line">|</button>');
+keys.querySelectorAll('[data-ins]').forEach(b=>b.addEventListener('click',()=>{const s=src.selectionStart,e=src.selectionEnd,ins=b.dataset.ins;src.value=src.value.slice(0,s)+ins+src.value.slice(e);src.focus();src.setSelectionRange(s+ins.length,s+ins.length);run()}));
+
+builder=DB.mount({
+  root:$('builder'),out,lang:SL,
+  groups:[
+    {label:'SD rules',rules:['R','&I','&E','∨I','∨E','⊃I','⊃E','~I','~E','≡I','≡E']},
+    {label:'SD+ inference',rules:['MT','HS','DS'],when:()=>set.sys==='SD+'},
+    {label:'SD+ replacement',rules:['Com','Assoc','Impl','DN','DeM','Idem','Trans','Exp','Dist','Equiv'],when:()=>set.sys==='SD+'}
+  ],
+  getText:()=>src.value,
+  setText:t=>{src.value=t;run()},
+  getResult:()=>last,
+  reset:()=>{if(cur){src.value=cur.start;run()}}
+});
+
+paintSettings();paintHistory();
+const saved=store.get('vm-hw-cur',null);
+if(!(saved&&loadCode(saved)))newProblem();
+})();
+</script>
+</body>
+</html>
