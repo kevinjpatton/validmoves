@@ -3,7 +3,8 @@
    The ID is the part after youtu.be/ or after watch?v= in the link. */
 (function(){
 const VIDEOS={
-  1:'pGBNoRk-AmU'
+  1:'pGBNoRk-AmU',
+  2:'pTGAbiBqrU4'
 };
 /* what to listen for while watching, per chapter */
 const WATCH_FOR={
