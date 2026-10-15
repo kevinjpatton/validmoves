@@ -30,19 +30,17 @@
       <h1>Read it. Symbolize it. <em>Prove it.</em></h1>
       <p class="lede">Our study site for <i>The Logic Book</i> (Bergmann, Moor &amp; Nelson, 6th edition). Each chapter we cover gets its own page with notes, tools and practice, written in the book's notation.</p>
       <div class="cta">
-        <a class="btn" href="chapter-2.html">Open Chapter 2</a>
+        <a class="btn" href="chapter-1.html">Start with Chapter 1</a>
         <a class="btn ghost" href="#chapters">All chapters</a>
       </div>
     </div>
-    <div class="card" aria-label="Current reading">
-      <div class="cap">Now reading</div>
-      <h2>Chapter 2 · Syntax and Symbolization</h2>
-      <p class="note" data-video-link="2"></p>
+    <div class="card" aria-label="How each chapter works">
+      <div class="cap">How each chapter works</div>
       <ol>
-        <li><span class="sn">2.1</span><a href="chapter-2.html#s21">The Syntax of SL</a><span class="pg">p. 15</span></li>
-        <li><span class="sn">2.2</span><a href="chapter-2.html#s22">Introduction to Symbolization</a><span class="pg">p. 24</span></li>
-        <li><span class="sn">2.3</span><a href="chapter-2.html#s23">More Complex Symbolizations</a><span class="pg">p. 37</span></li>
-        <li><span class="sn">2.4</span><a href="chapter-2.html#s24">Non-Truth-Functional Uses of Connectives</a><span class="pg">p. 58</span></li>
+        <li><span class="sn">1</span><span><b>Watch</b> the video overview at the top of the page.</span><span></span></li>
+        <li><span class="sn">2</span><span><b>Read</b> the chapter in the book, with the section notes alongside.</span><span></span></li>
+        <li><span class="sn">3</span><span><b>Try</b> the chapter's tool and practice questions.</span><span></span></li>
+        <li><span class="sn">4</span><span><b>Practise</b> more on the <a href="homework.html">Homework</a> pages.</span><span></span></li>
       </ol>
     </div>
   </div>
@@ -54,7 +52,7 @@
     <div class="sec-head">
       <div class="eyebrow">The book</div>
       <h2>Chapters</h2>
-      <p class="lede">A chapter gets its own page when we start reading it. Tick a chapter off when you've finished it; the ticks are saved in this browser.</p>
+      <p class="lede">Every chapter has its own page with notes, a video overview, tools and practice. Tick a chapter off when you've finished it; the ticks are saved in this browser.</p>
     </div>
     <div class="chapters" id="chlist"></div>
   </div>
@@ -115,7 +113,7 @@
 const {esc,store}=SL;
 const CH=[
   {g:'Getting started',n:1,t:'Introduction to Deductive Logic',p:'1–14',href:'chapter-1.html',s:['Introduction','Core Concepts of Deductive Logic','Special Cases of Logical Concepts']},
-  {g:'Sentential logic',n:2,t:'Syntax and Symbolization',p:'15–68',s:['The Syntax of SL','Introduction to Symbolization','More Complex Symbolizations','Non-Truth-Functional Uses of Connectives'],href:'chapter-2.html',now:true},
+  {g:'Sentential logic',n:2,t:'Syntax and Symbolization',p:'15–68',s:['The Syntax of SL','Introduction to Symbolization','More Complex Symbolizations','Non-Truth-Functional Uses of Connectives'],href:'chapter-2.html'},
   {g:'Sentential logic',n:3,t:'Sentential Logic: Semantics',p:'69–109',href:'chapter-3.html',s:['Truth-tables','Truth, falsity, indeterminacy','Equivalence','Consistency','Entailment and validity','Properties of sets']},
   {g:'Sentential logic',n:4,t:'Sentential Logic: Truth-Trees',p:'110–145',href:'chapter-4.html',s:['The truth-tree method','Truth-tree rules','Other truth-functional properties']},
   {g:'Sentential logic',n:5,t:'Sentential Logic: Derivations',p:'146–225',href:'chapter-5.html',s:['The derivation system SD','Basic concepts of SD','Strategies','The derivation system SD+']},
@@ -130,8 +128,8 @@ const done=store.get('vm-chapters-done',[]);
 const groups=[...new Set(CH.map(c=>c.g))];
 const el=document.getElementById('chlist');
 el.innerHTML=groups.map(g=>'<div><h3>'+g+'</h3><ul class="ch-list">'+CH.filter(c=>c.g===g).map(c=>
-  '<li class="'+(c.now?'now':'')+'"><span class="num">'+c.n+'</span><div><div class="t">'+(c.href?'<a href="'+c.href+'">'+esc(c.t)+'</a>':esc(c.t))+'</div><div class="s">'+c.s.map(esc).join(' · ')+'</div></div>'+
-  '<div class="right"><span class="pg">pp. '+c.p+'</span>'+(c.now?'<span class="pill mid">Now reading</span>':c.href?'':'<span class="pill quiet">Page added when we start</span>')+
+  '<li><span class="num">'+c.n+'</span><div><div class="t">'+(c.href?'<a href="'+c.href+'">'+esc(c.t)+'</a>':esc(c.t))+'</div><div class="s">'+c.s.map(esc).join(' · ')+'</div></div>'+
+  '<div class="right"><span class="pg">pp. '+c.p+'</span>'+(c.href?'':'<span class="pill quiet">Page coming soon</span>')+
   '<label class="note"><input type="checkbox" id="done-'+c.n+'" data-n="'+c.n+'"'+(done.includes(c.n)?' checked':'')+'> Finished</label></div></li>').join('')+'</ul></div>').join('');
 el.addEventListener('change',()=>store.set('vm-chapters-done',[...el.querySelectorAll('input:checked')].map(x=>+x.dataset.n)));
 
