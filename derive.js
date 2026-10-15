@@ -132,7 +132,10 @@ function check(text,system,lang){
     lines.push(parseLine(r));
   });
   if(!lines.length)return{lines:[],goal,goalErr,summary:null};
-  const base=Math.min(...lines.map(l=>l.depth));
+  /* One "|" marks the main scope line. Lines typed with no bars at all also count as the main
+     scope; a derivation that so far has only deeper lines (one that opens with an auxiliary
+     assumption) is still measured from one bar. */
+  const base=Math.min(1,...lines.map(l=>l.depth));
   lines.forEach((l,i)=>{l.n=i+1;l.d=l.depth-base;l.errs=[];if(l.err)l.errs.push(l.err);if(l.given!==null&&l.given!==l.n)l.errs.push('Numbered '+l.given+' but it is line '+l.n+'.');
     if(l.ast&&LANG.isSentence&&!LANG.isSentence(l.ast))l.errs.push('Every line of a derivation must be a sentence; this formula has a free variable.')});
   /* scope structure */

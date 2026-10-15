@@ -236,6 +236,7 @@ window.SL={joint,sortLetters,tv,parse,show,showTop,kind,immediate,components,bui
 /* Open every page at the top, unless the link points at a section (#s21 and so on).
    Browsers and the artifact viewer may otherwise restore the previous scroll position. */
 (function(){
+  if(typeof document==='undefined'||typeof location==='undefined')return;
   try{history.scrollRestoration='manual'}catch(e){}
   function toTop(){
     const target=location.hash&&document.getElementById(location.hash.slice(1));

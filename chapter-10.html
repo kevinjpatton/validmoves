@@ -164,7 +164,7 @@
     <div class="sec-head">
       <div class="eyebrow">Tool</div>
       <h2>Derivation checker for PD, PD+ and PDE</h2>
-      <p class="lede">The same checker as Chapter 5, now with the quantifier rules and all their restrictions, Quantifier Negation and the identity rules. Pick an exercise or write your own.</p>
+      <p class="lede">The same click-to-build checker as Chapter 5, now with the quantifier rules and all their restrictions, Quantifier Negation and the identity rules. Type the sentence, click the rule, click the lines it cites. Pick an exercise or start your own.</p>
     </div>
     <div class="lab">
       <div class="exlist" id="exlist" aria-label="Exercises"></div>
@@ -178,13 +178,17 @@
       </div>
       <div class="two" style="gap:20px">
         <div class="stack">
-          <textarea class="formulas" id="src" spellcheck="false" aria-label="Derivation" style="min-height:280px"></textarea>
-          <div id="keys"></div>
-          <p class="note">Rules: everything in SD, plus ∀E, ∀I, ∃E, ∃I. PD+ adds MT, HS, DS, the replacement rules and QN. PDE adds =I and =E.</p>
-        </div>
-        <div class="stack">
           <div class="status" id="verdict" aria-live="polite"></div>
           <div id="out"></div>
+        </div>
+        <div class="stack">
+          <div id="builder"></div>
+          <details class="textmode" id="textmode">
+            <summary>Or type the whole derivation as text</summary>
+            <textarea class="formulas" id="src" spellcheck="false" aria-label="Derivation as text" style="min-height:240px"></textarea>
+            <div id="keys"></div>
+            <p class="note">One line per derivation line. Each <code>|</code> is a scope line. Justifications look like <code>Assumption</code>, <code>A / ∃E</code>, <code>1 ∀E</code>, <code>2, 3–6 ∃E</code>, <code>=I</code>. ASCII rule names UE, UI, EE, EI also work.</p>
+          </details>
         </div>
       </div>
     </div>
@@ -242,6 +246,7 @@
 <script src="logic.js"></script>
 <script src="pl.js"></script>
 <script src="derive.js"></script>
+<script src="derive-ui.js"></script>
 <script>
 (function(){
 const {esc,store}=SL;
@@ -267,10 +272,12 @@ function list(){document.getElementById('exlist').innerHTML=EX.map(e=>'<button t
 function setSys(s){sys=s;document.querySelectorAll('#sys button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.s===s));run()}
 function load(id){cur=id;store.set('vm-ch10-cur',id);const e=EX.find(x=>x.id===id);src.value=work[id]??e.t;setSys(e.sys);
   document.getElementById('exnote').textContent={PD:'Use only the rules of PD.','PD+':'This exercise allows PD+ rules, including QN.',PDE:'This exercise uses PDE: =I and =E are allowed.'}[e.sys];list()}
+let last=null,builder=null;
 function run(){
   work[cur]=src.value;store.set('vm-ch10-work',work);
-  const r=SDX.check(src.value,sys,PL);
-  if(!r.lines.length){V.innerHTML='<span class="note">Start typing the derivation.</span>';out.innerHTML=r.goal?SDX.render(r):'';return}
+  const r=SDX.check(src.value,sys,PL);last=r;
+  if(builder)builder.refresh();
+  if(!r.lines.length){V.innerHTML='<span class="note">Add the first line with the panel on the right.</span>';out.innerHTML=r.goal?SDX.render(r):'';return}
   out.innerHTML=SDX.render(r);
   const s=r.summary;
   if(s.ok){
@@ -291,6 +298,21 @@ src.addEventListener('input',()=>{
   run();
 });
 keys.querySelectorAll('[data-ins]').forEach(b=>b.addEventListener('click',()=>{const s=src.selectionStart,e=src.selectionEnd,ins=b.dataset.ins;src.value=src.value.slice(0,s)+ins+src.value.slice(e);src.focus();src.setSelectionRange(s+ins.length,s+ins.length);run()}));
+builder=DB.mount({
+  root:document.getElementById('builder'),out,lang:PL,
+  assumeFor:['⊃I','~I','~E','∨E','≡I','∃E'],
+  groups:[
+    {label:'Quantifier rules',rules:['∀E','∀I','∃E','∃I']},
+    {label:'SD rules',rules:['R','&I','&E','∨I','∨E','⊃I','⊃E','~I','~E','≡I','≡E']},
+    {label:'Identity',rules:['=I','=E'],when:()=>sys==='PDE'},
+    {label:'PD+ inference',rules:['MT','HS','DS'],when:()=>sys==='PD+'},
+    {label:'PD+ replacement',rules:['QN','Com','Assoc','Impl','DN','DeM','Idem','Trans','Exp','Dist','Equiv'],when:()=>sys==='PD+'}
+  ],
+  getText:()=>src.value,
+  setText:t=>{src.value=t;run()},
+  getResult:()=>last,
+  reset:()=>{const e=EX.find(x=>x.id===cur);src.value=e.t;run()}
+});
 load(cur);
 
 SL.tabs(document.getElementById('ptabs'),'vm-ch10-tab');
