@@ -82,6 +82,8 @@ function parse(src){
     try{return{ast:strict(['(',...t,')']),informal:true}}
     catch(e2){
       if(e2.code==='multi') throw fail('multi','Each binary connective needs its own pair of brackets, so two binary connectives can\'t share one level. Add brackets to show the grouping, for example (A & B) & C.');
+      /* "A &" fails only because the bracket we added arrives where a sentence should be */
+      if(e2.code==='stray') throw fail('operand','A connective is missing the sentence on its right.');
       throw e2;
     }
   }
