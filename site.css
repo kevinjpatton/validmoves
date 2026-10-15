@@ -281,3 +281,23 @@ textarea.formulas{width:100%;min-height:120px;font-family:var(--mono);font-size:
 .exlist button{font-family:var(--mono);font-size:.88rem;padding:6px 10px;border:1px solid var(--rule);border-radius:6px;background:var(--surface);cursor:pointer}
 .exlist button[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
 .exlist button .done{color:var(--true)}
+
+/* click-to-build derivation editor */
+.db{display:grid;gap:10px;background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:16px 18px}
+.db-lbl{font-family:var(--display);font-weight:600;font-size:.88rem;color:var(--ink);margin-top:4px}
+.db-scope{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:var(--accent-soft);border-radius:6px;padding:8px 12px}
+.db-rules{display:grid;gap:8px}
+.db-group{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.db-glbl{font-family:var(--display);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);min-width:5.5rem}
+.key.rb{font-size:.92rem;min-width:2.8rem}
+.key.rb[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.key:disabled{opacity:.4;cursor:default}
+.db-cites{display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-height:2rem}
+.chip-x{border:0;background:none;color:var(--muted);cursor:pointer;padding:0 0 0 4px;font:inherit}
+.fitch.pick .fn,.pick .fitch .fn{color:var(--accent);cursor:pointer;text-decoration:underline;text-underline-offset:3px;font-weight:600}
+.pick .fitch .fn:hover{background:var(--accent-soft);border-radius:3px}
+details.textmode summary{cursor:pointer;font-family:var(--display);font-size:.9rem;color:var(--accent)}
+details.textmode[open]{display:grid;gap:10px}
+
+/* long status messages wrap instead of spilling out of their column */
+.status .pill{white-space:normal;max-width:100%}

@@ -218,7 +218,7 @@
     <div class="sec-head">
       <div class="eyebrow">Tool</div>
       <h2>Derivation checker</h2>
-      <p class="lede">Write a derivation and every line is checked as you type: the rule, the cited lines, and whether they're accessible. Pick an exercise to load its premises and goal, or write your own. Your work on each exercise is saved in this browser.</p>
+      <p class="lede">Build a derivation one line at a time: type the sentence, click the rule, then click the line numbers it cites. Scope lines are handled for you. Every line is checked as you go. Pick an exercise to load its premises and goal; your work is saved in this browser.</p>
     </div>
     <div class="lab">
       <div class="exlist" id="exlist" aria-label="Exercises"></div>
@@ -231,13 +231,17 @@
       </div>
       <div class="two" style="gap:20px">
         <div class="stack">
-          <textarea class="formulas" id="src" spellcheck="false" aria-label="Derivation" style="min-height:280px"></textarea>
-          <div id="keys"></div>
-          <p class="note">Indent with <code>|</code> (one per scope line). Rules: R, &amp;I, &amp;E, ⊃I, ⊃E, ~I, ~E, ∨I, ∨E, ≡I, ≡E; in SD+ also MT, HS, DS, Com, Assoc, Impl, DN, DeM, Idem, Trans, Exp, Dist, Equiv.</p>
-        </div>
-        <div class="stack">
           <div class="status" id="verdict" aria-live="polite"></div>
           <div id="out"></div>
+        </div>
+        <div class="stack">
+          <div id="builder"></div>
+          <details class="textmode" id="textmode">
+            <summary>Or type the whole derivation as text</summary>
+            <textarea class="formulas" id="src" spellcheck="false" aria-label="Derivation as text" style="min-height:240px"></textarea>
+            <div id="keys"></div>
+            <p class="note">One line per derivation line. Each <code>|</code> is a scope line. Justifications look like <code>Assumption</code>, <code>A / ⊃I</code>, <code>1, 3 ⊃E</code>, <code>2–4 ~I</code>.</p>
+          </details>
         </div>
       </div>
     </div>
@@ -297,6 +301,7 @@
 
 <script src="logic.js"></script>
 <script src="derive.js"></script>
+<script src="derive-ui.js"></script>
 <script>
 (function(){
 const {esc,store}=SL;
@@ -342,10 +347,12 @@ function list(){document.getElementById('exlist').innerHTML=EX.map(e=>'<button t
 function setSys(s){sys=s;document.querySelectorAll('#sys button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.s===s));run()}
 function load(id){cur=id;store.set('vm-ch5-cur',id);const e=EX.find(x=>x.id===id);src.value=work[id]??e.t;setSys(e.sys);
   document.getElementById('exnote').textContent=e.sys==='SD+'?'This exercise allows the SD+ rules.':'Use only the rules of SD.';list()}
+let last=null,builder=null;
 function run(){
   work[cur]=src.value;store.set('vm-ch5-work',work);
-  const r=SDX.check(src.value,sys);
-  if(!r.lines.length){V.innerHTML='<span class="note">Start typing the derivation.</span>';out.innerHTML=r.goal?SDX.render(r):'';return}
+  const r=SDX.check(src.value,sys);last=r;
+  if(builder)builder.refresh();
+  if(!r.lines.length){V.innerHTML='<span class="note">Add the first line with the panel on the right.</span>';out.innerHTML=r.goal?SDX.render(r):'';return}
   out.innerHTML=SDX.render(r);
   const s=r.summary;
   if(s.ok){
@@ -368,6 +375,18 @@ src.addEventListener('input',()=>{
   run();
 });
 keys.querySelectorAll('[data-ins]').forEach(b=>b.addEventListener('click',()=>{const s=src.selectionStart,e=src.selectionEnd,ins=b.dataset.ins;src.value=src.value.slice(0,s)+ins+src.value.slice(e);src.focus();src.setSelectionRange(s+ins.length,s+ins.length);run()}));
+builder=DB.mount({
+  root:document.getElementById('builder'),out,lang:SL,
+  groups:[
+    {label:'SD rules',rules:['R','&I','&E','∨I','∨E','⊃I','⊃E','~I','~E','≡I','≡E']},
+    {label:'SD+ inference',rules:['MT','HS','DS'],when:()=>sys==='SD+'},
+    {label:'SD+ replacement',rules:['Com','Assoc','Impl','DN','DeM','Idem','Trans','Exp','Dist','Equiv'],when:()=>sys==='SD+'}
+  ],
+  getText:()=>src.value,
+  setText:t=>{src.value=t;run()},
+  getResult:()=>last,
+  reset:()=>{const e=EX.find(x=>x.id===cur);src.value=e.t;run()}
+});
 load(cur);
 
 SL.tabs(document.getElementById('ptabs'),'vm-ch5-tab');
