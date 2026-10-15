@@ -26,7 +26,7 @@
 <div class="hero">
   <div class="wrap">
     <div class="copy">
-      <nav class="subnav" aria-label="Homework"><a href="homework.html" aria-current="page">Overview</a><a href="homework-translation.html">Translation</a><a href="homework-derivations.html">Derivations</a></nav>
+      <nav class="subnav" aria-label="Homework"><a href="homework.html" aria-current="page">Overview</a><a href="homework-translation.html">Translation (SL)</a><a href="homework-derivations.html">Derivations (SL)</a><a href="homework-pl-translation.html">Translation (PL)</a></nav>
       <div class="eyebrow">Practice between sessions</div>
       <h1>Home<em>work</em></h1>
       <p class="lede">Practice problems that never run out. Each kind of homework has its own page, its own difficulty levels, and instant feedback. Your progress is saved in this browser.</p>
@@ -34,7 +34,7 @@
     <div class="card" aria-label="Assigning problems">
       <div class="cap">Assigning problems</div>
       <p>Every problem has a short code. The same code always gives the same problem, so a tutor can set homework by sending a list of codes, and the student enters them in the "Load a code" box.</p>
-      <p class="note">Sentence codes start with T (T2-k3j9a). Derivation codes start with a level number (2A-0-k3j9a).</p>
+      <p class="note">SL sentence codes start with T (T2-k3j9a), PL sentence codes with P (P2-k3j9a), and derivation codes with a level number (2A-0-k3j9a).</p>
     </div>
   </div>
 </div>
@@ -43,13 +43,13 @@
 <section>
   <div class="wrap">
     <div class="sec-head">
-      <div class="eyebrow">Sentential logic</div>
+      <div class="eyebrow">Sentential and predicate logic</div>
       <h2>Choose a kind of homework</h2>
     </div>
     <div class="hwcards">
       <div class="hwcard">
         <div class="eyebrow">Chapter 2</div>
-        <h3>Translation</h3>
+        <h3>Translation (SL)</h3>
         <p>Symbolize English sentences in SL with a given key: "only if", "unless", "neither … nor" and the rest. Any equivalent answer counts.</p>
         <p class="eg">Neither Ada nor Ben votes. → ~ (A ∨ B)</p>
         <p class="note" id="trcount"></p>
@@ -57,14 +57,22 @@
       </div>
       <div class="hwcard">
         <div class="eyebrow">Chapter 5</div>
-        <h3>Derivations</h3>
+        <h3>Derivations (SL)</h3>
         <p>Prove arguments and theorems in SD or SD+ with the click-to-build checker. Pick the rules you want to practise; hints and sample solutions included.</p>
         <p class="eg">{A ⊃ B, B ⊃ C} ⊢ A ⊃ C</p>
         <p class="note" id="sdcount"></p>
         <div class="cta"><a class="btn" href="homework-derivations.html">Start deriving</a></div>
       </div>
+      <div class="hwcard">
+        <div class="eyebrow">Chapter 7</div>
+        <h3>Translation (PL)</h3>
+        <p>Symbolize English in predicate logic: all, some, no, only, relations, names, and identity ("at least two", "exactly one", "everyone except").</p>
+        <p class="eg">Every student likes some teacher. → (∀x)(Sx ⊃ (∃y)(Ty &amp; Lxy))</p>
+        <p class="note" id="plcount"></p>
+        <div class="cta"><a class="btn" href="homework-pl-translation.html">Start translating</a></div>
+      </div>
     </div>
-    <p class="note" style="margin-top:18px">More kinds of homework, such as predicate logic translation or truth-trees, can be added here as we reach those chapters.</p>
+    <p class="note" style="margin-top:18px">More kinds of homework, such as truth-trees or predicate logic derivations, can be added here as we reach those chapters.</p>
   </div>
 </section>
 </main>
@@ -76,6 +84,8 @@
 (function(){
 const n1=Object.keys(SL.store.get('vm-tr-solved',{})).length,n2=Object.keys(SL.store.get('vm-hw-solved',{})).length;
 document.getElementById('trcount').textContent=n1?n1+' sentence'+(n1===1?'':'s')+' done so far.':'Not started yet.';
+const n3=Object.keys(SL.store.get('vm-plt-solved',{})).length;
+document.getElementById('plcount').textContent=n3?n3+' sentence'+(n3===1?'':'s')+' done so far.':'Not started yet.';
 document.getElementById('sdcount').textContent=n2?n2+' problem'+(n2===1?'':'s')+' solved so far.':'Not started yet.';
 })();
 </script>

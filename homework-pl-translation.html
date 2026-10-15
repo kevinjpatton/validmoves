@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Translation (PL) · Homework</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600&family=Spectral:ital,wght@0,400;0,500;1,400&display=swap">
+<link rel="stylesheet" href="site.css">
+<style>
+.sentence{font-family:var(--body);font-size:clamp(1.25rem,2.6vw,1.6rem);line-height:1.4;font-style:italic;max-width:46ch}
+.keylist{list-style:none;margin:0;padding:0;font-family:var(--mono);font-size:.95rem;display:grid;gap:2px}
+.keylist li:first-child{color:var(--muted)}
+.answerrow{display:flex;gap:10px;flex-wrap:wrap;align-items:stretch}
+.answerrow input{flex:1 1 260px;min-width:0;font-family:var(--mono);font-size:1.15rem;padding:10px 14px;border:1px solid var(--rule);border-radius:6px;background:var(--surface)}
+.fb{display:grid;gap:6px;border-left:3px solid var(--rule);padding:6px 0 6px 14px;max-width:70ch}
+.fb.good{border-left-color:var(--true)} .fb.bad{border-left-color:var(--false)}
+.fb b{font-family:var(--display)}
+.interp{font-family:var(--mono);font-size:.92rem;display:grid;gap:2px;background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:8px 12px;max-width:40ch}
+.modelans{font-family:var(--mono)}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html">Valid Moves <span>⊢</span></a>
+    <nav aria-label="Site">
+      <a href="index.html">Home</a>
+      <a href="index.html#chapters">Chapters</a>
+      <a href="homework.html" aria-current="page">Homework</a>
+      <a href="index.html#texts">Other texts</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="copy">
+      <nav class="subnav" aria-label="Homework"><a href="homework.html">Overview</a><a href="homework-translation.html">Translation (SL)</a><a href="homework-derivations.html">Derivations (SL)</a><a href="homework-pl-translation.html" aria-current="page">Translation (PL)</a></nav>
+      <div class="eyebrow">Homework · Predicate logic · Chapter 7</div>
+      <h1>Translation <em>(PL)</em></h1>
+      <p class="lede">Symbolize English sentences in PL and PLE: quantifiers, relations, names and identity. Any correct symbolization is accepted. If yours is wrong, you'll see a small interpretation on which it gets the wrong truth-value.</p>
+      <nav class="toc" aria-label="On this page"><a href="#tr">Sentences</a><a href="#recent">Recent sentences</a></nav>
+    </div>
+    <div class="card" aria-label="Your progress">
+      <div class="cap">Your progress</div>
+      <h2 id="solvedcount">0 sentences done</h2>
+      <p class="note">How answers are checked: yours is compared with the model answer on every interpretation with a UD of 1, 2 or 3 members. PL has no general test for equivalence (Church's theorem, 8.2), but for sentences like these that check catches every realistic mistake.</p>
+    </div>
+  </div>
+</div>
+
+<main>
+<section id="tr">
+  <div class="wrap">
+    <div class="lab">
+      <div class="settings">
+        <div class="setrow"><span class="lbl">Difficulty</span>
+          <div class="seg" role="group" aria-label="Difficulty" id="lvl">
+            <button type="button" data-v="1">Warm-up</button><button type="button" data-v="2">Standard</button><button type="button" data-v="3">Challenge</button>
+          </div>
+          <span class="note" id="lvlnote"></span>
+        </div>
+        <div class="cta"><button type="button" class="btn" id="new">New sentence</button></div>
+      </div>
+
+      <div class="problem">
+        <div class="eyebrow" id="lvlname"></div>
+        <p class="sentence" id="english" aria-live="polite"></p>
+        <div>
+          <div style="font-family:var(--display);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px">Symbolization key</div>
+          <ul class="keylist" id="key"></ul>
+        </div>
+      </div>
+
+      <label class="db-lbl" for="ans">Your symbolization</label>
+      <div class="answerrow">
+        <input id="ans" type="text" spellcheck="false" autocomplete="off" aria-label="Your symbolization">
+        <button type="button" class="btn" id="check">Check</button>
+      </div>
+      <div id="keys"></div>
+      <p class="note">Shortcuts: <code>(Ax)</code> for (∀x), <code>(Ex)</code> for (∃x), <code>~</code>, <code>&amp;</code>, <code> v </code> (with spaces) for ∨, <code>&gt;</code> for ⊃, <code>&lt;-&gt;</code> for ≡. <code>=</code> is identity. Outer brackets can be left off.</p>
+      <div id="fb" aria-live="polite"></div>
+      <div class="hints" id="hints"></div>
+      <div class="cta"><button type="button" class="btn ghost" id="hint">Show a hint</button></div>
+
+      <div class="codebox">
+        <span>Sentence code:</span><code id="code">—</code>
+        <button type="button" class="key" id="copy">Copy</button>
+        <span class="note" id="copied"></span>
+        <span style="margin-left:auto"></span>
+        <label for="codein" class="note">Load a code:</label><input id="codein" type="text" spellcheck="false" autocomplete="off" placeholder="P2-k3j9a"><button type="button" class="key" id="load">Load</button>
+      </div>
+      <p class="err" id="codeerr"></p>
+    </div>
+  </div>
+</section>
+
+<section id="recent">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">History</div>
+      <h2>Recent sentences</h2>
+      <p class="lede">Your last 15 sentences, newest first. Click one to go back to it.</p>
+    </div>
+    <ul class="history" id="history"></ul>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">Valid Moves · homework for <i>The Logic Book</i>, 6th edition. Sentences and answers are our own; the conventions follow sections 7.3–7.5.</div></footer>
+
+<script src="logic.js"></script>
+<script src="pl.js"></script>
+<script src="pltrans.js"></script>
+<script>
+(function(){
+const {esc,store}=SL;
+const $=id=>document.getElementById(id);
+const LV={1:['Warm-up','One quantifier: all, some, no, only.'],2:['Standard','Two predicates, or a relation with a name.'],3:['Challenge','Overlapping quantifiers and identity.']};
+let level=store.get('vm-plt-level',1),solved=store.get('vm-plt-solved',{}),hist=store.get('vm-plt-hist',[]),drafts=store.get('vm-plt-drafts',{});
+let cur=null,code=null,shown=0;
+const ans=$('ans'),keys=$('keys');
+keys.innerHTML=PL.KEYS_HTML;
+PL.wireInput(ans,keys,()=>{if(code){drafts[code]=ans.value;const k=Object.keys(drafts);if(k.length>40)delete drafts[k[0]];store.set('vm-plt-drafts',drafts)}});
+
+function paintLevel(){document.querySelectorAll('#lvl button').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.v===level));$('lvlnote').textContent=LV[level][1];store.set('vm-plt-level',level)}
+$('lvl').addEventListener('click',e=>{const b=e.target.closest('button');if(b){level=+b.dataset.v;paintLevel()}});
+
+function load(c){
+  const o=PLT.decode(c);if(!o){$('codeerr').textContent='That code isn\'t in the right form. PL sentence codes look like P2-k3j9a.';return false}
+  $('codeerr').textContent='';
+  cur=PLT.generate(o);code=c;shown=0;
+  $('code').textContent=c;$('copied').textContent='';
+  $('lvlname').textContent=LV[o.level][0];
+  $('english').textContent=cur.english;
+  $('key').innerHTML=cur.key.map(k=>'<li>'+esc(k)+'</li>').join('');
+  ans.value=drafts[c]||'';
+  $('fb').innerHTML='';$('hints').innerHTML='';$('hint').textContent='Show a hint';$('hint').disabled=false;
+  if(solved[c])good('Correct.');
+  hist=[{code:c,english:cur.english},...hist.filter(h=>h.code!==c)].slice(0,15);store.set('vm-plt-hist',hist);
+  store.set('vm-plt-cur',c);paintHistory();
+  return true;
+}
+function fresh(){load(PLT.encode({level,seed:Math.floor(Math.random()*4294967296)}));ans.focus()}
+function good(msg){
+  $('fb').innerHTML='<div class="fb good"><b>'+esc(msg)+'</b><span>Model answer: <span class="modelans">'+esc(cur.answerText)+'</span></span><span class="note">In quasi-English: '+esc(cur.paraphrase)+'</span><span><button type="button" class="btn" id="next">Next sentence</button></span></div>';
+  $('next').addEventListener('click',fresh);
+}
+function check(){
+  if(!cur)return;
+  if(!ans.value.trim()){$('fb').innerHTML='<div class="fb bad"><b>Type a symbolization first.</b></div>';return}
+  const r=PLT.check(cur,ans.value);
+  if(r.ok){good(r.msg);if(!solved[code]){solved[code]=Date.now();store.set('vm-plt-solved',solved);paintHistory()}}
+  else{
+    const head=r.kind==='syntax'?'That isn\'t a sentence of PL yet.':r.kind==='letters'?'Check the key.':'Not quite.';
+    $('fb').innerHTML='<div class="fb bad"><b>'+esc(head)+'</b><span>'+esc(r.msg)+'</span>'+
+      (r.model?'<span class="note">'+esc(r.row)+'</span><div class="interp">'+r.model.map(s=>'<span>'+esc(s)+'</span>').join('')+'</div>':'')+'</div>';
+  }
+}
+$('check').addEventListener('click',check);
+ans.addEventListener('keydown',e=>{if(e.key==='Enter')check()});
+$('hint').addEventListener('click',()=>{
+  if(!cur)return;
+  if(shown===0){$('hints').insertAdjacentHTML('beforeend','<p>'+esc(cur.hint)+'</p>');shown=1;$('hint').textContent='Show it in quasi-English'}
+  else if(shown===1){$('hints').insertAdjacentHTML('beforeend','<p>In quasi-English: '+esc(cur.paraphrase)+'</p>');shown=2;$('hint').textContent='Show the answer'}
+  else{$('hints').insertAdjacentHTML('beforeend','<p>Model answer: <span class="modelans">'+esc(cur.answerText)+'</span>. Equivalent symbolizations are also correct.</p>');$('hint').disabled=true}
+});
+$('new').addEventListener('click',fresh);
+$('load').addEventListener('click',()=>load($('codein').value.trim()));
+$('codein').addEventListener('keydown',e=>{if(e.key==='Enter')load($('codein').value.trim())});
+$('copy').addEventListener('click',()=>{if(!code)return;
+  try{navigator.clipboard.writeText(code).then(()=>{$('copied').textContent='Copied.'},sel)}catch(e){sel()}});
+function sel(){const r=document.createRange();r.selectNodeContents($('code'));const s=getSelection();s.removeAllRanges();s.addRange(r);$('copied').textContent='Press Ctrl+C to copy.'}
+function paintHistory(){
+  const n=Object.keys(solved).length;$('solvedcount').textContent=n+' sentence'+(n===1?'':'s')+' done';
+  $('history').innerHTML=hist.length?hist.map(h=>'<li><span class="'+(solved[h.code]?'ok':'note')+'">'+(solved[h.code]?'✓':'·')+'</span><button type="button" data-c="'+esc(h.code)+'" style="font-family:var(--body)">'+esc(h.english)+'</button><code class="note">'+esc(h.code)+'</code></li>').join(''):'<li><span></span><span class="note">No sentences yet.</span><span></span></li>';
+}
+$('history').addEventListener('click',e=>{const b=e.target.closest('[data-c]');if(b){load(b.dataset.c);$('tr').scrollIntoView()}});
+
+paintLevel();paintHistory();
+const saved=store.get('vm-plt-cur',null);
+if(!(saved&&load(saved)))fresh();
+})();
+</script>
+</body>
+</html>
