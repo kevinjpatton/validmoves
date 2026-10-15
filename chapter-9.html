@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chapter 9 · Predicate Logic: Truth-Trees</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600&family=Spectral:ital,wght@0,400;0,500;1,400&display=swap">
+<link rel="stylesheet" href="site.css">
+<style>.model{font-family:var(--mono);font-size:.92rem;display:grid;gap:2px;background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:10px 12px}
+.picker{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:var(--hl);color:var(--hl-ink);border-radius:6px;padding:8px 12px;font-family:var(--display);font-size:.92rem}
+.picker button{font-family:var(--mono)}</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html">Valid Moves <span>⊢</span></a>
+    <nav aria-label="Site">
+      <a href="index.html">Home</a>
+      <a href="index.html#chapters">Chapters</a>
+      <a href="index.html#texts">Other texts</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="copy">
+      <div class="eyebrow">Chapter 9 · pp. 402–473</div>
+      <h1>Predicate Logic: <em>Truth-Trees</em></h1>
+      <p class="lede">Chapter 4's trees, extended to quantifiers. The new twist: a universal sentence can never be used up, so some trees go on forever, and there's no mechanical test that always finishes.</p>
+      <nav class="toc" aria-label="On this page">
+        <a href="#s91">9.1 Rules</a><a href="#s92">9.2–9.3 Testing</a><a href="#s94">9.4 Systematic trees</a><a href="#s95">9.5–9.6 PLE</a><a href="#builder">Builder</a><a href="#practice">Practice</a>
+      </nav>
+    </div>
+    <div class="card" aria-label="Quantifier rules">
+      <div class="cap">The four quantifier rules</div>
+      <table class="ref">
+        <tbody>
+          <tr><td class="f">~∃D</td><td class="f">~ (∃x)P ▷ (∀x)~ P</td></tr>
+          <tr><td class="f">~∀D</td><td class="f">~ (∀x)P ▷ (∃x)~ P</td></tr>
+          <tr><td class="f">∃D</td><td class="f">(∃x)P ✓ ▷ P(a/x), a foreign</td></tr>
+          <tr><td class="f">∀D</td><td class="f">(∀x)P ▷ P(a/x), any a, never ✓</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<main>
+<section id="s91">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 9.1</div>
+      <h2>Truth-tree rules for PL</h2>
+      <div class="meta">pp. 402–409 · exercises 9.1E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <p>All nine SL rules carry over. Four rules handle quantifiers.</p>
+        <ul>
+          <li><b>~∃D and ~∀D</b> move a negation inside a quantifier, flipping it. Both are non-branching and check the sentence off.</li>
+          <li><b>∃D</b>: from (∃x)P enter P(a/x), where a is <b>foreign</b> to the branch (occurs nowhere on it). Check it off. Using an old constant would assume, without warrant, that the witness is a thing already discussed.</li>
+          <li><b>∀D</b>: from (∀x)P enter any instance P(a/x), on one or more open branches. Universals are <b>never checked off</b>: there are always more instances.</li>
+        </ul>
+        <h3>Completed open branches, revised</h3>
+        <p>A finite open branch is completed when each sentence on it is a literal, a checked-off compound that isn't universal, or a universal (∀x)P with at least one instance on the branch and an instance P(a/x) for <b>every</b> constant a on the branch. The "at least one" clause matters: without it, {(∀x)(Fx &amp; ~ Fx)} would have an open tree.</p>
+        <p>A completed open branch yields a model: one UD member per constant, and the atomic sentences on the branch fix the extensions.</p>
+      </div>
+      <div class="side">
+        <h3>Why the foreign-constant rule</h3>
+        <p>{(∃x)Bx, (∃x)~ Bx} is consistent: something is B and something else isn't. If ∃D could reuse a constant, both could be instantiated with a, closing the tree with Ba and ~ Ba. The restriction stops that.</p>
+        <p class="trap">Strategy carries over from Chapter 4: non-branching first, closings next. Decompose existentials before universals, so the universals can use the new constants.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s92">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Sections 9.2–9.3</div>
+      <h2>Trees for consistency and other properties</h2>
+      <div class="meta">pp. 410–424 · exercises 9.2E–9.3E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <p>Tests are built exactly as in 4.2. A closed tree for {~ P} shows P is quantificationally true; a closed tree for Γ ∪ {~ P} shows Γ ⊨ P; a closed tree for {~ (P ≡ Q)} shows equivalence.</p>
+        <p>The difference from SL: a finite set may have <b>no finite tree</b>. A consistent set like {(∀y)(∃z)Fyz} sets up a loop with ∃D: each universal instance yields an existential, which brings a new constant, which needs a new universal instance. The branch never closes and never completes.</p>
+      </div>
+      <div class="side">
+        <h3>What a tree can tell you</h3>
+        <table class="ref">
+          <tbody>
+            <tr><td>Closed tree</td><td>Inconsistent. Settled.</td></tr>
+            <tr><td>Completed open branch</td><td>Consistent. Settled, with a model.</td></tr>
+            <tr><td>Still growing</td><td>Nothing yet. It may never finish.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s94">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 9.4</div>
+      <h2>Fine-tuning: systematic trees</h2>
+      <div class="meta">pp. 425–440 · exercises 9.4E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <div class="def"><b>Existential Decomposition-2 (∃D2)</b><span>From (∃x)P, branch: one branch for P(a/x) with each constant a already on the branch, plus one branch with a foreign constant. The rule is due to George Boolos.</span></div>
+        <p>∃D2 lets the witness be something already named, while still allowing a new thing. With it, every set that has a finite model has a tree with a completed open branch.</p>
+        <h3>The System</h3>
+        <ol>
+          <li><b>Stage 1.</b> Decompose all truth-functional compounds and existential sentences (with ∃D2), including ones this produces.</li>
+          <li><b>Stage 2.</b> Instantiate every universal with every constant on each open branch through it (with a if there's none), including universals added along the way.</li>
+          <li>Repeat. Stop when the tree closes or an open branch completes.</li>
+        </ol>
+        <p>Systematic trees always find a closed tree when one exists and a completed open branch when there's a finite model. The cost: they can be much bigger than a clever hand-built tree.</p>
+      </div>
+      <div class="side">
+        <h3>∃D versus ∃D2</h3>
+        <p>For {(∀y)(∃z)Fyz}, ∃D never ends. With ∃D2 the first instance is Faa on one branch, a one-member model where a bears F to itself, so the tree finishes in three lines. Compare the two in the builder below.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s95">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Sections 9.5–9.6</div>
+      <h2>Truth-trees for PLE</h2>
+      <div class="meta">pp. 441–473 · exercises 9.5E–9.6E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <p>For identity and functors:</p>
+        <ul>
+          <li><b>∀D</b> may instantiate with any closed term, so from (∀x)~ Bx and Bf(c) you can enter ~ Bf(c).</li>
+          <li><b>Identity Decomposition (=D)</b>: if t<sub>1</sub> = t<sub>2</sub> is on a branch with a sentence P containing t<sub>1</sub>, you may enter P with t<sub>2</sub> in place of t<sub>1</sub>.</li>
+          <li>A branch also <b>closes</b> when it contains ~ t = t.</li>
+          <li>Completed open branches need closure under =D as well.</li>
+        </ul>
+        <p>9.6 combines this with ∃D2 to give systematic trees for PLE.</p>
+      </div>
+      <div class="side">
+        <h3>About the builder</h3>
+        <p>The builder below handles PL fully. It accepts identity sentences and closes branches containing ~ a = a, but it doesn't apply =D or instantiate with functor terms. Do PLE trees by hand for now.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="builder">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Tool</div>
+      <h2>PL truth-tree builder</h2>
+      <p class="lede">Click a highlighted sentence to decompose it. For a universal, choose which constant to use. "Finish" works on one open branch at a time, the one with the fewest constants, and stops at 80 lines.</p>
+    </div>
+    <div class="lab">
+      <div class="seg" role="group" aria-label="What to test" id="modes">
+        <button type="button" data-m="set" aria-pressed="true">Consistency</button>
+        <button type="button" data-m="arg" aria-pressed="false">Argument / entailment</button>
+        <button type="button" data-m="pair" aria-pressed="false">Equivalence</button>
+        <button type="button" data-m="qt" aria-pressed="false">Quantificationally true?</button>
+      </div>
+      <p class="note" id="modehelp"></p>
+      <textarea class="formulas" id="src" spellcheck="false" aria-label="Sentences, one per line"></textarea>
+      <div id="keys"></div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <span class="note">Existentials:</span>
+        <div class="seg" role="group" aria-label="Existential rule" id="exr">
+          <button type="button" data-r="D" aria-pressed="true">∃D</button>
+          <button type="button" data-r="D2" aria-pressed="false">∃D2</button>
+        </div>
+      </div>
+      <div class="cta">
+        <button type="button" class="btn ghost" id="hint">Suggest a move</button>
+        <button type="button" class="btn ghost" id="undo">Undo</button>
+        <button type="button" class="btn ghost" id="restart">Start over</button>
+        <button type="button" class="btn" id="finish">Finish the tree</button>
+        <label class="note" style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="stop" checked> Stop once the answer is known</label>
+      </div>
+      <div id="picker"></div>
+      <div class="status" id="verdict" aria-live="polite"></div>
+      <div class="explain" id="explain"></div>
+      <div class="treebox" id="tree"></div>
+    </div>
+  </div>
+</section>
+
+<section id="practice">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Practice</div>
+      <h2>Practice sets for Chapter 9</h2>
+    </div>
+    <div class="tabs" role="tablist" id="ptabs">
+      <button type="button" class="tab" role="tab" aria-selected="true" data-p="pA">Rules</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-p="pB">Completed or not?</button>
+    </div>
+    <div id="pA" role="tabpanel"></div>
+    <div id="pB" role="tabpanel" hidden></div>
+  </div>
+</section>
+
+<section id="discuss">
+  <div class="wrap two">
+    <div class="stack">
+      <div class="sec-head">
+        <div class="eyebrow">For our session</div>
+        <h2>Discussion questions</h2>
+      </div>
+      <ol class="qlist">
+        <li>Why are existentials checked off but universals never are?</li>
+        <li>Build a tree for {(∀y)(∃z)Fyz} with ∃D and watch the loop. Then use ∃D2. What model does the open branch describe?</li>
+        <li>Why does the definition of a completed open branch require at least one instance of each universal?</li>
+        <li>Church's theorem says there's no decision procedure for PL. How does that show up in trees?</li>
+        <li>Systematic trees are guaranteed to work but can be huge. When would you use one?</li>
+      </ol>
+    </div>
+    <div class="stack">
+      <div class="sec-head">
+        <div class="eyebrow">Your notes</div>
+        <h2>Questions for our session</h2>
+        <p class="note">Saved in this browser only.</p>
+      </div>
+      <textarea class="notes" id="notes" aria-label="Questions for our session"></textarea>
+      <div class="note" id="saved"></div>
+      <div class="sec-head" style="margin-top:12px"><h3>Supplementary reading</h3></div>
+      <div class="empty">Nothing assigned from other texts for this chapter yet.</div>
+    </div>
+  </div>
+</section>
+</main>
+
+<nav class="wrap chnav" aria-label="Chapters"><a href="chapter-8.html"><span>Previous</span>Chapter 8 · Predicate Logic: Semantics</a><a href="chapter-10.html"><span>Next</span>Chapter 10 · Predicate Logic: Derivations</a></nav>
+<footer><div class="wrap">Valid Moves · Chapter 9 notes for <i>The Logic Book</i>, 6th edition (Bergmann, Moor &amp; Nelson). Summaries and practice questions are our own; page numbers refer to the 6th edition.</div></footer>
+
+<script src="logic.js"></script>
+<script src="pl.js"></script>
+<script src="trees.js"></script>
+<script src="ptrees.js"></script>
+<script>
+(function(){
+const {esc,store}=SL;
+const {parse,show,showTop,subst}=PL;
+const {PTree,replay}=PTT;
+const N=a=>({op:'~',a});
+const MODES={
+  set:{help:'Type each member of the set on its own line.',ex:'(∀x)(Gx ∨ Hxx)\n~ (∀y)Hyy\n(∃z)Gz'},
+  arg:{help:'Premises one per line, conclusion last. The tree is for the premises plus the negated conclusion.',ex:'(∀x)(Fx ⊃ Gx)\n(∀x)(Gx ⊃ Hx)\n(∀x)(Fx ⊃ Hx)'},
+  pair:{help:'Type two sentences. The tree is for the negation of their biconditional.',ex:'~ (∃x)Fx\n(∀x)~ Fx'},
+  qt:{help:'Type one sentence. The tree is for its negation; it closes if the sentence is quantificationally true.',ex:'(∃x)(∀y)Lxy ⊃ (∀y)(∃x)Lxy'}
+};
+let mode=store.get('vm-ch9-mode','set');if(!MODES[mode])mode='set';
+let ex=store.get('vm-ch9-ex','D');
+const drafts=store.get('vm-ch9-drafts',{});
+const src=document.getElementById('src'),keys=document.getElementById('keys');
+const V=document.getElementById('verdict'),X=document.getElementById('explain'),TR=document.getElementById('tree'),PK=document.getElementById('picker');
+keys.innerHTML=PL.KEYS_HTML;
+let base=null,steps=[],hint=null,pending=null;
+function setup(){
+  drafts[mode]=src.value;store.set('vm-ch9-drafts',drafts);
+  const lines=src.value.split('\n').map(s=>s.trim()).filter(Boolean);
+  base=null;steps=[];hint=null;pending=null;V.innerHTML='';X.innerHTML='';TR.innerHTML='';PK.innerHTML='';
+  const need={set:[1,8],arg:[2,8],pair:[2,2],qt:[1,1]}[mode];
+  if(lines.length<need[0]||lines.length>need[1]){V.innerHTML='<span class="note">'+MODES[mode].help+'</span>';return}
+  let asts;
+  try{asts=lines.map((s,i)=>{let a;try{a=parse(s).ast}catch(e){throw new Error('Line '+(i+1)+': '+e.message)}if(!PL.isSentence(a))throw new Error('Line '+(i+1)+' has a free variable; trees are for sentences.');return a})}catch(e){V.innerHTML='<span class="err">'+esc(e.message)+'</span>';return}
+  base=mode==='set'?asts:mode==='arg'?[...asts.slice(0,-1),N(asts[asts.length-1])]:mode==='pair'?[N({op:'≡',l:asts[0],r:asts[1]})]:[N(asts[0])];
+  draw();
+}
+const tree=()=>replay(base,steps);
+function draw(){
+  if(!base)return;
+  const t=tree();
+  TR.innerHTML=TT.render(t,{clickable:true,hint:hint?hint.id:null,show,showTop});
+  const L=t.leaves(),closed=t.isClosed(),open=L.find(l=>t.completedOpen(l));
+  let v=null,lines=[];
+  const good={set:[null,'Quantificationally consistent'],arg:['Quantificationally valid','Quantificationally invalid'],pair:['Quantificationally equivalent','Not equivalent'],qt:['Quantificationally true','Not quantificationally true']}[mode];
+  if(closed){v=mode==='set'?['bad','Quantificationally inconsistent']:['good',good[0]];lines.push('Every branch closes.')}
+  else if(open){v=mode==='set'?['good',good[1]]:['bad',good[1]];lines.push('A completed open branch gives this model:')}
+  V.innerHTML=v?'<span class="pill '+v[0]+'">'+v[1]+'</span>':(t.hitLimit?'<span class="pill quiet">Stopped at the line limit</span>':'<span class="note">Not finished. Click a highlighted sentence, or use the buttons.</span>');
+  X.innerHTML=lines.map(s=>'<p>'+s+'</p>').join('')+(open&&!closed?'<div class="model">'+t.model(open).map(s=>'<span>'+esc(s)+'</span>').join('')+'</div>':'')+
+    (t.hitLimit?'<p class="note">The tree reached 80 lines without closing or completing a branch. With ∃D some consistent sets never finish; try ∃D2.</p>':'')+
+    (hint?'<p class="note">Suggested: line '+hint.line+', because '+hint.why+'.</p>':'');
+  document.getElementById('undo').disabled=!steps.length;
+  document.querySelectorAll('#exr button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.r===ex));
+}
+TR.addEventListener('click',e=>{
+  const b=e.target.closest('.te-btn');if(!b)return;
+  const t=tree(),en=t.findById(+b.dataset.id);if(!en)return;hint=null;
+  if(en.a.op==='∀'){
+    /* offer constants that some open branch through it still needs, plus a new one */
+    const open=t.openUnder(en),need=new Set();open.forEach(l=>t.missing(en,l).forEach(c=>need.add(c)));
+    const all=new Set();open.forEach(l=>t.consts(l).forEach(c=>all.add(c)));
+    const fresh='abcdefghijklmnopqrstuv'.split('').find(c=>!all.has(c));
+    const opts=[...need].sort();if(fresh&&!opts.includes(fresh))opts.push(fresh);
+    pending=en.id;
+    PK.innerHTML='<div class="picker">Instantiate line '+en.line+' with: '+opts.map(c=>'<button type="button" class="key" data-c="'+c+'">'+c+(all.has(c)?'':' (new)')+'</button>').join('')+'<button type="button" class="key" data-c="">Cancel</button></div>';
+    return;
+  }
+  steps.push({id:en.id,mode:ex});PK.innerHTML='';draw();
+});
+PK.addEventListener('click',e=>{const b=e.target.closest('[data-c]');if(!b)return;if(b.dataset.c&&pending){steps.push({id:pending,c:b.dataset.c})}pending=null;PK.innerHTML='';draw()});
+document.querySelectorAll('#exr button').forEach(b=>b.addEventListener('click',()=>{ex=b.dataset.r;store.set('vm-ch9-ex',ex);draw()}));
+document.getElementById('hint').addEventListener('click',()=>{if(!base)return;const s=tree().suggest(ex);hint=s?{id:s.e.id,line:s.e.line,why:s.why}:null;if(!s)X.innerHTML='<p class="note">Nothing left to decompose.</p>';else draw()});
+document.getElementById('undo').addEventListener('click',()=>{steps.pop();hint=null;PK.innerHTML='';draw()});
+document.getElementById('restart').addEventListener('click',()=>{steps=[];hint=null;PK.innerHTML='';draw()});
+document.getElementById('finish').addEventListener('click',()=>{if(!base)return;const t=tree();t.auto(document.getElementById('stop').checked,ex,80);steps=t.steps;hint=null;PK.innerHTML='';draw();if(t.hitLimit)V.innerHTML='<span class="pill quiet">Stopped at the line limit</span>'});
+function setMode(m){mode=m;store.set('vm-ch9-mode',m);document.querySelectorAll('#modes button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.m===m));document.getElementById('modehelp').textContent=MODES[m].help;src.value=drafts[m]??MODES[m].ex;setup()}
+document.querySelectorAll('#modes button').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.m)));
+PL.wireInput(src,keys,setup);
+setMode(mode);
+
+SL.tabs(document.getElementById('ptabs'),'vm-ch9-tab');
+const MC=arr=>arr.map(q=>Object.assign(q,{opts:q.o.map((l,i)=>({v:i,label:l}))}));
+SL.mcQuiz(document.getElementById('pA'),MC([
+  {s:'Decomposing ~ (∀x)(Fx ⊃ Gx) gives…',o:['(∀x)~ (Fx ⊃ Gx)','(∃x)~ (Fx ⊃ Gx)','~ (Fa ⊃ Ga)','(∃x)(Fx & ~ Gx)'],correct:1,why:'~∀D: "not everything" becomes "something not". The last option comes later, after ~⊃D on an instance.'},
+  {s:'Line 3 holds (∃x)Fx. Lines 1–2 mention a and b. Using ∃D, which instance may you enter?',o:['Fa','Fb','Fc','Any of these'],correct:2,why:'∃D needs a constant foreign to the branch.'},
+  {s:'Same situation, using ∃D2. What does the branch split into?',o:['Fa | Fb','Fa | Fb | Fc','Fc only','Fa only'],correct:1,why:'One branch per constant already on the branch, plus one with a new constant.'},
+  {s:'After applying ∀D to (∀x)Gx with a, you…',o:['check it off','leave it unchecked','delete it','must also apply ∃D'],correct:1,why:'Universals are never checked off; more instances may be needed later.'},
+  {s:'A branch contains (∀x)Fx, Fa, Ga, Hb and nothing else needs work. Is it completed?',o:['Yes','No: it needs Fb','No: it needs Gb','No: it needs ~ Fa'],correct:1,why:'b occurs on the branch, so the instance Fb is required.'}
+]),'vm-ch9-A',q=>q.opts,false);
+const C2=[{v:'closed',label:'Closed tree'},{v:'open',label:'Has a completed open branch'}];
+SL.mcQuiz(document.getElementById('pB'),[
+  ['(∀x)Fx','~ Fa'],['(∃x)Fx','~ Fa'],['(∀x)(Fx ⊃ Gx)','Fa','~ Ga'],['(∃x)Fx','(∃x)~ Fx'],['(∀x)(Fx & ~ Fx)'],['~ (∃x)Fx','Fb']
+].map(set=>{const t=new PTree(set.map(s=>parse(s).ast)).auto(true,'D2',60);const o=t.leaves().find(l=>t.completedOpen(l));
+  return{html:'{'+set.map(s=>'<span class="f">'+esc(s)+'</span>').join(', ')+'}',correct:t.isClosed()?'closed':'open',why:t.isClosed()?'Every branch reaches contradictory literals.':'An open branch completes; model: '+t.model(o).join('; ')+'.'}}),'vm-ch9-B',C2,true);
+
+const notes=document.getElementById('notes'),saved=document.getElementById('saved');
+notes.value=store.get('vm-ch9-notes','');
+let tm;notes.addEventListener('input',()=>{clearTimeout(tm);tm=setTimeout(()=>{store.set('vm-ch9-notes',notes.value);saved.textContent='Saved in this browser.'},400)});
+})();
+</script>
+</body>
+</html>

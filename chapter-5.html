@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chapter 5 · Sentential Logic: Derivations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600&family=Spectral:ital,wght@0,400;0,500;1,400&display=swap">
+<link rel="stylesheet" href="site.css">
+<style>
+.rcard pre{margin:0;font-family:var(--mono);font-size:.9rem;line-height:1.45;white-space:pre}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html">Valid Moves <span>⊢</span></a>
+    <nav aria-label="Site">
+      <a href="index.html">Home</a>
+      <a href="index.html#chapters">Chapters</a>
+      <a href="index.html#texts">Other texts</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="copy">
+      <div class="eyebrow">Chapter 5 · pp. 146–225</div>
+      <h1>Sentential Logic: <em>Derivations</em></h1>
+      <p class="lede">The syntactic side of SL. Instead of searching through truth-value assignments, we show a conclusion follows by deriving it step by step, using eleven rules that each look only at the form of sentences.</p>
+      <nav class="toc" aria-label="On this page">
+        <a href="#s51">5.1 SD</a><a href="#sdrules">SD rules</a><a href="#s52">5.2 Basic concepts</a><a href="#s53">5.3 Strategies</a><a href="#s54">5.4 SD+</a><a href="#checker">Checker</a><a href="#practice">Practice</a>
+      </nav>
+    </div>
+    <div class="card" aria-label="Writing derivations here">
+      <div class="cap">How to type a derivation</div>
+      <pre style="margin:0;font-family:var(--mono);font-size:.92rem;line-height:1.6;overflow-x:auto">Derive: A ⊃ C
+| A ⊃ B          Assumption
+| B ⊃ C          Assumption
+| | A            A / ⊃I
+| | B            1, 3 ⊃E
+| | C            2, 4 ⊃E
+| A ⊃ C          3–5 ⊃I</pre>
+      <p class="note">Each <code>|</code> is a scope line. Type <code>&gt;</code> for ⊃, <code>v</code> for ∨, <code>=</code> for ≡.</p>
+    </div>
+  </div>
+</div>
+
+<main>
+<section id="s51">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 5.1</div>
+      <h2>The derivation system SD</h2>
+      <div class="meta">pp. 146–174 · exercises 5.1E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <p>Truth-tables and trees are <b>semantic</b>: they look for truth-value assignments. Derivations are <b>syntactic</b>: they track the kind of step-by-step reasoning people use when they argue, with each step licensed by a rule about sentence forms.</p>
+        <h3>Eleven rules</h3>
+        <p>Reiteration, plus an <b>introduction</b> and an <b>elimination</b> rule for each connective. Introduction rules produce a sentence with that main connective; elimination rules start from one.</p>
+        <h3>Assumptions and scope</h3>
+        <p><b>Primary assumptions</b> sit at the top, against the main scope line. An <b>auxiliary assumption</b> starts a new scope line and a <b>subderivation</b>. The book annotates it with the rule that will discharge it, as in <span class="f">A / ⊃I</span>; only ⊃I, ~I, ~E, ∨E and ≡I use subderivations.</p>
+        <div class="def"><b>Accessibility</b><span>A sentence or subderivation is accessible at line n when every scope line to its left also continues to line n. Once a subderivation ends, nothing inside it can be cited again; only the whole subderivation can be cited, by range.</span></div>
+        <h3>Common mistakes</h3>
+        <ul>
+          <li>Applying a rule of inference to part of a line. <span class="f">&amp;E</span> works on <span class="f">B &amp; C</span>, not on <span class="f">A ⊃ (B &amp; C)</span>.</li>
+          <li>Citing a line inside a subderivation that has already ended.</li>
+          <li>Assuming the goal "because you can assume anything". You can, but the assumption has to be discharged, and the goal ends up inside its scope.</li>
+        </ul>
+      </div>
+      <div class="side">
+        <h3>Justification format</h3>
+        <table class="ref">
+          <tbody>
+            <tr><td class="f">Assumption</td><td>primary assumption</td></tr>
+            <tr><td class="f">A / ~E</td><td>auxiliary assumption, to be discharged by ~E</td></tr>
+            <tr><td class="f">3 &amp;E</td><td>one line cited</td></tr>
+            <tr><td class="f">1, 4 ⊃E</td><td>two lines cited</td></tr>
+            <tr><td class="f">2–6 ⊃I</td><td>a subderivation cited by range</td></tr>
+            <tr><td class="f">4, 5–7, 8–10 ∨E</td><td>a line and two subderivations</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sdrules">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Reference</div>
+      <h2>The rules of SD</h2>
+      <p class="lede">▷ marks the sentence the rule lets you enter. Bars show subderivations.</p>
+    </div>
+    <div class="rules9" id="sdcards"></div>
+  </div>
+</section>
+
+<section id="s52">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 5.2</div>
+      <h2>Basic concepts of SD</h2>
+      <div class="meta">pp. 175–178 · exercises 5.2E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <div class="def"><b>Derivable in SD</b><span>Γ ⊢ <b>P</b>: there is a derivation whose primary assumptions are all in Γ and where <b>P</b> lies in the scope of those assumptions only.</span></div>
+        <div class="def"><b>Valid in SD</b><span>The conclusion is derivable from the set of premises.</span></div>
+        <div class="def"><b>Theorem in SD</b><span>⊢ <b>P</b>: derivable from the empty set, with no primary assumptions. Such a derivation is a <b>proof</b>.</span></div>
+        <div class="def"><b>Equivalent in SD</b><span>Each sentence is derivable from the other's unit set. Two derivations are needed unless the sentences are identical.</span></div>
+        <div class="def"><b>Inconsistent in SD</b><span>Some sentence and its negation are both derivable from Γ.</span></div>
+        <p>A derivation shows that one of these properties holds. Failing to find a derivation shows nothing: you may simply not have found it yet. Chapter 6 proves that SD matches the semantic notions exactly (soundness and completeness).</p>
+      </div>
+      <div class="side">
+        <h3>Semantic and syntactic pairs</h3>
+        <table class="ref">
+          <thead><tr><th>Chapter 3</th><th>Chapter 5</th></tr></thead>
+          <tbody>
+            <tr><td>TF-true</td><td>theorem in SD</td></tr>
+            <tr><td>TF-equivalent</td><td>equivalent in SD</td></tr>
+            <tr><td>TF-inconsistent</td><td>inconsistent in SD</td></tr>
+            <tr><td>TF-valid</td><td>valid in SD</td></tr>
+            <tr><td>TF-entailment ⊨</td><td>derivability ⊢</td></tr>
+          </tbody>
+        </table>
+        <p class="trap">There's no standard syntactic counterpart of TF-falsity or indeterminacy, though one is easy to define.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s53">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 5.3</div>
+      <h2>Strategies for constructing derivations</h2>
+      <div class="meta">pp. 179–213 · exercises 5.3E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <p>Work from both ends. From the bottom, ask which rule could produce the current <b>goal</b> and write its requirements as <b>subgoals</b> (the book marks them G). From the top, derive whatever the accessible sentences make easy.</p>
+        <h3>The book's strategies, in order</h3>
+        <ol>
+          <li>If the goal can be obtained by Reiteration, do that.</li>
+          <li>If it can be obtained by non-subderivation rules, do that.</li>
+          <li>Otherwise use the subderivation rule that matches the goal's main connective: ⊃I for a conditional, ≡I for a biconditional, ~I for a negation.</li>
+          <li>If nothing else works, try ~E (assume the negation of the goal) or ∨E (if a disjunction is accessible).</li>
+          <li>When using a negation rule, pick an accessible negation as the ~ Q you aim to contradict.</li>
+        </ol>
+        <p>When two strategies both look possible, the book's advice is to pick one and go. Backing out is cheap.</p>
+      </div>
+      <div class="side">
+        <h3>Goal analysis, by main connective</h3>
+        <table class="ref">
+          <thead><tr><th>Goal</th><th>Try</th></tr></thead>
+          <tbody>
+            <tr><td class="f">P &amp; Q</td><td>derive P and Q, then &amp;I</td></tr>
+            <tr><td class="f">P ∨ Q</td><td>derive P or Q, then ∨I; else ∨E or ~E</td></tr>
+            <tr><td class="f">P ⊃ Q</td><td>assume P, derive Q, ⊃I</td></tr>
+            <tr><td class="f">P ≡ Q</td><td>two subderivations, ≡I</td></tr>
+            <tr><td class="f">~ P</td><td>assume P, find Q and ~ Q, ~I</td></tr>
+            <tr><td class="f">atomic</td><td>⊃E, &amp;E, ≡E, ∨E, or ~E</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s54">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 5.4</div>
+      <h2>The derivation system SD+</h2>
+      <div class="meta">pp. 214–225 · exercises 5.4E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <p>SD+ adds convenience rules. It proves exactly the same things as SD, but often in fewer lines.</p>
+        <p><b>Rules of inference</b> (MT, HS, DS) work on whole lines, like SD's rules. <b>Rules of replacement</b> are two-way and may replace any sentential component, including the whole sentence. Each application needs its own line, and the component must match the rule's form exactly, sometimes after a DN step to make it fit.</p>
+      </div>
+      <div class="stack">
+        <div class="side">
+          <h3>Rules of inference</h3>
+          <table class="ref"><tbody>
+            <tr><td><b>MT</b></td><td class="f">P ⊃ Q, ~ Q ▷ ~ P</td></tr>
+            <tr><td><b>HS</b></td><td class="f">P ⊃ Q, Q ⊃ R ▷ P ⊃ R</td></tr>
+            <tr><td><b>DS</b></td><td class="f">P ∨ Q, ~ P ▷ Q &nbsp;·&nbsp; P ∨ Q, ~ Q ▷ P</td></tr>
+          </tbody></table>
+        </div>
+        <div class="side">
+          <h3>Rules of replacement (◁▷)</h3>
+          <div class="rscroll"><table class="ref"><tbody>
+            <tr><td><b>Com</b></td><td class="f">P &amp; Q ◁▷ Q &amp; P &nbsp;·&nbsp; P ∨ Q ◁▷ Q ∨ P</td></tr>
+            <tr><td><b>Assoc</b></td><td class="f">P &amp; (Q &amp; R) ◁▷ (P &amp; Q) &amp; R &nbsp;·&nbsp; same for ∨</td></tr>
+            <tr><td><b>Impl</b></td><td class="f">P ⊃ Q ◁▷ ~ P ∨ Q</td></tr>
+            <tr><td><b>DN</b></td><td class="f">P ◁▷ ~ ~ P</td></tr>
+            <tr><td><b>DeM</b></td><td class="f">~ (P &amp; Q) ◁▷ ~ P ∨ ~ Q &nbsp;·&nbsp; ~ (P ∨ Q) ◁▷ ~ P &amp; ~ Q</td></tr>
+            <tr><td><b>Idem</b></td><td class="f">P ◁▷ P &amp; P &nbsp;·&nbsp; P ◁▷ P ∨ P</td></tr>
+            <tr><td><b>Trans</b></td><td class="f">P ⊃ Q ◁▷ ~ Q ⊃ ~ P</td></tr>
+            <tr><td><b>Exp</b></td><td class="f">P ⊃ (Q ⊃ R) ◁▷ (P &amp; Q) ⊃ R</td></tr>
+            <tr><td><b>Dist</b></td><td class="f">P &amp; (Q ∨ R) ◁▷ (P &amp; Q) ∨ (P &amp; R) &nbsp;·&nbsp; P ∨ (Q &amp; R) ◁▷ (P ∨ Q) &amp; (P ∨ R)</td></tr>
+            <tr><td><b>Equiv</b></td><td class="f">P ≡ Q ◁▷ (P ⊃ Q) &amp; (Q ⊃ P) &nbsp;·&nbsp; P ≡ Q ◁▷ (P &amp; Q) ∨ (~ P &amp; ~ Q)</td></tr>
+          </tbody></table></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="checker">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Tool</div>
+      <h2>Derivation checker</h2>
+      <p class="lede">Write a derivation and every line is checked as you type: the rule, the cited lines, and whether they're accessible. Pick an exercise to load its premises and goal, or write your own. Your work on each exercise is saved in this browser.</p>
+    </div>
+    <div class="lab">
+      <div class="exlist" id="exlist" aria-label="Exercises"></div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <div class="seg" role="group" aria-label="Derivation system" id="sys">
+          <button type="button" data-s="SD" aria-pressed="true">SD</button>
+          <button type="button" data-s="SD+" aria-pressed="false">SD+</button>
+        </div>
+        <span class="note" id="exnote"></span>
+      </div>
+      <div class="two" style="gap:20px">
+        <div class="stack">
+          <textarea class="formulas" id="src" spellcheck="false" aria-label="Derivation" style="min-height:280px"></textarea>
+          <div id="keys"></div>
+          <p class="note">Indent with <code>|</code> (one per scope line). Rules: R, &amp;I, &amp;E, ⊃I, ⊃E, ~I, ~E, ∨I, ∨E, ≡I, ≡E; in SD+ also MT, HS, DS, Com, Assoc, Impl, DN, DeM, Idem, Trans, Exp, Dist, Equiv.</p>
+        </div>
+        <div class="stack">
+          <div class="status" id="verdict" aria-live="polite"></div>
+          <div id="out"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="practice">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Practice</div>
+      <h2>Practice sets for Chapter 5</h2>
+      <p class="lede">Quick checks on rules and accessibility. For full derivations, use the exercises in the checker above.</p>
+    </div>
+    <div class="tabs" role="tablist" id="ptabs">
+      <button type="button" class="tab" role="tab" aria-selected="true" data-p="pA">Which rule?</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-p="pB">Accessible?</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-p="pC">Strategy</button>
+    </div>
+    <div id="pA" role="tabpanel"></div>
+    <div id="pB" role="tabpanel" hidden></div>
+    <div id="pC" role="tabpanel" hidden></div>
+  </div>
+</section>
+
+<section id="discuss">
+  <div class="wrap two">
+    <div class="stack">
+      <div class="sec-head">
+        <div class="eyebrow">For our session</div>
+        <h2>Discussion questions</h2>
+      </div>
+      <ol class="qlist">
+        <li>The book says Reiteration and ~I could be dropped from SD without losing anything. Show how to do without each.</li>
+        <li>Why must a rule of inference apply to a whole line, while a rule of replacement can apply to a part?</li>
+        <li>Deriving Q and ~ Q inside a subderivation doesn't show the primary assumptions are inconsistent. What does it show?</li>
+        <li>If you can't find a derivation, what can you conclude? Compare with a truth-tree that won't close.</li>
+        <li>Why would anyone want SD+ if it proves nothing new?</li>
+      </ol>
+    </div>
+    <div class="stack">
+      <div class="sec-head">
+        <div class="eyebrow">Your notes</div>
+        <h2>Questions for our session</h2>
+        <p class="note">Saved in this browser only.</p>
+      </div>
+      <textarea class="notes" id="notes" aria-label="Questions for our session"></textarea>
+      <div class="note" id="saved"></div>
+      <div class="sec-head" style="margin-top:12px"><h3>Supplementary reading</h3></div>
+      <div class="empty">Nothing assigned from other texts for this chapter yet.</div>
+    </div>
+  </div>
+</section>
+</main>
+
+<nav class="wrap chnav" aria-label="Chapters"><a href="chapter-4.html"><span>Previous</span>Chapter 4 · Sentential Logic: Truth-Trees</a><a href="chapter-6.html"><span>Next</span>Chapter 6 · Sentential Logic: Metatheory</a></nav>
+<footer><div class="wrap">Valid Moves · Chapter 5 notes for <i>The Logic Book</i>, 6th edition (Bergmann, Moor &amp; Nelson). Summaries, exercises and practice questions are our own; page numbers refer to the 6th edition.</div></footer>
+
+<script src="logic.js"></script>
+<script src="derive.js"></script>
+<script>
+(function(){
+const {esc,store}=SL;
+
+/* rule cards */
+const CARDS=[
+  ['Reiteration','R','P\n▷ P'],
+  ['Conjunction Introduction','&I','P\nQ\n▷ P & Q'],
+  ['Conjunction Elimination','&E','P & Q\n▷ P   or   ▷ Q'],
+  ['Disjunction Introduction','∨I','P\n▷ P ∨ Q   or   ▷ Q ∨ P'],
+  ['Disjunction Elimination','∨E','P ∨ Q\n│ P     A / ∨E\n│ ⋮\n│ R\n│ Q     A / ∨E\n│ ⋮\n│ R\n▷ R'],
+  ['Conditional Introduction','⊃I','│ P     A / ⊃I\n│ ⋮\n│ Q\n▷ P ⊃ Q'],
+  ['Conditional Elimination','⊃E','P ⊃ Q\nP\n▷ Q'],
+  ['Negation Introduction','~I','│ P     A / ~I\n│ ⋮\n│ Q\n│ ~ Q\n▷ ~ P'],
+  ['Negation Elimination','~E','│ ~ P   A / ~E\n│ ⋮\n│ Q\n│ ~ Q\n▷ P'],
+  ['Biconditional Introduction','≡I','│ P     A / ≡I\n│ ⋮\n│ Q\n│ Q     A / ≡I\n│ ⋮\n│ P\n▷ P ≡ Q'],
+  ['Biconditional Elimination','≡E','P ≡ Q        P ≡ Q\nP            Q\n▷ Q          ▷ P']
+];
+document.getElementById('sdcards').innerHTML=CARDS.map(c=>'<div class="rcard"><div class="nm">'+c[0]+'<span>'+esc(c[1])+'</span></div><pre>'+esc(c[2])+'</pre></div>').join('');
+
+/* exercises (our own) */
+const EX=[
+  {id:'e1',sys:'SD',label:'{A & B} ⊢ B & A',t:'Derive: B & A\n| A & B          Assumption\n'},
+  {id:'e2',sys:'SD',label:'{A ⊃ B, B ⊃ C} ⊢ A ⊃ C',t:'Derive: A ⊃ C\n| A ⊃ B          Assumption\n| B ⊃ C          Assumption\n'},
+  {id:'e3',sys:'SD',label:'{A ∨ B} ⊢ B ∨ A',t:'Derive: B ∨ A\n| A ∨ B          Assumption\n'},
+  {id:'e4',sys:'SD',label:'{A ⊃ B, ~ B} ⊢ ~ A',t:'Derive: ~ A\n| A ⊃ B          Assumption\n| ~ B            Assumption\n'},
+  {id:'e5',sys:'SD',label:'⊢ A ⊃ (B ⊃ A)',t:'Derive: A ⊃ (B ⊃ A)\n'},
+  {id:'e6',sys:'SD',label:'{A ⊃ (B ⊃ C)} ⊢ (A & B) ⊃ C',t:'Derive: (A & B) ⊃ C\n| A ⊃ (B ⊃ C)    Assumption\n'},
+  {id:'e7',sys:'SD',label:'{(A ⊃ B) & (B ⊃ A)} ⊢ A ≡ B',t:'Derive: A ≡ B\n| (A ⊃ B) & (B ⊃ A)    Assumption\n'},
+  {id:'e8',sys:'SD',label:'{~ ~ A} ⊢ A',t:'Derive: A\n| ~ ~ A          Assumption\n'},
+  {id:'e9',sys:'SD',label:'{A ∨ B, ~ A} ⊢ B',t:'Derive: B\n| A ∨ B          Assumption\n| ~ A            Assumption\n'},
+  {id:'e10',sys:'SD',label:'⊢ A ∨ ~ A',t:'Derive: A ∨ ~ A\n'},
+  {id:'e11',sys:'SD+',label:'SD+: {~ (A ∨ B), C ⊃ A} ⊢ ~ C',t:'Derive: ~ C\n| ~ (A ∨ B)      Assumption\n| C ⊃ A          Assumption\n'},
+  {id:'e12',sys:'SD+',label:'SD+: {A ⊃ B} ⊢ ~ B ⊃ ~ A',t:'Derive: ~ B ⊃ ~ A\n| A ⊃ B          Assumption\n'},
+  {id:'demo',sys:'SD',label:'Worked example (∨E)',t:'Derive: B\n| I & (R ∨ F)        Assumption\n| R ⊃ B              Assumption\n| F ⊃ B              Assumption\n| R ∨ F              1 &E\n| | R                A / ∨E\n| | B                2, 5 ⊃E\n| | F                A / ∨E\n| | B                3, 7 ⊃E\n| B                  4, 5–6, 7–8 ∨E\n'}
+];
+const work=store.get('vm-ch5-work',{}),solved=store.get('vm-ch5-solved',{});
+let cur=store.get('vm-ch5-cur','demo');if(!EX.find(e=>e.id===cur))cur='demo';
+let sys='SD';
+const src=document.getElementById('src'),keys=document.getElementById('keys'),out=document.getElementById('out'),V=document.getElementById('verdict');
+keys.innerHTML=SL.KEYS_HTML.replace('<div class="keys" aria-label="Insert a symbol">','<div class="keys" aria-label="Insert a symbol"><button type="button" class="key" data-ins="| " title="Scope line">|</button>');
+function list(){document.getElementById('exlist').innerHTML=EX.map(e=>'<button type="button" data-id="'+e.id+'" aria-pressed="'+(e.id===cur)+'">'+(solved[e.id]?'<span class="done">✓ </span>':'')+esc(e.label)+'</button>').join('')}
+function setSys(s){sys=s;document.querySelectorAll('#sys button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.s===s));run()}
+function load(id){cur=id;store.set('vm-ch5-cur',id);const e=EX.find(x=>x.id===id);src.value=work[id]??e.t;setSys(e.sys);
+  document.getElementById('exnote').textContent=e.sys==='SD+'?'This exercise allows the SD+ rules.':'Use only the rules of SD.';list()}
+function run(){
+  work[cur]=src.value;store.set('vm-ch5-work',work);
+  const r=SDX.check(src.value,sys);
+  if(!r.lines.length){V.innerHTML='<span class="note">Start typing the derivation.</span>';out.innerHTML=r.goal?SDX.render(r):'';return}
+  out.innerHTML=SDX.render(r);
+  const s=r.summary;
+  if(s.ok){
+    const prim=s.prim.map(a=>SL.showTop(a)),c=SL.showTop(s.concl);
+    V.innerHTML='<span class="pill good">Derivation checks out</span><span class="note">'+esc(prim.length?'{'+prim.join(', ')+'} ⊢ '+c+' in '+sys:'⊢ '+c+': a theorem of '+sys)+'</span>';
+    const e=EX.find(x=>x.id===cur);
+    if(e&&r.goal&&e.id!=='demo'&&!solved[cur]){solved[cur]=true;store.set('vm-ch5-solved',solved);list()}
+  }else V.innerHTML='<span class="pill '+(r.lines.some(l=>l.errs.length)?'bad':'mid')+'">'+esc(s.text)+'</span>';
+}
+document.getElementById('exlist').addEventListener('click',e=>{const b=e.target.closest('button');if(b)load(b.dataset.id)});
+document.querySelectorAll('#sys button').forEach(b=>b.addEventListener('click',()=>setSys(b.dataset.s)));
+src.addEventListener('input',()=>{
+  /* keep scope bars: convert shortcuts only after the bars */
+  const pos=src.selectionStart,before=src.value;
+  const after=before.split('\n').map(line=>{
+    const g=line.match(/^(\s*Derive\s*:)(.*)$/i);if(g)return g[1]+SL.normalize(g[2]);
+    const m=line.match(/^([\s\d.)]*[\s│|]*)(.*)$/);return m[1]+SL.normalize(m[2]).replace(/Equi∨/g,'Equiv');
+  }).join('\n');
+  if(after!==before){const d=after.length-before.length;src.value=after;try{src.setSelectionRange(pos+d,pos+d)}catch(e){}}
+  run();
+});
+keys.querySelectorAll('[data-ins]').forEach(b=>b.addEventListener('click',()=>{const s=src.selectionStart,e=src.selectionEnd,ins=b.dataset.ins;src.value=src.value.slice(0,s)+ins+src.value.slice(e);src.focus();src.setSelectionRange(s+ins.length,s+ins.length);run()}));
+load(cur);
+
+SL.tabs(document.getElementById('ptabs'),'vm-ch5-tab');
+
+/* A: which rule */
+const RO=['&E','&I','∨I','⊃E','≡E','~I','~E','⊃I','∨E','R'].map(v=>({v,label:v}));
+const A=[
+  {html:'From <span class="f">A ⊃ (B ∨ C)</span> and <span class="f">A</span>, enter <span class="f">B ∨ C</span>.',correct:'⊃E',why:'Conditional and its antecedent give the consequent.'},
+  {html:'From <span class="f">(A ≡ B) &amp; C</span>, enter <span class="f">A ≡ B</span>.',correct:'&E',why:'Take one conjunct of the whole line.'},
+  {html:'From <span class="f">~ C</span>, enter <span class="f">~ C ∨ (A &amp; B)</span>.',correct:'∨I',why:'Add any disjunct to an accessible sentence.'},
+  {html:'From a subderivation assuming <span class="f">~ A</span> that reaches <span class="f">B</span> and <span class="f">~ B</span>, enter <span class="f">A</span>.',correct:'~E',why:'Assume the negation, reach a contradiction, conclude the sentence.'},
+  {html:'From a subderivation assuming <span class="f">A</span> that reaches <span class="f">B</span> and <span class="f">~ B</span>, enter <span class="f">~ A</span>.',correct:'~I',why:'Assume the sentence, reach a contradiction, conclude its negation.'},
+  {html:'From <span class="f">B ≡ ~ C</span> and <span class="f">~ C</span>, enter <span class="f">B</span>.',correct:'≡E',why:'A biconditional and one side give the other side.'},
+  {html:'From a subderivation assuming <span class="f">A &amp; B</span> and ending with <span class="f">C</span>, enter <span class="f">(A &amp; B) ⊃ C</span>.',correct:'⊃I',why:'Discharge the assumption as the antecedent.'},
+  {html:'From <span class="f">A ∨ B</span> and two subderivations, one from <span class="f">A</span> to <span class="f">C</span> and one from <span class="f">B</span> to <span class="f">C</span>, enter <span class="f">C</span>.',correct:'∨E',why:'Whichever disjunct holds, C follows.'}
+];
+SL.mcQuiz(document.getElementById('pA'),A,'vm-ch5-A',RO,false);
+
+/* B: accessibility, checked with the real checker */
+const ACC=`| A ⊃ B          Assumption
+| | A            A / ⊃I
+| | B            1, 2 ⊃E
+| A ⊃ B          2–3 ⊃I
+| | ~ B          A / ~I
+| | | A          A / ⊃I
+| | | B          1, 6 ⊃E
+| | A ⊃ B        6–7 ⊃I`;
+const accHtml='<pre class="fitch" style="white-space:pre;margin:0 0 8px">'+esc(ACC.split('\n').map((l,i)=>(i+1+'  ').slice(0,3)+l).join('\n'))+'</pre>';
+const YN=[{v:'yes',label:'Accessible'},{v:'no',label:'Not accessible'}];
+const B=[
+  {q:'Line 1, cited at line 7?',correct:'yes',why:'Line 1 is a primary assumption; its only scope line runs through the whole derivation.'},
+  {q:'Line 3, cited at line 5?',correct:'no',why:'Line 3 is inside the subderivation 2–3, which ended at line 3.'},
+  {q:'Line 5, cited at line 7?',correct:'yes',why:'Line 7 is inside the subderivation that line 5 begins, which is still open.'},
+  {q:'Subderivation 6–7, cited at line 8?',correct:'yes',why:'It has ended, and the scope lines to its left (the main one and line 5\'s) continue to line 8.'},
+  {q:'Line 6, cited at line 8?',correct:'no',why:'Line 6 belongs to subderivation 6–7, which has ended. Only the whole subderivation can be cited.'},
+  {q:'Subderivation 2–3, cited at line 7?',correct:'yes',why:'It ended before line 7 and its only outer scope line is the main one.'}
+].map(x=>Object.assign(x,{html:accHtml+'<span style="font-size:1.05rem">'+esc(x.q)+'</span>'}));
+SL.mcQuiz(document.getElementById('pB'),B,'vm-ch5-B',YN,true);
+
+/* C: strategy */
+const C=[
+  {s:'Your goal is ~ (A & B). What is the first strategy to try?',o:['Assume A & B and aim for a contradiction (~I)','Assume ~ (A & B) and use R','Derive ~ A, then ∨I','Use &E on the goal'],correct:0,why:'A negation goal suggests ~I: assume the unnegated sentence and derive some Q and ~ Q.'},
+  {s:'Your goal is P ⊃ Q.',o:['Use ⊃E','Assume P and derive Q, then ⊃I','Assume ~ (P ⊃ Q) and use ~E first','Derive P, then ∨I'],correct:1,why:'A conditional goal is usually reached with ⊃I.'},
+  {s:'Your goal is the atomic sentence C and nothing gives it directly. A disjunction A ∨ B is accessible.',o:['∨I','Try ∨E with C as the goal of both subderivations','⊃I','&I'],correct:1,why:'With an accessible disjunction, ∨E lets you reason by cases.'},
+  {s:'You are in a ~I subderivation. Which sentence should you aim to contradict?',o:['Any sentence at all','An accessible negation, if there is one','The goal of the whole derivation','The primary assumption, always'],correct:1,why:'The book suggests using an already accessible negation as the ~ Q.'},
+  {s:'Your goal is A ≡ B.',o:['≡E','Two subderivations, A to B and B to A, then ≡I','&I','~E only'],correct:1,why:'≡I needs a subderivation in each direction.'}
+].map(q=>Object.assign(q,{opts:q.o.map((l,i)=>({v:i,label:l}))}));
+SL.mcQuiz(document.getElementById('pC'),C,'vm-ch5-C',q=>q.opts,false);
+
+const notes=document.getElementById('notes'),saved=document.getElementById('saved');
+notes.value=store.get('vm-ch5-notes','');
+let tm;notes.addEventListener('input',()=>{clearTimeout(tm);tm=setTimeout(()=>{store.set('vm-ch5-notes',notes.value);saved.textContent='Saved in this browser.'},400)});
+})();
+</script>
+</body>
+</html>

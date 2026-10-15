@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chapter 6 · Sentential Logic: Metatheory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600&family=Spectral:ital,wght@0,400;0,500;1,400&display=swap">
+<link rel="stylesheet" href="site.css">
+<style>
+.chain{list-style:none;margin:0;padding:0;display:grid;gap:0;counter-reset:s}
+.chain li{display:grid;grid-template-columns:4.5rem minmax(0,1fr);gap:14px;padding:12px 0;border-bottom:1px solid var(--rule)}
+.chain li:last-child{border-bottom:0}
+.chain .id{font-family:var(--mono);color:var(--accent);font-size:.9rem;padding-top:2px}
+.chain b{font-family:var(--display)}
+.tfcell{cursor:pointer;min-width:3rem}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html">Valid Moves <span>⊢</span></a>
+    <nav aria-label="Site">
+      <a href="index.html">Home</a>
+      <a href="index.html#chapters">Chapters</a>
+      <a href="index.html#texts">Other texts</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="copy">
+      <div class="eyebrow">Chapter 6 · pp. 226–261</div>
+      <h1>Sentential Logic: <em>Metatheory</em></h1>
+      <p class="lede">Results <i>about</i> SL rather than results in it. The headline: derivability in SD matches truth-functional entailment exactly. Γ ⊢ P if and only if Γ ⊨ P.</p>
+      <nav class="toc" aria-label="On this page">
+        <a href="#s61">6.1 Induction</a><a href="#s62">6.2 Completeness of connectives</a><a href="#s63">6.3 Soundness</a><a href="#s64">6.4 Completeness</a><a href="#practice">Practice</a>
+      </nav>
+    </div>
+    <div class="card" aria-label="The two big results">
+      <div class="cap">The two directions</div>
+      <table class="ref">
+        <tbody>
+          <tr><td><b>Soundness</b> (6.3.1)</td><td class="f">Γ ⊢ P ⟹ Γ ⊨ P</td></tr>
+          <tr><td colspan="2" class="note">SD never derives something that isn't entailed.</td></tr>
+          <tr><td><b>Completeness</b> (6.4.1)</td><td class="f">Γ ⊨ P ⟹ Γ ⊢ P</td></tr>
+          <tr><td colspan="2" class="note">Everything entailed can be derived in SD.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<main>
+<section id="s61">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 6.1</div>
+      <h2>Mathematical induction</h2>
+      <div class="meta">pp. 226–233 · exercises 6.1E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <p>There are infinitely many sentences of SL, so no claim about all of them can be checked one at a time. Induction gets around this by sorting sentences into a series of groups (usually by number of connectives) and proving two things.</p>
+        <div class="def"><b>Basis clause</b><span>The claim holds for every member of the first group, such as sentences with zero connectives.</span></div>
+        <div class="def"><b>Inductive step</b><span>If the claim holds for every member of every group up to k (the <b>inductive hypothesis</b>), it holds for every member of group k + 1.</span></div>
+        <p>The book uses <b>strong</b> induction: the hypothesis covers all earlier groups, not just the previous one. Nothing is lost, since anything provable by weak induction is provable by strong induction.</p>
+        <h3>The book's examples</h3>
+        <p>First, that every sentence of SL has as many left as right parentheses. Then the <b>dual</b> of a TWA sentence (one using only ~, ∨ and &amp;): swap ∨ and &amp; and put a tilde in front of every atomic component. The thesis is that a TWA sentence and its dual always have opposite truth-values. The inductive step splits into cases by the main connective, which is the usual pattern.</p>
+      </div>
+      <div class="side">
+        <h3>Try the dual thesis</h3>
+        <p class="note">Type a sentence using only ~, ∨ and &amp;. The dual is built and checked on every row.</p>
+        <div class="entry"><input id="dualin" type="text" spellcheck="false" autocomplete="off" aria-label="TWA sentence" value="~ (A &amp; B) ∨ C"></div>
+        <div id="dualkeys"></div>
+        <div id="dualout" class="explain" aria-live="polite"></div>
+        <div class="tscroll"><table class="tt" id="dualtt"></table></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s62">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 6.2</div>
+      <h2>Truth-functional completeness</h2>
+      <div class="meta">pp. 234–243 · exercises 6.2E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <p>A <b>truth-function</b> of n arguments maps each combination of n truth-values to a truth-value. There are 2<sup>(2<sup>n</sup>)</sup> of them: 4 of one argument, 16 of two, 256 of three. SL's five connectives define only five, so it isn't obvious that SL can express them all.</p>
+        <div class="def"><b>Metatheorem 6.2.1</b><span>Every truth-function can be expressed by a sentence of SL whose only connectives are ~, &amp; and ∨. A set of connectives that can express every truth-function is <b>truth-functionally complete</b>.</span></div>
+        <h3>The algorithm</h3>
+        <ol>
+          <li>Use the first n sentence letters.</li>
+          <li>For each row where the function's value is T, write an iterated conjunction that is true on exactly that row: the letter if it's T in that row, its negation if it's F.</li>
+          <li>Disjoin those conjunctions. If no row is T, use a sentence that is false on every row instead.</li>
+        </ol>
+        <p>Consequences: {~, ∨} is complete, since P &amp; Q is equivalent to ~ (~ P ∨ ~ Q). So are {~, &amp;} and {~, ⊃}. But {∨, &amp;} is not: with no tilde you can never get F when every atom is T, which is a neat induction proof.</p>
+      </div>
+      <div class="side">
+        <h3>Truth-function to sentence</h3>
+        <div class="seg" role="group" aria-label="Number of arguments" id="nargs">
+          <button type="button" data-n="1" aria-pressed="false">1 argument</button>
+          <button type="button" data-n="2" aria-pressed="true">2 arguments</button>
+          <button type="button" data-n="3" aria-pressed="false">3 arguments</button>
+        </div>
+        <p class="note">Click a value in the right-hand column to switch it.</p>
+        <div class="tscroll"><table class="tt" id="schema"></table></div>
+        <div id="algout" class="explain" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s63">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 6.3</div>
+      <h2>The soundness of SD and SD+</h2>
+      <div class="meta">pp. 244–251 · exercises 6.3E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <div class="def"><b>Metatheorem 6.3.1</b><span>If Γ ⊢ P in SD, then Γ ⊨ P.</span></div>
+        <p>The proof is by induction on line numbers in a derivation. The claim proved for each line i: the set Γ<sub>i</sub> of open assumptions in whose scope the sentence P<sub>i</sub> lies truth-functionally entails P<sub>i</sub>.</p>
+        <ul>
+          <li><b>Basis:</b> the first line is an assumption, and {P<sub>1</sub>} ⊨ P<sub>1</sub>.</li>
+          <li><b>Inductive step:</b> one case per rule. For each rule, if the cited lines are entailed by their open assumptions, the new line is entailed by its own. The subderivation rules need care, because they discharge an assumption.</li>
+        </ul>
+        <p>Applied to the last line of a derivation of P from Γ, this gives Γ ⊨ P. Corollaries: every argument valid in SD is truth-functionally valid, and every theorem is truth-functionally true. SD+ is sound too, since its extra rules preserve entailment.</p>
+      </div>
+      <div class="side">
+        <h3>What soundness rules out</h3>
+        <p>A rule like "from P ∨ Q, infer P" would let us derive non-entailed sentences, and the inductive step for it would fail: {P ∨ Q} doesn't entail P. Checking one case per rule is exactly what keeps a system honest.</p>
+        <p class="trap">Exercises 6.3E ask for the cases of the inductive step that the text leaves out.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s64">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 6.4</div>
+      <h2>The completeness of SD and SD+</h2>
+      <div class="meta">pp. 252–261 · exercises 6.4E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <div class="def"><b>Metatheorem 6.4.1</b><span>If Γ ⊨ P, then Γ ⊢ P in SD.</span></div>
+        <p>The proof is <b>not constructive</b>: it shows a derivation exists without saying how to build it. It follows Leon Henkin's 1949 method, which returns in Chapter 11 for predicate logic, where no constructive proof is available.</p>
+        <p>Key idea: a set that is <b>maximally consistent in SD</b> is consistent and can't take any new sentence without becoming inconsistent. For such a set, membership behaves just like truth: ~ P is in it exactly when P isn't, P &amp; Q exactly when both are, and so on (6.4.11). So making its atoms true makes all its members true.</p>
+      </div>
+      <div class="side">
+        <h3>The chain of results</h3>
+        <ol class="chain">
+          <li><span class="id">6.4.3</span><span>If Γ ⊨ P, then Γ ∪ {~ P} is truth-functionally inconsistent.</span></li>
+          <li><span class="id">6.4.2</span><span>If a set is consistent in SD, it is truth-functionally consistent. (The hard part. By contraposition, Γ ∪ {~ P} is inconsistent in SD.)</span></li>
+          <li><span class="id">6.4.4</span><span>If Γ ∪ {~ P} is inconsistent in SD, then Γ ⊢ P: assume ~ P, derive Q and ~ Q, use ~E.</span></li>
+          <li><span class="id">6.4.5</span><span><b>Maximal Consistency Lemma.</b> Every set consistent in SD has a maximally consistent superset. List all sentences of SL and add each one that keeps the set consistent.</span></li>
+          <li><span class="id">6.4.8</span><span><b>Consistency Lemma.</b> Every maximally consistent set is truth-functionally consistent: make true exactly the atoms it contains.</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="practice">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Practice</div>
+      <h2>Practice sets for Chapter 6</h2>
+    </div>
+    <div class="tabs" role="tablist" id="ptabs">
+      <button type="button" class="tab" role="tab" aria-selected="true" data-p="pA">Induction</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-p="pB">Complete sets</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-p="pC">Soundness or completeness?</button>
+    </div>
+    <div id="pA" role="tabpanel"></div>
+    <div id="pB" role="tabpanel" hidden></div>
+    <div id="pC" role="tabpanel" hidden></div>
+  </div>
+</section>
+
+<section id="discuss">
+  <div class="wrap two">
+    <div class="stack">
+      <div class="sec-head">
+        <div class="eyebrow">For our session</div>
+        <h2>Discussion questions</h2>
+      </div>
+      <ol class="qlist">
+        <li>Why does an induction on sentences usually split into cases by main connective? Where does the inductive hypothesis get used?</li>
+        <li>Prove that {∨, &amp;} is not truth-functionally complete. What is your basis clause?</li>
+        <li>Is the Sheffer stroke (not both) complete on its own? How would you show it?</li>
+        <li>Soundness says SD derives nothing wrong; completeness says it misses nothing. Which matters more if you are designing a proof system, and why?</li>
+        <li>Why would someone prefer a constructive completeness proof? What do we lose with Henkin's method?</li>
+      </ol>
+    </div>
+    <div class="stack">
+      <div class="sec-head">
+        <div class="eyebrow">Your notes</div>
+        <h2>Questions for our session</h2>
+        <p class="note">Saved in this browser only.</p>
+      </div>
+      <textarea class="notes" id="notes" aria-label="Questions for our session"></textarea>
+      <div class="note" id="saved"></div>
+      <div class="sec-head" style="margin-top:12px"><h3>Supplementary reading</h3></div>
+      <div class="empty">Nothing assigned from other texts for this chapter yet.</div>
+    </div>
+  </div>
+</section>
+</main>
+
+<nav class="wrap chnav" aria-label="Chapters"><a href="chapter-5.html"><span>Previous</span>Chapter 5 · Sentential Logic: Derivations</a><a href="chapter-7.html"><span>Next</span>Chapter 7 · Predicate Logic: Syntax and Symbolization</a></nav>
+<footer><div class="wrap">Valid Moves · Chapter 6 notes for <i>The Logic Book</i>, 6th edition (Bergmann, Moor &amp; Nelson). Summaries and practice questions are our own; page numbers refer to the 6th edition.</div></footer>
+
+<script src="logic.js"></script>
+<script>
+(function(){
+const {esc,store,parse,show,showTop,tv,rows,ev,letters,sortLetters}=SL;
+const N=a=>({op:'~',a}),B=(op,l,r)=>({op,l,r});
+
+/* dual of a TWA sentence */
+const din=document.getElementById('dualin'),dk=document.getElementById('dualkeys');
+dk.innerHTML=SL.KEYS_HTML;
+function twa(n){return n.v?true:n.op==='~'?twa(n.a):(n.op==='&'||n.op==='∨')&&twa(n.l)&&twa(n.r)}
+function dual(n){return n.v?N(n):n.op==='~'?N(dual(n.a)):B(n.op==='&'?'∨':'&',dual(n.l),dual(n.r))}
+function runDual(){
+  const out=document.getElementById('dualout'),tt=document.getElementById('dualtt');tt.innerHTML='';
+  let a;try{a=parse(din.value).ast}catch(e){out.innerHTML='<p class="err">'+esc(e.message)+'</p>';return}
+  if(!twa(a)){out.innerHTML='<p class="err">The dual is defined only for TWA sentences: use just ~, ∨ and &amp;.</p>';return}
+  const d=dual(a),vs=sortLetters([...letters(a)]);
+  if(vs.length>5){out.innerHTML='<p class="err">Keep it to 5 sentence letters or fewer.</p>';return}
+  const R=rows(vs),ok=R.every(env=>ev(a,env)!==ev(d,env));
+  out.innerHTML='<p>Dual: <span class="f">'+esc(showTop(d))+'</span></p><p>'+(ok?'<span class="pill good">Opposite on every row</span>':'<span class="pill bad">Not opposite</span>')+'</p>';
+  tt.innerHTML='<thead><tr>'+vs.map((v,i)=>'<th class="'+(i===vs.length-1?'v':'')+'">'+v+'</th>').join('')+'<th>P</th><th>dual</th></tr></thead><tbody>'+
+    R.map(env=>'<tr>'+vs.map((v,i)=>'<td class="'+(i===vs.length-1?'v':'')+'">'+tv(env[v])+'</td>').join('')+'<td class="main">'+tv(ev(a,env))+'</td><td class="main">'+tv(ev(d,env))+'</td></tr>').join('')+'</tbody>';
+}
+SL.wireInput(din,dk,runDual);runDual();
+
+/* 6.2 algorithm */
+let n=2,col=store.get('vm-ch6-col',{1:[false,true],2:[false,true,true,false],3:[true,false,false,true,false,true,true,false]});
+const LET=['A','B','C'];
+function conjAll(xs){return xs.reduce((acc,x)=>acc?B('&',acc,x):x,null)}
+function disjAll(xs){return xs.reduce((acc,x)=>acc?B('∨',acc,x):x,null)}
+function toWA(x){ /* replace each & with its ~/∨ equivalent */
+  if(x.v)return x;if(x.op==='~')return N(toWA(x.a));
+  if(x.op==='&')return N(B('∨',N(toWA(x.l)),N(toWA(x.r))));return B(x.op,toWA(x.l),toWA(x.r));
+}
+function runAlg(){
+  const vs=LET.slice(0,n),R=rows(vs),c=col[n];
+  document.querySelectorAll('#nargs button').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.n===n));
+  document.getElementById('schema').innerHTML='<thead><tr>'+vs.map((v,i)=>'<th class="'+(i===n-1?'v':'')+'">'+v+'</th>').join('')+'<th class="main">value</th><th>row sentence</th></tr></thead><tbody>'+
+    R.map((env,r)=>'<tr>'+vs.map((v,i)=>'<td class="'+(i===n-1?'v':'')+'">'+tv(env[v])+'</td>').join('')+'<td class="main tfcell"><button type="button" class="tog" data-r="'+r+'" aria-label="Row '+(r+1)+' value '+(c[r]?'T':'F')+', click to switch">'+tv(c[r])+'</button></td><td class="f" style="text-align:left">'+(c[r]?esc(showTop(conjAll(vs.map(v=>env[v]?{v}:N({v}))))):'')+'</td></tr>').join('')+'</tbody>';
+  const parts=R.map((env,r)=>c[r]?conjAll(vs.map(v=>env[v]?{v}:N({v}))):null).filter(Boolean);
+  const s=parts.length?disjAll(parts):B('&',{v:'A'},N({v:'A'}));
+  const okAll=R.every((env,r)=>ev(s,env)===c[r]);
+  const wa=toWA(s);
+  document.getElementById('algout').innerHTML='<p>Sentence: <span class="f">'+esc(showTop(s))+'</span></p>'+
+    (parts.length?'':'<p class="note">No row is T, so the algorithm\'s fallback is a sentence false on every row.</p>')+
+    '<p class="note">Using only ~ and ∨: <span class="f">'+esc(showTop(wa))+'</span></p>'+
+    '<p>'+(okAll?'<span class="pill good">Checked: same column as the schema</span>':'<span class="pill bad">Mismatch</span>')+'</p>';
+}
+document.getElementById('schema').addEventListener('click',e=>{const b=e.target.closest('[data-r]');if(!b)return;col[n][+b.dataset.r]=!col[n][+b.dataset.r];store.set('vm-ch6-col',col);runAlg()});
+document.querySelectorAll('#nargs button').forEach(b=>b.addEventListener('click',()=>{n=+b.dataset.n;runAlg()}));
+runAlg();
+
+SL.tabs(document.getElementById('ptabs'),'vm-ch6-tab');
+const MC=(arr)=>arr.map(q=>Object.assign(q,{opts:q.o.map((l,i)=>({v:i,label:l}))}));
+SL.mcQuiz(document.getElementById('pA'),MC([
+  {s:'In an induction on the number of connectives, what does the basis clause usually cover?',o:['Sentences with one connective','Atomic sentences (zero connectives)','The longest sentence','All negations'],correct:1,why:'The first group in the series is the sentences with no connectives: the sentence letters.'},
+  {s:'What is the inductive hypothesis?',o:['The conclusion of the induction','The antecedent of the inductive step: the claim holds for every sentence with k or fewer connectives','The basis clause','A lemma proved separately'],correct:1,why:'We assume it and show the claim then holds for sentences with k + 1 connectives.'},
+  {s:'Strong induction differs from weak induction because the hypothesis…',o:['covers every earlier group, not just the previous one','is stronger than the conclusion','is proved first','uses two basis clauses'],correct:0,why:'Useful in SL because the immediate components of a sentence can have any smaller number of connectives.'},
+  {s:'In the inductive step for the dual thesis, the case where P is ~ Q uses the hypothesis on…',o:['P itself','Q, which has fewer connectives','Every sentence of SL','The dual of P only'],correct:1,why:'Q has k connectives, so the hypothesis applies to it.'}
+]),'vm-ch6-A',q=>q.opts,false);
+const CY=[{v:'yes',label:'Truth-functionally complete'},{v:'no',label:'Not complete'}];
+SL.mcQuiz(document.getElementById('pB'),[
+  {html:'{~, &amp;, ∨}',correct:'yes',why:'Metatheorem 6.2.1.'},
+  {html:'{~, ∨}',correct:'yes',why:'Replace each P & Q by ~ (~ P ∨ ~ Q).'},
+  {html:'{~, &amp;}',correct:'yes',why:'Replace each P ∨ Q by ~ (~ P & ~ Q).'},
+  {html:'{∨, &amp;}',correct:'no',why:'Without a tilde, every sentence is true when all its atoms are true, so no sentence expresses negation.'},
+  {html:'{~, ⊃}',correct:'yes',why:'P ∨ Q is equivalent to ~ P ⊃ Q.'},
+  {html:'{&amp;, ⊃, ≡}',correct:'no',why:'Again, all three yield T when every component is T, so negation can\'t be expressed.'}
+],'vm-ch6-B',CY,true);
+const SC=[{v:'s',label:'Soundness'},{v:'c',label:'Completeness'}];
+SL.mcQuiz(document.getElementById('pC'),[
+  {s:'Every theorem of SD is truth-functionally true.',correct:'s',why:'From derivability to truth-functional truth: soundness.'},
+  {s:'Every truth-functionally valid argument is valid in SD.',correct:'c',why:'From the semantic property to derivability: completeness.'},
+  {s:'If Γ is consistent in SD, then Γ is truth-functionally consistent.',correct:'c',why:'This is 6.4.2, the core of the completeness proof.'},
+  {s:'No derivation in SD has true premises and a false last line.',correct:'s',why:'SD\'s rules preserve truth, which is what soundness says.'},
+  {s:'If {P} ⊨ Q then {P} ⊢ Q.',correct:'c',why:'Entailment to derivability.'}
+],'vm-ch6-C',SC,true);
+
+const notes=document.getElementById('notes'),saved=document.getElementById('saved');
+notes.value=store.get('vm-ch6-notes','');
+let tm;notes.addEventListener('input',()=>{clearTimeout(tm);tm=setTimeout(()=>{store.set('vm-ch6-notes',notes.value);saved.textContent='Saved in this browser.'},400)});
+})();
+</script>
+</body>
+</html>

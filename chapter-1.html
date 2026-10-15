@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chapter 1 · Introduction to Deductive Logic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600&family=Spectral:ital,wght@0,400;0,500;1,400&display=swap">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html">Valid Moves <span>⊢</span></a>
+    <nav aria-label="Site">
+      <a href="index.html">Home</a>
+      <a href="index.html#chapters">Chapters</a>
+      <a href="index.html#texts">Other texts</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="copy">
+      <div class="eyebrow">Chapter 1 · pp. 1–14</div>
+      <h1>Introduction to <em>Deductive Logic</em></h1>
+      <p class="lede">The vocabulary the whole book is built on: arguments, validity, soundness, and the logical properties of sentences and sets. Everything later makes these ideas precise, first for SL and then for PL.</p>
+      <nav class="toc" aria-label="On this page">
+        <a href="#s11">1.1 Introduction</a><a href="#s12">1.2 Core concepts</a><a href="#s13">1.3 Special cases</a><a href="#practice">Practice</a><a href="#discuss">Discussion</a>
+      </nav>
+    </div>
+    <div class="card" aria-label="Core concepts">
+      <div class="cap">Core concepts, one line each</div>
+      <table class="ref">
+        <tbody>
+          <tr><td><b>Valid</b></td><td>can't have all true premises and a false conclusion</td></tr>
+          <tr><td><b>Sound</b></td><td>valid, and every premise is true</td></tr>
+          <tr><td><b>Logically true</b></td><td>can't be false</td></tr>
+          <tr><td><b>Logically false</b></td><td>can't be true</td></tr>
+          <tr><td><b>Equivalent</b></td><td>can't differ in truth-value</td></tr>
+          <tr><td><b>Consistent</b></td><td>all members can be true together</td></tr>
+          <tr><td><b>Entails</b></td><td>can't have the set all true and the sentence false</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<main>
+<section id="s11">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 1.1</div>
+      <h2>Introduction</h2>
+      <div class="meta">pp. 1–2</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <p>Deductive logic is about <b>truth-preservation</b>: good deductive reasoning never leads from truths to a falsehood. Reasoning with that property is called <b>valid</b>. Inductive logic sets a weaker standard, that true starting points make the conclusion likely.</p>
+        <p>The book places its systems in history. Euclid axiomatized geometry; Aristotle's syllogistic logic handles arguments about categories but only with exactly two premises of restricted forms. The whodunit about the maid and the butler has three premises and compound sentences, so syllogistic logic can't handle it. The systems in this book descend from Frege, Hilbert and Russell, and are built from a few intuitive rules for deriving sentences rather than from axioms.</p>
+        <p>Why study it: it trains the skills of presenting and evaluating arguments, makes you notice how much the exact words matter ("Roberta will pass <i>if</i> she does the homework" versus "<i>only if</i>"), and builds comfort with abstract concepts.</p>
+      </div>
+      <div class="side">
+        <h3>Map of the book</h3>
+        <table class="ref">
+          <tbody>
+            <tr><td class="f">Ch. 2–5</td><td>Sentential logic: the language SL, truth-tables, truth-trees, derivations</td></tr>
+            <tr><td class="f">Ch. 6</td><td>Metatheory of sentential logic</td></tr>
+            <tr><td class="f">Ch. 7–10</td><td>Predicate logic: the language PL, interpretations, trees, derivations</td></tr>
+            <tr><td class="f">Ch. 11</td><td>Metatheory of predicate logic</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s12">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 1.2</div>
+      <h2>Core concepts of deductive logic</h2>
+      <div class="meta">pp. 3–11 · exercises 1.2E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <h3>Sentences with truth-values</h3>
+        <p>The book deals only with sentences that are true or false, which means sentences that assert something. Questions, commands and exclamations are left out. A sentence can have a truth-value even if nobody will ever know it, like a claim about the weather on a day a thousand years ago.</p>
+        <h3>Arguments</h3>
+        <div class="def"><b>Argument</b><span>A set of two or more sentences, one designated the conclusion and the rest the premises.</span></div>
+        <p>In <b>standard form</b> the premises are listed, a line is drawn, and the conclusion goes underneath. Spotting arguments in ordinary prose is a skill of its own: the conclusion can come first, last or in the middle, and a passage can contain plenty that isn't part of the argument.</p>
+        <h3>Validity and soundness</h3>
+        <div class="def"><b>Logically valid</b><span>It is not possible for all the premises to be true and the conclusion false.</span></div>
+        <div class="def"><b>Logically sound</b><span>Valid, and all the premises are in fact true.</span></div>
+        <p>Validity is about the relation between premises and conclusion, not about whether they're actually true. A sound argument always has a true conclusion. The definition even counts an unrelated pair of sentences as an argument, so that the tools of logic can show it's a bad one.</p>
+        <h3>Sentences, pairs and sets</h3>
+        <p>A sentence is <b>logically true</b> if it can't be false, <b>logically false</b> if it can't be true, and <b>logically indeterminate</b> otherwise. Logical truths and falsehoods hold by structure alone and say nothing about the world; most everyday sentences are indeterminate.</p>
+        <p>Two sentences are <b>logically equivalent</b> if one can't be true while the other is false. A set is <b>logically consistent</b> if all its members can be true together. A set <b>logically entails</b> a sentence if the members can't all be true while the sentence is false.</p>
+        <p>Entailment is more general than validity: an argument needs at least one premise, but the empty set can entail a sentence. It entails exactly the logical truths.</p>
+      </div>
+      <div class="stack">
+        <div class="side">
+          <h3>What validity rules out</h3>
+          <p class="note">For a valid argument, only one combination of truth-values is impossible.</p>
+          <table class="grid4">
+            <thead><tr><th>Premises</th><th>Conclusion</th><th>Valid argument?</th></tr></thead>
+            <tbody>
+              <tr><td>all true</td><td>true</td><td class="yes">possible (and then it's sound)</td></tr>
+              <tr><td>all true</td><td>false</td><td class="no">impossible</td></tr>
+              <tr><td>some false</td><td>true</td><td class="yes">possible</td></tr>
+              <tr><td>some false</td><td>false</td><td class="yes">possible</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="side">
+          <h3>Indicator expressions</h3>
+          <div class="ex"><span class="en">Conclusion indicators</span><span class="sym">therefore · thus · it follows that · so · hence · consequently · as a result</span></div>
+          <div class="ex"><span class="en">Premise indicators</span><span class="sym">since · for · because · on account of · inasmuch as · for the reason that</span></div>
+          <p class="trap">They're signals, not proof: "so" and "for" have other jobs too.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-head" style="margin-top:44px">
+      <h3>Indicator highlighter</h3>
+      <p class="lede">Paste or type a passage. Conclusion indicators are marked in blue and premise indicators in yellow. Then decide for yourself what the argument is and write it in standard form.</p>
+    </div>
+    <div class="lab">
+      <textarea class="notes" id="passage" aria-label="Passage to highlight" style="min-height:110px">The office printer must be out of toner, since it printed blank pages all morning and nothing else could cause that. Consequently, someone needs to order a cartridge today, for the supply cupboard is empty.</textarea>
+      <div class="legend"><span><mark class="ci">therefore</mark> conclusion indicator</span><span><mark class="pi">since</mark> premise indicator</span><span id="counts"></span></div>
+      <div class="passage" id="marked" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<section id="s13">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 1.3</div>
+      <h2>Special cases of logical concepts</h2>
+      <div class="meta">pp. 12–14 · exercises 1.3E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <p>These follow straight from the definitions, even when they feel wrong. Each one comes down to asking what is <i>impossible</i>.</p>
+        <ol>
+          <li><b>Logically true conclusion.</b> The argument is valid whatever its premises, because the conclusion can never be false.</li>
+          <li><b>Entailment of logical truths.</b> Every set, including the empty set, entails every logically true sentence.</li>
+          <li><b>Inconsistent premises.</b> If the premises can't all be true, the argument is valid whatever its conclusion, but it can never be sound. Any argument with a logically false premise falls in this case.</li>
+          <li><b>All logical truths are equivalent</b> to one another.</li>
+          <li><b>All logical falsehoods are equivalent</b> to one another. Indeterminate sentences, of course, aren't all equivalent.</li>
+        </ol>
+      </div>
+      <div class="side">
+        <h3>The one move behind every case</h3>
+        <p>Validity fails only if there's a possible situation with true premises and a false conclusion. If either half of that situation is impossible on its own, the whole situation is impossible.</p>
+        <div class="ex"><span class="en">Conclusion can't be false</span><span class="sym">→ no counterexample → valid</span></div>
+        <div class="ex"><span class="en">Premises can't all be true</span><span class="sym">→ no counterexample → valid</span></div>
+        <p class="trap">These same special cases come back in Chapter 3 for SL, with truth-tables to check them.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="practice">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Practice</div>
+      <h2>Practice sets for Chapter 1</h2>
+      <p class="lede">New questions in the style of the 1.2E and 1.3E exercises. Do the book's starred exercises as well.</p>
+    </div>
+    <div class="tabs" role="tablist" id="ptabs">
+      <button type="button" class="tab" role="tab" aria-selected="true" data-p="pA">Truth-value?</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-p="pB">Find the conclusion</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-p="pC">Valid, sound?</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-p="pD">Special cases</button>
+    </div>
+    <div id="pA" role="tabpanel"></div>
+    <div id="pB" role="tabpanel" hidden></div>
+    <div id="pC" role="tabpanel" hidden></div>
+    <div id="pD" role="tabpanel" hidden></div>
+  </div>
+</section>
+
+<section id="discuss">
+  <div class="wrap two">
+    <div class="stack">
+      <div class="sec-head">
+        <div class="eyebrow">For our session</div>
+        <h2>Discussion questions</h2>
+      </div>
+      <ol class="qlist">
+        <li>Give an argument that is valid but has a false conclusion. What must be true of its premises?</li>
+        <li>Can an invalid argument have true premises and a true conclusion? Make one up.</li>
+        <li>Why does the book count the bluebird "argument" as an argument at all? What would we lose with a stricter definition?</li>
+        <li>"Every argument with inconsistent premises is valid." Does this show the definition of validity is too generous, or is it a feature?</li>
+        <li>The definitions all rest on "possible". What sort of possibility is meant? Is it possible for water not to be H₂O?</li>
+        <li>Why is it useful for the empty set to entail sentences? Which sentences does it entail?</li>
+      </ol>
+    </div>
+    <div class="stack">
+      <div class="sec-head">
+        <div class="eyebrow">Your notes</div>
+        <h2>Questions for our session</h2>
+        <p class="note">Saved in this browser only.</p>
+      </div>
+      <textarea class="notes" id="notes" aria-label="Questions for our session" placeholder="e.g. Is a sound argument's conclusion always logically true?"></textarea>
+      <div class="note" id="saved"></div>
+      <div class="sec-head" style="margin-top:12px"><h3>Supplementary reading</h3></div>
+      <div class="empty">Nothing assigned from other texts for this chapter yet.</div>
+    </div>
+  </div>
+</section>
+</main>
+
+<nav class="wrap chnav" aria-label="Chapters"><a href="index.html"><span>Previous</span>Home · All chapters</a><a href="chapter-2.html"><span>Next</span>Chapter 2 · Syntax and Symbolization</a></nav>
+<footer><div class="wrap">Valid Moves · Chapter 1 notes for <i>The Logic Book</i>, 6th edition (Bergmann, Moor &amp; Nelson). Summaries and practice questions are our own; page numbers refer to the 6th edition.</div></footer>
+
+<script src="logic.js"></script>
+<script>
+(function(){
+const {esc,store}=SL;
+
+/* indicator highlighter: longer phrases first so "it follows that" wins over shorter matches */
+const CI=['it follows that','as a result','consequently','therefore','hence','thus','so'];
+const PI=['for the reason that','on account of','inasmuch as','because','since','for'];
+const all=[...CI.map(w=>[w,'ci']),...PI.map(w=>[w,'pi'])].sort((a,b)=>b[0].length-a[0].length);
+const re=new RegExp('\\b('+all.map(x=>x[0].replace(/ /g,'\\s+')).join('|')+')\\b','gi');
+const ta=document.getElementById('passage'),out=document.getElementById('marked'),counts=document.getElementById('counts');
+function mark(){
+  const s=ta.value;let h='',last=0,c=0,p=0,m;re.lastIndex=0;
+  while((m=re.exec(s))){
+    const w=m[0].toLowerCase().replace(/\s+/g,' '),cls=all.find(x=>x[0]===w)[1];
+    cls==='ci'?c++:p++;
+    h+=esc(s.slice(last,m.index))+'<mark class="'+cls+'">'+esc(m[0])+'</mark>';last=m.index+m[0].length;
+  }
+  h+=esc(s.slice(last));
+  out.innerHTML=h.replace(/\n/g,'<br>')||'<span class="note">Type a passage above.</span>';
+  counts.textContent=c+' conclusion and '+p+' premise indicator'+(p===1?'':'s')+' found';
+}
+ta.value=store.get('vm-ch1-passage',ta.value);
+ta.addEventListener('input',()=>{mark();store.set('vm-ch1-passage',ta.value)});
+mark();
+
+SL.tabs(document.getElementById('ptabs'),'vm-ch1-tab');
+
+const YN=[{v:'yes',label:'Has a truth-value'},{v:'no',label:'No truth-value'}];
+SL.mcQuiz(document.getElementById('pA'),[
+  {s:'Mount Everest is in Nepal or Tibet.',correct:'yes',why:'It asserts something about the world, so it is true or false.'},
+  {s:'Please close the window before you leave.',correct:'no',why:'A request asserts nothing, so it has no truth-value.'},
+  {s:'The first person to read this page tomorrow will be left-handed.',correct:'yes',why:'We can\'t know it yet, but it is either true or false. Not knowing a truth-value isn\'t lacking one.'},
+  {s:'How many symphonies did Brahms write?',correct:'no',why:'A question doesn\'t assert anything.'},
+  {s:'Seven is an even number.',correct:'yes',why:'It\'s false, and false is a truth-value.'},
+  {s:'If only the bus would come!',correct:'no',why:'An exclamation of a wish, not an assertion.'},
+  {s:'Exactly 4,212 people were standing in Rome at noon on 1 March 1300.',correct:'yes',why:'Nobody will ever know, but the sentence still has a truth-value.'}
+],'vm-ch1-A',YN,true);
+
+SL.mcQuiz(document.getElementById('pB'),[
+  {s:'The museum will be crowded on Saturday, because the new exhibit opens then and admission is free that day.',o:['The museum will be crowded on Saturday.','The new exhibit opens on Saturday.','Admission is free on Saturday.','There is no argument here.'],correct:0,why:'"Because" introduces the premises, so the conclusion comes first.'},
+  {s:'Every member of the chess club plays on Tuesdays. Dana is a member, so Dana plays on Tuesdays.',o:['Every member plays on Tuesdays.','Dana is a member.','Dana plays on Tuesdays.','There is no argument here.'],correct:2,why:'"So" signals the conclusion.'},
+  {s:'The orchard has apple, pear and plum trees. The plums ripen in August and the pears in September.',o:['The plums ripen in August.','The orchard has three kinds of tree.','The pears ripen in September.','There is no argument here.'],correct:3,why:'These are reports with nothing offered as support for anything else.'},
+  {s:'Since the bridge is closed and the ferry isn\'t running, we can\'t reach the island today. The ferry, as it happens, only runs in summer.',o:['The bridge is closed.','We can\'t reach the island today.','The ferry only runs in summer.','There is no argument here.'],correct:1,why:'"Since" introduces two premises. The last sentence is extra information, not part of the argument.'},
+  {s:'Either the key is in the drawer or it\'s in the car. It isn\'t in the drawer. It follows that it\'s in the car.',o:['The key is in the drawer or the car.','It isn\'t in the drawer.','The key is in the car.','There is no argument here.'],correct:2,why:'"It follows that" marks the conclusion. This is a disjunctive argument, which we\'ll meet again.'},
+  {s:'The kettle is boiling, so make the tea.',o:['The kettle is boiling.','Make the tea.','There is no argument here: the "conclusion" has no truth-value.'],correct:2,why:'"Make the tea" is a command. Arguments in this book are made of sentences with truth-values, so this isn\'t one, even though it contains "so".'}
+].map(q=>Object.assign(q,{opts:q.o.map((l,i)=>({v:i,label:l}))})),'vm-ch1-B',q=>q.opts,true);
+
+const VS=[{v:'sound',label:'Valid and sound'},{v:'valid',label:'Valid, not sound'},{v:'invalid',label:'Invalid'}];
+const arg=(ps,c)=>'<div class="passage" style="line-height:1.6">'+ps.map(esc).join('<br>')+'<hr style="border:0;border-top:1.5px solid var(--ink);margin:6px 0">'+esc(c)+'</div>';
+SL.mcQuiz(document.getElementById('pC'),[
+  {html:arg(['All birds have feathers.','Penguins are birds.'],'Penguins have feathers.'),correct:'sound',why:'If the premises are true the conclusion must be, and both premises are in fact true.'},
+  {html:arg(['All fish can fly.','Salmon are fish.'],'Salmon can fly.'),correct:'valid',why:'The form guarantees truth-preservation, but the first premise is false, so it isn\'t sound.'},
+  {html:arg(['Paris is in France.'],'Rome is in Italy.'),correct:'invalid',why:'Both sentences are true, but the premise could be true while the conclusion is false. True parts don\'t make a valid argument.'},
+  {html:arg(['If it rained, the street is wet.','The street is wet.'],'It rained.'),correct:'invalid',why:'A sprinkler could have wet the street. The premises can be true and the conclusion false.'},
+  {html:arg(['Every metal is liquid at room temperature.','Iron is a metal.'],'Iron is liquid at room temperature.'),correct:'valid',why:'If both premises were true the conclusion would have to be. The first premise is false, so the argument is valid but unsound.'},
+  {html:arg(['Some cats are black.'],'All cats are black.'),correct:'invalid',why:'The premise is true and the conclusion false, which is exactly what validity rules out.'},
+  {html:arg(['Sam is taller than Lee.','Lee is taller than Sam.'],'The moon is made of cheese.'),correct:'valid',why:'The premises can\'t both be true (special case 3), so there\'s no counterexample. It can\'t be sound.'}
+],'vm-ch1-C',VS,true);
+
+const TFq=[{v:'true',label:'True'},{v:'false',label:'False'}];
+SL.mcQuiz(document.getElementById('pD'),[
+  {s:'Every argument whose conclusion is "Either it is Tuesday or it is not Tuesday" is valid.',correct:'true',why:'The conclusion is logically true, so it can\'t be false (special case 1).'},
+  {s:'Every argument with a logically true premise is valid.',correct:'false',why:'A logically true premise doesn\'t stop the conclusion from being false. "2 + 2 = 4, so it\'s raining" is invalid.'},
+  {s:'An argument whose premises are inconsistent can be sound.',correct:'false',why:'Sound requires all premises to be true, and inconsistent premises can\'t all be true.'},
+  {s:'The empty set entails "Either the light is on or it isn\'t".',correct:'true',why:'The sentence is logically true, so every set, including the empty one, entails it (special case 2).'},
+  {s:'Any two logically false sentences are logically equivalent.',correct:'true',why:'Neither can ever be true, so one can never be true while the other is false (special case 5).'},
+  {s:'Any two logically indeterminate sentences are logically equivalent.',correct:'false',why:'"It\'s raining" and "Bo is asleep" are both indeterminate, but one can be true while the other is false.'},
+  {s:'A valid argument can have true premises and a false conclusion.',correct:'false',why:'That combination is exactly what the definition of validity rules out.'}
+],'vm-ch1-D',TFq,true);
+
+const notes=document.getElementById('notes'),saved=document.getElementById('saved');
+notes.value=store.get('vm-ch1-notes','');
+let t;notes.addEventListener('input',()=>{clearTimeout(t);t=setTimeout(()=>{store.set('vm-ch1-notes',notes.value);saved.textContent='Saved in this browser.'},400)});
+})();
+</script>
+</body>
+</html>

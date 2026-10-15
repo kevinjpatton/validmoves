@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Valid Moves</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600&family=Spectral:ital,wght@0,400;0,500;1,400&display=swap">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html">Valid Moves <span>⊢</span></a>
+    <nav aria-label="Site">
+      <a href="index.html" aria-current="page">Home</a>
+      <a href="#chapters">Chapters</a>
+      <a href="#texts">Other texts</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="copy">
+      <div class="eyebrow">Symbolic logic tutoring</div>
+      <h1>Read it. Symbolize it. <em>Prove it.</em></h1>
+      <p class="lede">Our study site for <i>The Logic Book</i> (Bergmann, Moor &amp; Nelson, 6th edition). Each chapter we cover gets its own page with notes, tools and practice, written in the book's notation.</p>
+      <div class="cta">
+        <a class="btn" href="chapter-2.html">Open Chapter 2</a>
+        <a class="btn ghost" href="#chapters">All chapters</a>
+      </div>
+    </div>
+    <div class="card" aria-label="Current reading">
+      <div class="cap">Now reading</div>
+      <h2>Chapter 2 · Syntax and Symbolization</h2>
+      <ol>
+        <li><span class="sn">2.1</span><a href="chapter-2.html#s21">The Syntax of SL</a><span class="pg">p. 15</span></li>
+        <li><span class="sn">2.2</span><a href="chapter-2.html#s22">Introduction to Symbolization</a><span class="pg">p. 24</span></li>
+        <li><span class="sn">2.3</span><a href="chapter-2.html#s23">More Complex Symbolizations</a><span class="pg">p. 37</span></li>
+        <li><span class="sn">2.4</span><a href="chapter-2.html#s24">Non-Truth-Functional Uses of Connectives</a><span class="pg">p. 58</span></li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<main>
+<section id="chapters">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">The book</div>
+      <h2>Chapters</h2>
+      <p class="lede">A chapter gets its own page when we start reading it. Tick a chapter off when you've finished it; the ticks are saved in this browser.</p>
+    </div>
+    <div class="chapters" id="chlist"></div>
+  </div>
+</section>
+
+<section id="texts">
+  <div class="wrap two">
+    <div class="sec-head">
+      <div class="eyebrow">Supplements</div>
+      <h2>Other texts</h2>
+      <p class="lede">We'll mostly work from <i>The Logic Book</i>. When we bring in another text, it's listed here and on the chapter page it supports, with a note on any differences in notation.</p>
+    </div>
+    <div class="stack">
+      <div class="empty">No supplementary texts yet. The first one we use will appear here.</div>
+      <div class="side">
+        <h3>Notation in other books</h3>
+        <table class="ref">
+          <thead><tr><th>The Logic Book</th><th>Also written</th></tr></thead>
+          <tbody>
+            <tr><td class="f">~ P</td><td class="f">¬P &nbsp; −P</td></tr>
+            <tr><td class="f">P &amp; Q</td><td class="f">P ∧ Q &nbsp; P · Q</td></tr>
+            <tr><td class="f">P ∨ Q</td><td class="f">P ∨ Q</td></tr>
+            <tr><td class="f">P ⊃ Q</td><td class="f">P → Q</td></tr>
+            <tr><td class="f">P ≡ Q</td><td class="f">P ↔ Q</td></tr>
+          </tbody>
+        </table>
+        <p class="trap">You can type any of these into the tools on this site; they're converted to the book's symbols.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sessions">
+  <div class="wrap two">
+    <div class="sec-head">
+      <div class="eyebrow">Sessions</div>
+      <h2>How each session works</h2>
+      <p class="lede">Read the assigned sections before we meet, try the practice on the chapter page, and write down where you got stuck. We spend the session on those spots and on the discussion questions.</p>
+    </div>
+    <div class="side">
+      <h3>Bring to each session</h3>
+      <ul class="bring">
+        <li>The sections you read and the exercises you tried (starred ones have answers in the back of the book).</li>
+        <li>One exercise you got wrong or weren't sure about, with your attempt.</li>
+        <li>Your notes from the "Questions for our session" box on the chapter page.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">Valid Moves · a study companion for <i>The Logic Book</i>, 6th edition. Page numbers refer to that edition.</div></footer>
+
+<script src="logic.js"></script>
+<script>
+(function(){
+const {esc,store}=SL;
+const CH=[
+  {g:'Getting started',n:1,t:'Introduction to Deductive Logic',p:'1–14',href:'chapter-1.html',s:['Introduction','Core Concepts of Deductive Logic','Special Cases of Logical Concepts']},
+  {g:'Sentential logic',n:2,t:'Syntax and Symbolization',p:'15–68',s:['The Syntax of SL','Introduction to Symbolization','More Complex Symbolizations','Non-Truth-Functional Uses of Connectives'],href:'chapter-2.html',now:true},
+  {g:'Sentential logic',n:3,t:'Sentential Logic: Semantics',p:'69–109',href:'chapter-3.html',s:['Truth-tables','Truth, falsity, indeterminacy','Equivalence','Consistency','Entailment and validity','Properties of sets']},
+  {g:'Sentential logic',n:4,t:'Sentential Logic: Truth-Trees',p:'110–145',href:'chapter-4.html',s:['The truth-tree method','Truth-tree rules','Other truth-functional properties']},
+  {g:'Sentential logic',n:5,t:'Sentential Logic: Derivations',p:'146–225',href:'chapter-5.html',s:['The derivation system SD','Basic concepts of SD','Strategies','The derivation system SD+']},
+  {g:'Sentential logic',n:6,t:'Sentential Logic: Metatheory',p:'226–261',href:'chapter-6.html',s:['Mathematical induction','Truth-functional completeness','Soundness','Completeness']},
+  {g:'Predicate logic',n:7,t:'Predicate Logic: Syntax and Symbolization',p:'262–328',href:'chapter-7.html',s:['Predicates and quantity expressions','The syntax of PL','Introduction to symbolization','Symbolization fine-tuned','PLE']},
+  {g:'Predicate logic',n:8,t:'Predicate Logic: Semantics',p:'329–401',href:'chapter-8.html',s:['Interpretations','Quantificational truth and falsehood','Equivalence and consistency','Entailment and validity','Truth-functional expansions','Identity and functors']},
+  {g:'Predicate logic',n:9,t:'Predicate Logic: Truth-Trees',p:'402–473',href:'chapter-9.html',s:['Rules for PL','Consistency','Other properties','Fine-tuning','PLE','Fine-tuning for PLE']},
+  {g:'Predicate logic',n:10,t:'Predicate Logic: Derivations',p:'474–544',href:'chapter-10.html',s:['The derivation system PD','Syntactic properties','PD+','PDE']},
+  {g:'Predicate logic',n:11,t:'Predicate Logic: Metatheory',p:'545 on',href:'chapter-11.html',s:['Semantic preliminaries for PL','Semantic preliminaries for PLE','Soundness','Completeness of PD','Soundness of trees','Completeness of trees']}
+];
+const done=store.get('vm-chapters-done',[]);
+const groups=[...new Set(CH.map(c=>c.g))];
+const el=document.getElementById('chlist');
+el.innerHTML=groups.map(g=>'<div><h3>'+g+'</h3><ul class="ch-list">'+CH.filter(c=>c.g===g).map(c=>
+  '<li class="'+(c.now?'now':'')+'"><span class="num">'+c.n+'</span><div><div class="t">'+(c.href?'<a href="'+c.href+'">'+esc(c.t)+'</a>':esc(c.t))+'</div><div class="s">'+c.s.map(esc).join(' · ')+'</div></div>'+
+  '<div class="right"><span class="pg">pp. '+c.p+'</span>'+(c.now?'<span class="pill mid">Now reading</span>':c.href?'':'<span class="pill quiet">Page added when we start</span>')+
+  '<label class="note"><input type="checkbox" id="done-'+c.n+'" data-n="'+c.n+'"'+(done.includes(c.n)?' checked':'')+'> Finished</label></div></li>').join('')+'</ul></div>').join('');
+el.addEventListener('change',()=>store.set('vm-chapters-done',[...el.querySelectorAll('input:checked')].map(x=>+x.dataset.n)));
+
+})();
+</script>
+</body>
+</html>

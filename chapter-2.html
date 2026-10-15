@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chapter 2 · Syntax and Symbolization</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600&family=Spectral:ital,wght@0,400;0,500;1,400&display=swap">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html">Valid Moves <span>⊢</span></a>
+    <nav aria-label="Site">
+      <a href="index.html">Home</a>
+      <a href="index.html#chapters">Chapters</a>
+      <a href="index.html#texts">Other texts</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="copy">
+      <div class="eyebrow">Chapter 2 · pp. 15–68</div>
+      <h1>Syntax and <em>Symbolization</em></h1>
+      <p class="lede">How the language SL is built, and how to turn English into it. First the grammar: which strings of symbols count as sentences. Then the craft: paraphrasing English truth-functionally and choosing a symbolization key.</p>
+      <nav class="toc" aria-label="On this page">
+        <a href="#s21">2.1 Syntax</a><a href="#s22">2.2 Symbolization</a><a href="#s23">2.3 Complex cases</a><a href="#s24">2.4 Limits</a><a href="#lab">Truth-table lab</a><a href="#practice">Practice</a><a href="#discuss">Discussion</a>
+      </nav>
+    </div>
+    <div class="card" aria-label="The five connectives of SL">
+      <div class="cap">The connectives of SL</div>
+      <table class="ref">
+        <thead><tr><th>Symbol</th><th>Name</th><th>Sentence type</th></tr></thead>
+        <tbody>
+          <tr><td class="f">~</td><td>tilde</td><td>negation</td></tr>
+          <tr><td class="f">&amp;</td><td>ampersand</td><td>conjunction</td></tr>
+          <tr><td class="f">∨</td><td>wedge</td><td>disjunction</td></tr>
+          <tr><td class="f">⊃</td><td>horseshoe</td><td>material conditional</td></tr>
+          <tr><td class="f">≡</td><td>triple bar</td><td>material biconditional</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<main>
+<!-- 2.1 -->
+<section id="s21">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 2.1</div>
+      <h2>The syntax of SL</h2>
+      <div class="meta">pp. 15–23 · exercises 2.1E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <h3>Talking about a language</h3>
+        <p>When we use English to discuss SL, English is the <b>metalanguage</b> and SL is the <b>object language</b>. To <b>mention</b> an expression rather than <b>use</b> it, the book puts it in single quotes or displays it on its own line: Minnesota is a state, but 'Minnesota' is a word.</p>
+        <p>Bold capitals <b>P</b>, <b>Q</b>, <b>R</b>, <b>S</b> are <b>metavariables</b>. They belong to English and stand for any sentence of SL, the way <i>x</i> stands for any number. They are not sentences of SL themselves.</p>
+        <h3>Vocabulary</h3>
+        <p>Sentence letters are the capitals A to Z, with or without positive-integer subscripts (A, B<sub>1</sub>, C<sub>2</sub>…), so there are infinitely many. The tilde is a <b>unary</b> connective; the other four are <b>binary</b>. Parentheses are the only punctuation.</p>
+        <h3>Atomic and compound</h3>
+        <p>Sentence letters are the <b>atomic</b> sentences. Everything else is <b>compound</b> and has one <b>main connective</b> plus one or two <b>immediate components</b>. The components of a sentence are the sentence itself, its immediate components, their immediate components, and so on down to the letters.</p>
+        <p>Names to know: the immediate components of a conjunction are its <b>conjuncts</b>, of a disjunction its <b>disjuncts</b>, and of a material conditional its <b>antecedent</b> (before the horseshoe) and <b>consequent</b> (after it).</p>
+        <h3>Two conventions</h3>
+        <ul>
+          <li>Outermost parentheses may be dropped: <span class="f">A ⊃ (B &amp; ~ D)</span>. This never applies to a negation, which starts with a tilde, not a parenthesis.</li>
+          <li>Square brackets may replace parentheses to make long sentences readable.</li>
+        </ul>
+      </div>
+      <div class="stack">
+        <div class="side">
+          <h3>Recursive definition of "sentence of SL"</h3>
+          <ol class="clauses">
+            <li>Every sentence letter is a sentence.</li>
+            <li>If <b>P</b> is a sentence, so is <span class="f">~ <b>P</b></span>.</li>
+            <li>If <b>P</b> and <b>Q</b> are sentences, so is <span class="f">(<b>P</b> &amp; <b>Q</b>)</span>.</li>
+            <li>… so is <span class="f">(<b>P</b> ∨ <b>Q</b>)</span>.</li>
+            <li>… so is <span class="f">(<b>P</b> ⊃ <b>Q</b>)</span>.</li>
+            <li>… so is <span class="f">(<b>P</b> ≡ <b>Q</b>)</span>.</li>
+            <li>Nothing else is a sentence (the closure clause).</li>
+          </ol>
+          <p class="trap">Clauses 3–6 always add parentheses. That's why <span class="f">A &amp; B &amp; C</span> isn't a sentence: SL never guesses the grouping.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-head" style="margin-top:44px">
+      <h3>Sentence checker</h3>
+      <p class="lede">Type any string of symbols. The checker applies the recursive definition: it says whether the string is a sentence of SL, names its main connective, lists every component, and shows how the sentence is built clause by clause.</p>
+    </div>
+    <div class="lab">
+      <div class="entry">
+        <input id="chk" type="text" spellcheck="false" autocomplete="off" aria-label="Expression to check" value="~ (A ⊃ (B &amp; ~ D))">
+        <div id="chkkeys"></div>
+      </div>
+      <div class="samples">Try:
+        <button type="button" data-f="(H ≡ J) ⊃ [~ K ∨ (L &amp; M)]">a long one</button>
+        <button type="button" data-f="A &amp; B &amp; C">A &amp; B &amp; C</button>
+        <button type="button" data-f="(A)">(A)</button>
+        <button type="button" data-f="A ~ B">A ~ B</button>
+        <button type="button" data-f="~ (A ∨ B) ⊃ C">~ (A ∨ B) ⊃ C</button>
+        <button type="button" data-f="~ ~ ~ G1">~ ~ ~ G1</button>
+      </div>
+      <div class="verdict" id="chkout" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2.2 -->
+<section id="s22">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 2.2</div>
+      <h2>Introduction to symbolization</h2>
+      <div class="meta">pp. 24–36 · exercises 2.2E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <h3>Why structure matters</h3>
+        <p>The section opens with the whodunit: either the maid or the butler killed Watson; if it was the maid, Watson was poisoned; he wasn't poisoned; so the butler did it. Give each premise its own letter and the argument looks invalid. Symbolizing the parts (M, B, P) exposes the structure that makes it valid.</p>
+        <h3>Truth-functional use</h3>
+        <div class="def"><b>Key definition</b><span>A connective is used truth-functionally when the truth-value of the compound it forms is fixed entirely by the truth-values of its components, whatever those values are.</span></div>
+        <h3>Two stages</h3>
+        <p>Symbolizing happens in two steps. First write a <b>truth-functional paraphrase</b> in English using only "it is not the case that", "and", "or", "if … then", and "if and only if". Then translate the paraphrase into SL with a <b>symbolization key</b>. In a key each letter stands for exactly one sentence; mnemonic letters help but aren't required.</p>
+        <h3>Patterns from the section</h3>
+        <ul>
+          <li><b>Negation</b> often has no "not": <i>nonmetal</i>, <i>unmarried</i>. And "Someone isn't telling the truth" negates "Everyone is telling the truth", not "Someone is telling the truth".</li>
+          <li><b>Conjunction</b> covers <i>but</i>, <i>however</i>, <i>although</i>, <i>nevertheless</i>, <i>moreover</i>, <i>while</i>. The contrast these suggest is lost; what's asserted is kept.</li>
+          <li><b>Conditionals</b>: <i>if</i>, <i>provided that</i>, <i>assuming</i> introduce the antecedent. <i>Only if</i> introduces the consequent.</li>
+          <li><b>Biconditionals</b>: <i>if and only if</i>, <i>if but only if</i>, and sometimes <i>just in case</i>.</li>
+        </ul>
+      </div>
+      <div class="stack">
+        <div class="side">
+          <h3>Characteristic truth-tables</h3>
+          <div class="mini-tables">
+            <table><thead><tr><th>P</th><th>~ P</th></tr></thead><tbody><tr><td class="T">T</td><td class="F">F</td></tr><tr><td class="F">F</td><td class="T">T</td></tr></tbody></table>
+          </div>
+          <div class="rscroll"><table class="tt" style="border:1px solid var(--rule)">
+            <thead><tr><th>P</th><th class="v">Q</th><th>P &amp; Q</th><th>P ∨ Q</th><th>P ⊃ Q</th><th>P ≡ Q</th></tr></thead>
+            <tbody>
+              <tr><td class="T">T</td><td class="v T">T</td><td class="T">T</td><td class="T">T</td><td class="T">T</td><td class="T">T</td></tr>
+              <tr><td class="T">T</td><td class="v F">F</td><td class="F">F</td><td class="T">T</td><td class="F">F</td><td class="F">F</td></tr>
+              <tr><td class="F">F</td><td class="v T">T</td><td class="F">F</td><td class="T">T</td><td class="T">T</td><td class="F">F</td></tr>
+              <tr><td class="F">F</td><td class="v F">F</td><td class="F">F</td><td class="F">F</td><td class="T">T</td><td class="T">T</td></tr>
+            </tbody>
+          </table></div>
+          <p class="trap">A material conditional is false on one row only: true antecedent, false consequent.</p>
+        </div>
+        <div class="side">
+          <h3>"If" versus "only if"</h3>
+          <div class="ex"><span class="en">p if q</span><span class="sym">Q ⊃ P</span></div>
+          <div class="ex"><span class="en">p only if q</span><span class="sym">P ⊃ Q</span></div>
+          <p class="trap">The book's example: a student graduates only if they've taken two semesters of a language. Taking the language doesn't guarantee graduating, so the arrow can't point from it.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2.3 -->
+<section id="s23">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 2.3</div>
+      <h2>More complex symbolizations</h2>
+      <div class="meta">pp. 37–57 · exercises 2.3E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <h3>The paraphrasing guidelines, in short</h3>
+        <ol>
+          <li>Decide whether the sentence is a truth-functional compound. If not, it is its own paraphrase. If so, check its components the same way.</li>
+          <li>Rewrite it with the five standard connectives.</li>
+          <li>Use parentheses and brackets to show which sentences each connective joins.</li>
+          <li>Put arguments in standard form: premises, a line, then the conclusion.</li>
+          <li>Make every component a complete sentence with no cross-references, and pick one wording for each claim.</li>
+        </ol>
+        <h3>Work from the outside in</h3>
+        <p>Find the main connective of the English sentence first, paraphrase that, then repeat inside each component. Long sentences become manageable when you only ever deal with one connective at a time.</p>
+        <h3>Cases worth practising</h3>
+        <ul>
+          <li><b>Neither p nor q</b>: <span class="f">~ (P ∨ Q)</span>, or equivalently <span class="f">~ P &amp; ~ Q</span>.</li>
+          <li><b>Not both p and q</b>: <span class="f">~ (P &amp; Q)</span>.</li>
+          <li><b>p unless q</b>: <span class="f">P ∨ Q</span>.</li>
+          <li><b>p or q, but not both</b> (exclusive or): <span class="f">(P ∨ Q) &amp; ~ (P &amp; Q)</span>.</li>
+          <li><b>At least one of</b> several: a chain of wedges. <b>All or none</b>: a disjunction of two conjunctions.</li>
+        </ul>
+      </div>
+      <div class="side">
+        <h3>Summary of common connectives</h3>
+        <div class="rscroll"><table class="ref">
+          <thead><tr><th>English</th><th>Symbolization</th></tr></thead>
+          <tbody>
+            <tr><td>not p</td><td class="f">~ P</td></tr>
+            <tr><td>p and q · p but q · p however q · p although q · p nevertheless q · p nonetheless q · p moreover q</td><td class="f">P &amp; Q</td></tr>
+            <tr><td>p or q · p unless q</td><td class="f">P ∨ Q</td></tr>
+            <tr><td>p or q (exclusive sense)</td><td class="f">(P ∨ Q) &amp; ~ (P &amp; Q)</td></tr>
+            <tr><td>if p then q · p only if q · q if p · q provided that p · q given p</td><td class="f">P ⊃ Q</td></tr>
+            <tr><td>p if and only if q · p if but only if q · p just in case q</td><td class="f">P ≡ Q</td></tr>
+          </tbody>
+        </table></div>
+        <p class="trap">Adapted from the summary table in section 2.3.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2.4 -->
+<section id="s24">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 2.4</div>
+      <h2>Non-truth-functional uses of connectives</h2>
+      <div class="meta">pp. 58–67 · exercises 2.4E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <p>Some English sentences contain connective words but aren't truth-functional compounds: knowing the truth-values of the parts doesn't settle the truth-value of the whole. SL can only treat these as atomic.</p>
+        <h3>Common sources</h3>
+        <ul>
+          <li><b>Attitudes</b>: <i>believes that</i>, <i>thinks that</i>. Someone can believe a falsehood or fail to believe a truth.</li>
+          <li><b>Likelihood and possibility</b>: <i>it's likely that</i>, <i>it's possible that</i>.</li>
+          <li><b>Causes and reasons</b>: <i>because</i>. Two true sentences joined by "because" can still make a false claim.</li>
+          <li><b>Time order</b>: <i>only after</i>, <i>before</i>.</li>
+        </ul>
+        <h3>Conditionals that lose content</h3>
+        <p>Many English conditionals assert a connection that ⊃ can't capture. When the connection is the point, as in a claim based on a scientific law, the material conditional can be true while the English is false. The book's example: someone claims a rod will contract when heated if it's metal; the rod is plastic, so <span class="f">M ⊃ C</span> is true even though the claim is wrong. In cases like that, symbolize the whole sentence as atomic.</p>
+        <p>The takeaway: results we get later in SL apply to English only as far as our paraphrases capture what the English says.</p>
+      </div>
+      <div class="side">
+        <h3>Quick test</h3>
+        <p>Replace a component with another sentence that has the same truth-value. If the truth-value of the whole could change, the connective isn't being used truth-functionally.</p>
+        <div class="ex"><span class="en">It's raining and the shop is closed.</span><span class="sym">Truth-functional: R &amp; C</span></div>
+        <div class="ex"><span class="en">Jun believes it's raining.</span><span class="sym">Not truth-functional: J</span></div>
+        <div class="ex"><span class="en">The shop closed because it's raining.</span><span class="sym">Not truth-functional: S</span></div>
+        <div class="ex"><span class="en">Jun believes it's raining, and it isn't.</span><span class="sym">J &amp; ~ R</span></div>
+        <p class="trap">The last one mixes both: the "and" and "isn't" are truth-functional; the belief inside stays atomic.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- truth-table lab -->
+<section id="lab">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Tool</div>
+      <h2>Truth-table lab</h2>
+      <p class="lede">Type a sentence of SL and see its truth-table, one column per compound component. Truth-tables are the subject of Chapter 3; for now this is a handy way to see how each connective behaves and to check a symbolization.</p>
+    </div>
+    <div class="lab">
+      <div class="entry">
+        <input id="formula" type="text" spellcheck="false" autocomplete="off" aria-label="Sentence of SL" value="[(M ∨ B) &amp; (M ⊃ P)] ⊃ (~ P ⊃ B)">
+        <div id="labkeys"></div>
+      </div>
+      <div class="samples" id="labsamples">Try:
+        <button type="button" data-f="A ∨ ~ A">A ∨ ~ A</button>
+        <button type="button" data-f="A &amp; ~ A">A &amp; ~ A</button>
+        <button type="button" data-f="(A ⊃ B) ≡ (~ B ⊃ ~ A)">contraposition</button>
+        <button type="button" data-f="~ (A &amp; B) ≡ (~ A ∨ ~ B)">De Morgan</button>
+        <button type="button" data-f="(A ∨ B) &amp; ~ (A &amp; B)">exclusive or</button>
+        <button type="button" data-f="(A ⊃ B) ⊃ (B ⊃ A)">converse</button>
+      </div>
+      <p class="note">The default sentence is the whodunit from section 2.2, written as one conditional: M (the maid did it), B (the butler did it), P (Watson was poisoned). Shortcuts: <code>~</code> or <code>!</code> for ~, <code>v</code> or <code>|</code> for ∨, <code>&gt;</code> or <code>-&gt;</code> for ⊃, <code>=</code> or <code>&lt;-&gt;</code> for ≡.</p>
+      <div class="status" id="labstatus" aria-live="polite"></div>
+      <div class="tscroll"><table class="tt" id="labtt"></table></div>
+    </div>
+  </div>
+</section>
+
+<!-- practice -->
+<section id="practice">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Practice</div>
+      <h2>Practice sets for Chapter 2</h2>
+      <p class="lede">New questions in the style of the 2.1E–2.4E exercises, checked as you go. Do the book's starred exercises too; their answers are in the back.</p>
+    </div>
+    <div class="tabs" role="tablist" id="ptabs">
+      <button type="button" class="tab" role="tab" aria-selected="true" data-p="pA">Sentence of SL?</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-p="pB">Main connective</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-p="pC">Symbolize</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-p="pD">Truth-functional?</button>
+    </div>
+    <div id="pA" role="tabpanel"></div>
+    <div id="pB" role="tabpanel" hidden></div>
+    <div id="pC" role="tabpanel" hidden></div>
+    <div id="pD" role="tabpanel" hidden></div>
+  </div>
+</section>
+
+<!-- discussion -->
+<section id="discuss">
+  <div class="wrap two">
+    <div class="stack">
+      <div class="sec-head">
+        <div class="eyebrow">For our session</div>
+        <h2>Discussion questions</h2>
+      </div>
+      <ol class="qlist">
+        <li>SL demands parentheses around every binary compound. What would go wrong if we allowed <span class="f">A &amp; B ∨ C</span>? Give two English sentences it could stand for.</li>
+        <li>Write a sentence that's false as written but true once you add quotation marks. Which side of the use/mention line is each version on?</li>
+        <li>Find a real requirement in your own life that fits "p only if q" but not "p if q".</li>
+        <li>The book paraphrases "but" as "and". What gets lost, and could that loss ever change whether an argument is valid?</li>
+        <li>Is "unless" really inclusive? Think of "I'll walk unless it rains." If it rains and you walk anyway, was the sentence false?</li>
+        <li>"Just in case" can mean "if and only if" or "as a precaution". How do you tell which one you're looking at?</li>
+        <li>When should a conditional be symbolized as an atomic sentence instead of with ⊃? Bring one example of each.</li>
+      </ol>
+    </div>
+    <div class="stack">
+      <div class="sec-head">
+        <div class="eyebrow">Your notes</div>
+        <h2>Questions for our session</h2>
+        <p class="note">Jot down anything that confused you while reading. Saved in this browser only, so bring it up when we meet.</p>
+      </div>
+      <textarea class="notes" id="notes" aria-label="Questions for our session" placeholder="e.g. 2.1E #4: why can't ')' come right before '~'?"></textarea>
+      <div class="note" id="saved"></div>
+      <div class="sec-head" style="margin-top:12px">
+        <h3>Supplementary reading</h3>
+      </div>
+      <div class="empty">Nothing assigned from other texts for this chapter yet.</div>
+    </div>
+  </div>
+</section>
+</main>
+
+<nav class="wrap chnav" aria-label="Chapters"><a href="chapter-1.html"><span>Previous</span>Chapter 1 · Introduction to Deductive Logic</a><a href="chapter-3.html"><span>Next</span>Chapter 3 · Sentential Logic: Semantics</a></nav>
+<footer><div class="wrap">Valid Moves · Chapter 2 notes for <i>The Logic Book</i>, 6th edition (Bergmann, Moor &amp; Nelson). Summaries and practice questions are our own; page numbers refer to the 6th edition. <a href="index.html">Back to all chapters</a></div></footer>
+
+<script src="logic.js"></script>
+<script>
+(function(){
+const {esc,parse,show,showTop,kind,immediate,components,buildSteps,store,options}=SL;
+
+/* ---------- sentence checker ---------- */
+const inp=document.getElementById('chk'),out=document.getElementById('chkout'),keys=document.getElementById('chkkeys');
+keys.innerHTML=SL.KEYS_HTML;
+const CL={1:'clause 1',2:'clause 2',3:'clause 3',4:'clause 4',5:'clause 5',6:'clause 6'};
+function check(){
+  let r;
+  try{r=parse(inp.value)}
+  catch(e){
+    out.innerHTML=e.code==='empty'?'<span class="note">'+esc(e.message)+'</span>':
+      '<div class="status"><span class="pill bad">Not a sentence of SL</span></div><p>'+esc(e.message)+'</p>';
+    return;
+  }
+  const a=r.ast,imm=immediate(a);
+  let h='<div class="status"><span class="pill good">Sentence of SL</span>'+(r.informal?'<span class="pill mid">Outer parentheses dropped</span>':'')+'</div>';
+  if(r.informal) h+='<p class="note">Strictly, the sentence is <span class="f">'+esc(show(a))+'</span>. Dropping the outermost parentheses is allowed by the book\'s informal convention.</p>';
+  h+='<dl class="kv"><dt>Type</dt><dd>'+kind(a)+'</dd>';
+  if(!a.v){
+    h+='<dt>Main connective</dt><dd><span class="f">'+a.op+'</span> ('+SL.NAME[a.op]+')</dd>';
+    const label=a.op==='&'?['First conjunct','Second conjunct']:a.op==='∨'?['First disjunct','Second disjunct']:a.op==='⊃'?['Antecedent','Consequent']:a.op==='≡'?['Left component','Right component']:['Immediate component'];
+    imm.forEach((c,i)=>h+='<dt>'+label[i]+'</dt><dd><span class="f">'+esc(show(c))+'</span></dd>');
+  }
+  const comps=components(a);
+  h+='<dt>Components ('+comps.length+')</dt><dd><div class="chips">'+comps.map(c=>'<span class="chip">'+esc(show(c))+'</span>').join('')+'</div></dd></dl>';
+  h+='<div><h3 style="font-size:1rem;margin-bottom:8px">Built step by step</h3><ol class="steps">'+buildSteps(a).map(s=>'<li><span class="f">'+esc(s.s)+'</span><span class="by">by '+CL[s.clause]+'</span></li>').join('')+'</ol></div>';
+  out.innerHTML=h;
+}
+SL.wireInput(inp,keys,check);
+document.querySelectorAll('#s21 .samples button').forEach(b=>b.addEventListener('click',()=>{inp.value=b.dataset.f;check()}));
+check();
+
+/* ---------- truth-table lab ---------- */
+const labIn=document.getElementById('formula'),labKeys=document.getElementById('labkeys');
+labKeys.innerHTML=SL.KEYS_HTML;
+const runLab=()=>SL.truthTable(labIn,document.getElementById('labtt'),document.getElementById('labstatus'));
+SL.wireInput(labIn,labKeys,runLab);
+document.querySelectorAll('#labsamples button').forEach(b=>b.addEventListener('click',()=>{labIn.value=b.dataset.f;runLab()}));
+runLab();
+
+SL.tabs(document.getElementById('ptabs'),'vm-ch2-tab');
+
+/* ---------- A: sentence of SL? ---------- */
+const VERD=[{v:'strict',label:'Sentence of SL'},{v:'informal',label:'Sentence, outer parentheses dropped'},{v:'no',label:'Not a sentence'}];
+const A=['~ (A & B)','P ∨ ~ Q','A ~ B','((A ∨ B))','(A & B ∨ C)','[K ≡ (L & M)]','~ [A ⊃ B)','A1 ⊃ B12','⊃ R','~ ~ ~ E','(G & ~ H) ⊃ [J ∨ (K ≡ L)]','~ (A) ∨ B'].map(s=>{
+  try{const r=parse(s);return{s,correct:r.informal?'informal':'strict',why:'It\'s a '+kind(r.ast).toLowerCase()+(r.informal?'. Strictly it would be written '+show(r.ast)+'.':'.')}}
+  catch(e){return{s,correct:'no',why:e.message}}
+});
+SL.quiz(document.getElementById('pA'),A,'vm-ch2-A',(q,a)=>
+  '<div class="qtext"><span class="f">'+esc(q.s)+'</span></div>'+options(VERD,q,a,'word')+
+  (a?'<div class="feedback '+(a.ok?'good':'bad')+'"><b>'+(a.ok?'Correct.':'Not quite. Answer: '+VERD.find(v=>v.v===q.correct).label+'.')+'</b><span>'+esc(q.why)+'</span></div>':''));
+
+/* ---------- B: main connective ---------- */
+const KINDS=['Negation','Conjunction','Disjunction','Material conditional','Material biconditional'].map(k=>({v:k,label:k}));
+const B=['~ A ∨ B','~ (A ∨ B)','(A ⊃ B) & ~ C','~ ~ (C ≡ D)','A ⊃ (B ≡ C)','[(A & B) ∨ C] ≡ ~ D','~ A & ~ B','(~ A ∨ B) ⊃ ~ (A & B)','~ [(A ⊃ B) ∨ ~ C]','(H ≡ ~ G) ∨ [~ H ⊃ (G & K)]'].map(s=>{
+  const r=parse(s).ast;return{s,correct:kind(r),ast:r};
+});
+SL.quiz(document.getElementById('pB'),B,'vm-ch2-B',(q,a)=>{
+  let h='<div class="qtext">What kind of sentence is <span class="f">'+esc(q.s)+'</span>?</div>'+options(KINDS,q,a,'word');
+  if(a){const imm=immediate(q.ast);
+    h+='<div class="feedback '+(a.ok?'good':'bad')+'"><b>'+(a.ok?'Correct.':'Not quite. It\'s a '+q.correct.toLowerCase()+'.')+'</b><span>The main connective is <span class="f">'+q.ast.op+'</span>; its immediate component'+(imm.length>1?'s are ':' is ')+imm.map(c=>'<span class="f">'+esc(showTop(c))+'</span>').join(' and ')+'.</span></div>'}
+  return h;
+});
+
+/* ---------- C: symbolize ---------- */
+const C=[
+  {s:'Jo will get the job provided she aces the interview.',k:['J: Jo will get the job','I: Jo aces the interview'],o:['I ⊃ J','J ⊃ I','I & J','I ≡ J'],correct:0,why:'"Provided that" introduces the antecedent, just like "if" (2.2).'},
+  {s:'Jo will get the job only if she aces the interview.',k:['J: Jo will get the job','I: Jo aces the interview'],o:['I ⊃ J','J ⊃ I','~ I ⊃ J','J ∨ I'],correct:1,why:'"Only if" introduces the consequent: if Jo gets the job, she aced the interview (2.2).'},
+  {s:'The museum is open unless it is a holiday.',k:['M: The museum is open','H: It is a holiday'],o:['M & ~ H','H ⊃ ~ M','M ∨ H','~ M ∨ ~ H'],correct:2,why:'The book\'s summary treats "unless" as the wedge (2.3). Worth discussing: many speakers also mean the museum is closed on holidays, which the wedge doesn\'t say.'},
+  {s:'Neither Ada nor Ben came to the meeting.',k:['A: Ada came to the meeting','B: Ben came to the meeting'],o:['~ A ∨ ~ B','~ (A & B)','~ A & B','~ (A ∨ B)'],correct:3,why:'"Neither … nor" denies that either one came. ~ A & ~ B is an equally good answer.'},
+  {s:'Ada and Ben didn\'t both come to the meeting.',k:['A: Ada came to the meeting','B: Ben came to the meeting'],o:['~ (A & B)','~ A & ~ B','~ (A ∨ B)','~ A ⊃ B'],correct:0,why:'"Not both" negates the conjunction. It still allows one of them to have come.'},
+  {s:'You can have soup or salad, but not both.',k:['S: You can have soup','L: You can have salad'],o:['S ∨ L','(S ∨ L) & ~ (S & L)','~ (S & L)','S ≡ L'],correct:1,why:'"But not both" signals the exclusive sense of "or" (2.3).'},
+  {s:'The bridge is closed, although traffic is moving.',k:['C: The bridge is closed','T: Traffic is moving'],o:['C ⊃ T','C ∨ T','C & T','~ C ≡ T'],correct:2,why:'"Although" asserts both parts. The surprise it suggests isn\'t truth-functional, so it drops out (2.2).'},
+  {s:'If the alarm sounds, then everyone leaves if the doors are open.',k:['A: The alarm sounds','E: Everyone leaves','D: The doors are open'],o:['(A ⊃ D) ⊃ E','A ⊃ (E ⊃ D)','A ⊃ (D ⊃ E)','(A & E) ⊃ D'],correct:2,why:'The main connective is the first "if … then". Its consequent, "everyone leaves if the doors are open", is itself D ⊃ E.'},
+  {s:'The vote passes just in case a majority attends.',k:['V: The vote passes','M: A majority attends'],o:['M ⊃ V','V ≡ M','V ⊃ M','V & M'],correct:1,why:'Here "just in case" means "if and only if" (2.2). Compare "carry an umbrella just in case it rains", where it means "as a precaution".'},
+  {s:'Someone in the class didn\'t finish the reading.',k:['E: Everyone in the class finished the reading','S: Someone in the class finished the reading'],o:['~ S','~ E','S & ~ E','~ ~ E'],correct:1,why:'"Someone didn\'t" denies that everyone did. ~ S would say no one finished, a much stronger claim (2.2).'},
+  {s:'Either both Kai and Lee pass or neither does.',k:['K: Kai passes','L: Lee passes'],o:['(K & L) ∨ ~ (K ∨ L)','(K ∨ L) & ~ (K & L)','K & L','~ K ∨ ~ L'],correct:0,why:'A disjunction of "both" and "neither". It is equivalent to K ≡ L.'}
+];
+SL.quiz(document.getElementById('pC'),C,'vm-ch2-C',(q,a)=>
+  '<div class="qtext">'+esc(q.s)+'</div><div class="key-legend">'+q.k.map(k=>'<span class="f">'+esc(k)+'</span>').join('')+'</div>'+
+  options(q.o.map((o,i)=>({v:i,label:o})),q,a)+
+  (a?'<div class="feedback '+(a.ok?'good':'bad')+'"><b>'+(a.ok?'Correct.':'Not quite. The answer is '+esc(q.o[q.correct])+'.')+'</b><span>'+esc(q.why)+'</span></div>':''));
+
+/* ---------- D: truth-functional? ---------- */
+const TF=[{v:'yes',label:'Truth-functional compound'},{v:'no',label:'Not truth-functional'}];
+const D=[
+  {s:'Ravi believes that the train is late or the clock is wrong.',correct:'no',why:'A belief report. Ravi can believe a false disjunction or doubt a true one, so the truth-values of the parts don\'t settle it. Symbolize as one atomic sentence.'},
+  {s:'The train is late or the clock is wrong.',correct:'yes',why:'A plain disjunction: L ∨ W.'},
+  {s:'The game was cancelled because the field flooded.',correct:'no',why:'"Because" claims a causal link. Both parts can be true while the link is false.'},
+  {s:'It is probable that the bill will pass.',correct:'no',why:'"It is probable that" isn\'t truth-functional: the bill passing doesn\'t make it probable beforehand, and failing doesn\'t make it improbable.'},
+  {s:'The bill passed, but the vote was close.',correct:'yes',why:'"But" works as a conjunction: P & C.'},
+  {s:'She signed the lease only after she saw the flat.',correct:'no',why:'"Only after" is about time order, which the truth-values of the parts don\'t determine.'},
+  {s:'It is not the case that the bill passed.',correct:'yes',why:'A negation: ~ P.'},
+  {s:'Mina will come if Theo does, and Theo will come.',correct:'yes',why:'A conjunction whose first conjunct is a conditional: (T ⊃ M) & T.'}
+];
+SL.quiz(document.getElementById('pD'),D,'vm-ch2-D',(q,a)=>
+  '<div class="qtext">'+esc(q.s)+'</div>'+options(TF,q,a,'word')+
+  (a?'<div class="feedback '+(a.ok?'good':'bad')+'"><b>'+(a.ok?'Correct.':'Not quite.')+'</b><span>'+esc(q.why)+'</span></div>':''));
+
+/* ---------- notes ---------- */
+const notes=document.getElementById('notes'),saved=document.getElementById('saved');
+notes.value=store.get('vm-ch2-notes','');
+let t;notes.addEventListener('input',()=>{clearTimeout(t);t=setTimeout(()=>{store.set('vm-ch2-notes',notes.value);saved.textContent='Saved in this browser.'},400)});
+})();
+</script>
+</body>
+</html>

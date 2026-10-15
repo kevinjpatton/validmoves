@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chapter 11 · Predicate Logic: Metatheory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600&family=Spectral:ital,wght@0,400;0,500;1,400&display=swap">
+<link rel="stylesheet" href="site.css">
+<style>
+.chain{list-style:none;margin:0;padding:0;display:grid}
+.chain li{display:grid;grid-template-columns:4.5rem minmax(0,1fr);gap:14px;padding:12px 0;border-bottom:1px solid var(--rule)}
+.chain li:last-child{border-bottom:0}
+.chain .id{font-family:var(--mono);color:var(--accent);font-size:.9rem;padding-top:2px}
+.grid4{border-collapse:collapse;font-size:.95rem;width:100%}
+.grid4 th,.grid4 td{border:1px solid var(--rule);padding:8px 10px;text-align:left;vertical-align:top}
+.grid4 th{font-family:var(--display);font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--accent-soft)}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html">Valid Moves <span>⊢</span></a>
+    <nav aria-label="Site">
+      <a href="index.html">Home</a>
+      <a href="index.html#chapters">Chapters</a>
+      <a href="index.html#texts">Other texts</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="copy">
+      <div class="eyebrow">Chapter 11 · from p. 545</div>
+      <h1>Predicate Logic: <em>Metatheory</em></h1>
+      <p class="lede">Four results tie the book together. PD (with PD+ and PDE) is sound and complete, and so is the tree method: derivations, trees and interpretations all agree about what follows from what.</p>
+      <nav class="toc" aria-label="On this page">
+        <a href="#s111">11.1–11.2 Preliminaries</a><a href="#s113">11.3 Soundness of PD</a><a href="#s114">11.4 Completeness of PD</a><a href="#s115">11.5–11.6 Trees</a><a href="#practice">Practice</a>
+      </nav>
+    </div>
+    <div class="card" aria-label="The four results">
+      <div class="cap">The four results</div>
+      <table class="grid4">
+        <thead><tr><th></th><th>Sound</th><th>Complete</th></tr></thead>
+        <tbody>
+          <tr><td><b>PD, PD+, PDE</b></td><td>Γ ⊢ P ⟹ Γ ⊨ P <span class="note">(11.3)</span></td><td>Γ ⊨ P ⟹ Γ ⊢ P <span class="note">(11.4)</span></td></tr>
+          <tr><td><b>Systematic trees</b></td><td>closes ⟹ inconsistent <span class="note">(11.5)</span></td><td>inconsistent ⟹ closes <span class="note">(11.6)</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<main>
+<section id="s111">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Sections 11.1–11.2</div>
+      <h2>Semantic preliminaries for PL and PLE</h2>
+      <div class="meta">pp. 545–560 · exercises 11.1E–11.2E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <p>The book first proves a stock of facts that seem obvious but are needed later. The section can be skimmed at first; just know what each result says.</p>
+        <ul>
+          <li><b>11.1.1</b>: a variable assignment treats P(a/x) exactly as the assignment that sends x to a's referent treats P. Substituting a name is like pointing the variable at the named thing.</li>
+          <li><b>11.1.3</b>: for a sentence, either every variable assignment satisfies it or none does, so sentences are simply true or false on an interpretation.</li>
+          <li><b>11.1.4 and 11.1.5</b>: (∀x)P entails each of its instances, and each instance entails (∃x)P. These justify ∀E and ∃I.</li>
+          <li><b>11.1.6–11.1.9</b>: interpretations that agree on the symbols in a sentence agree on its truth-value, and a constant that occurs nowhere relevant can be reinterpreted freely. These justify the restrictions on ∀I and ∃E.</li>
+        </ul>
+        <p>11.2 extends these to complex terms and identity in PLE.</p>
+      </div>
+      <div class="side">
+        <h3>Why "fresh" constants work</h3>
+        <p>If a doesn't occur in Γ or in (∃x)P, we may reinterpret a as whatever witnesses (∃x)P without changing the truth-value of anything in Γ. That's the semantic fact behind ∃E's restrictions, and behind ∃D in trees.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s113">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 11.3</div>
+      <h2>The soundness of PD, PD+ and PDE</h2>
+      <div class="meta">pp. 561–565 · exercises 11.3E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <div class="def"><b>Metatheorem 11.3.1</b><span>If Γ ⊢ P in PD, then Γ ⊨ P.</span></div>
+        <p>The proof copies 6.3: induction on line numbers, showing each line is entailed by the open assumptions it lies within. The truth-functional rules were handled in Chapter 6. The new work is the four quantifier rules, and especially the restrictions on ∀I and ∃E, which use 11.1.8–11.1.10 to reinterpret the instantiating constant.</p>
+        <p>Soundness for PD+ adds QN and the replacement rules applied to subformulas; PDE adds =I and =E.</p>
+      </div>
+      <div class="side">
+        <h3>The ∀I case, in words</h3>
+        <p>Suppose P(a/x) follows from assumptions Γ that don't mention a. Take any interpretation making Γ true and any member u of the UD. Reinterpret a as u: Γ stays true (a isn't in it), so P(a/x) is true, so u satisfies P. Since u was arbitrary, (∀x)P is true.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s114">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 11.4</div>
+      <h2>The completeness of PD, PD+ and PDE</h2>
+      <div class="meta">pp. 566–583 · exercises 11.4E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <div class="def"><b>Metatheorem 11.4.1</b><span>If Γ ⊨ P, then Γ ⊢ P in PD.</span></div>
+        <p>As in 6.4, everything rests on one lemma: a set consistent in PD is quantificationally consistent (11.4.2). The construction is Henkin's, with one new ingredient. Whenever an existential sentence is added, a <b>witness</b> instance with a new constant goes in too, making the set <b>∃-complete</b>. To guarantee there are always unused constants, first double every subscript, so all the odd-subscripted constants are free.</p>
+        <p>The model is then built from the constants themselves: one member of the UD per constant, and a predicate is true of the things whose names make an atomic sentence in the set.</p>
+      </div>
+      <div class="side">
+        <h3>The proof of 11.4.2, step by step</h3>
+        <ol class="chain">
+          <li><span class="id">11.4.3</span><span>Doubling every constant's subscript keeps a consistent set consistent.</span></li>
+          <li><span class="id">11.4.4</span><span>An evenly subscripted consistent set extends to one that is maximally consistent and ∃-complete.</span></li>
+          <li><span class="id">11.4.5–7</span><span>Such a set is quantificationally consistent: its constants and atomic sentences give a model.</span></li>
+          <li><span class="id">11.4.8</span><span>So the original set is quantificationally consistent.</span></li>
+        </ol>
+        <p class="trap">Exercises prove Löwenheim's theorem from this, and the Löwenheim–Skolem theorem: every consistent set of PL has a model whose UD is the positive integers. Both fail for PLE.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s115">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Sections 11.5–11.6</div>
+      <h2>Soundness and completeness of the tree method</h2>
+      <div class="meta">from p. 584 · exercises 11.5E–11.6E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <div class="def"><b>Metatheorem 11.5.1 (soundness)</b><span>If a systematic tree for Γ closes, Γ is quantificationally inconsistent.</span></div>
+        <p>Every decomposition rule is consistency-preserving: if the sentences on a branch can all be true, at least one extension of that branch can be too. This is the <b>Consistent Branch Lemma</b> (11.5.2). A consistent set therefore always keeps an open branch, so a closed tree means inconsistency.</p>
+        <div class="def"><b>Metatheorem 11.6.1 (completeness)</b><span>If a finite set Γ is quantificationally inconsistent, every systematic tree for Γ closes.</span></div>
+        <p>By contraposition: an open systematic tree has either a completed open branch or an infinite one (<b>Infinite Branch Lemma</b>, 11.6.2), and either way the branch describes a model. This is why the System's careful staging matters.</p>
+      </div>
+      <div class="side">
+        <h3>What still can't be done</h3>
+        <p>Completeness doesn't give a decision procedure. If Γ is consistent but has only infinite models, the systematic tree never finishes, and at no point can you tell it never will. Church's theorem (8.2) says no method can always tell.</p>
+        <p class="trap">Compare SL: Chapter 6's results plus the finiteness of truth-tables give a full decision procedure.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="practice">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Practice</div>
+      <h2>Practice for Chapter 11</h2>
+    </div>
+    <div id="pA"></div>
+  </div>
+</section>
+
+<section id="discuss">
+  <div class="wrap two">
+    <div class="stack">
+      <div class="sec-head">
+        <div class="eyebrow">For our session</div>
+        <h2>Discussion questions</h2>
+      </div>
+      <ol class="qlist">
+        <li>Which steps of Chapter 6's completeness proof carry over unchanged, and what had to be added for quantifiers?</li>
+        <li>Why double the subscripts? What would go wrong without spare constants?</li>
+        <li>Löwenheim–Skolem says a consistent set of PL has a model on the positive integers. Why does this fail once we add identity?</li>
+        <li>Completeness says every valid argument has a derivation. Why doesn't that give us a way to decide validity?</li>
+        <li>Soundness of trees rests on rules being consistency-preserving. Check this for ∃D. Why is the foreign-constant requirement needed?</li>
+      </ol>
+    </div>
+    <div class="stack">
+      <div class="sec-head">
+        <div class="eyebrow">Your notes</div>
+        <h2>Questions for our session</h2>
+        <p class="note">Saved in this browser only.</p>
+      </div>
+      <textarea class="notes" id="notes" aria-label="Questions for our session"></textarea>
+      <div class="note" id="saved"></div>
+      <div class="sec-head" style="margin-top:12px"><h3>Supplementary reading</h3></div>
+      <div class="empty">Nothing assigned from other texts for this chapter yet.</div>
+    </div>
+  </div>
+</section>
+</main>
+
+<nav class="wrap chnav" aria-label="Chapters"><a href="chapter-10.html"><span>Previous</span>Chapter 10 · Predicate Logic: Derivations</a><a href="index.html"><span>Next</span>Home · All chapters</a></nav>
+<footer><div class="wrap">Valid Moves · Chapter 11 notes for <i>The Logic Book</i>, 6th edition (Bergmann, Moor &amp; Nelson). Summaries and practice questions are our own; page numbers refer to the 6th edition.</div></footer>
+
+<script src="logic.js"></script>
+<script>
+(function(){
+const {store}=SL;
+const MC=arr=>arr.map(q=>Object.assign(q,{opts:q.o.map((l,i)=>({v:i,label:l}))}));
+SL.mcQuiz(document.getElementById('pA'),MC([
+  {s:'Which result says every argument valid in PD is quantificationally valid?',o:['Soundness of PD (11.3.1)','Completeness of PD (11.4.1)','Soundness of trees (11.5.1)','Löwenheim–Skolem'],correct:0,why:'From derivability to entailment is soundness.'},
+  {s:'The key lemma behind completeness of PD is…',o:['every rule of PD is truth-preserving','a set consistent in PD is quantificationally consistent','every tree terminates','every sentence has a finite model'],correct:1,why:'11.4.2. Then Γ ⊨ P makes Γ ∪ {~ P} inconsistent, hence inconsistent in PD, hence Γ ⊢ P.'},
+  {s:'Why must the maximal set built in 11.4.4 be ∃-complete?',o:['So that every existential sentence in it has a witness instance, letting the constants form the UD','So that it is finite','So that it contains no universals','So that the tree closes'],correct:0,why:'Without witnesses, the model built from the constants could make an existential sentence false.'},
+  {s:'A systematic tree for a finite set stays open forever. What follows?',o:['The set is inconsistent','The set is consistent','Nothing','The set has a finite model'],correct:1,why:'By completeness of trees (11.6.1), an inconsistent set\'s systematic tree closes. Its infinite branch describes an infinite model.'},
+  {s:'Which property of tree rules gives the soundness of the tree method?',o:['They are consistency-preserving','They are branching','They check sentences off','They are finite'],correct:0,why:'The Consistent Branch Lemma: a consistent set keeps at least one branch true on some interpretation.'},
+  {s:'Löwenheim–Skolem fails for PLE because…',o:['PLE can say "there are at most two things"','PLE has functors','PLE has no quantifiers','PDE is incomplete'],correct:0,why:'With identity a sentence can force a small finite UD, so it has no model on the positive integers.'}
+]),'vm-ch11-A',q=>q.opts,false);
+const notes=document.getElementById('notes'),saved=document.getElementById('saved');
+notes.value=store.get('vm-ch11-notes','');
+let tm;notes.addEventListener('input',()=>{clearTimeout(tm);tm=setTimeout(()=>{store.set('vm-ch11-notes',notes.value);saved.textContent='Saved in this browser.'},400)});
+})();
+</script>
+</body>
+</html>

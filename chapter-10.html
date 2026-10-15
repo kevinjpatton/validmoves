@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chapter 10 · Predicate Logic: Derivations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600&family=Spectral:ital,wght@0,400;0,500;1,400&display=swap">
+<link rel="stylesheet" href="site.css">
+<style>.rcard pre{margin:0;font-family:var(--mono);font-size:.9rem;line-height:1.45;white-space:pre}</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html">Valid Moves <span>⊢</span></a>
+    <nav aria-label="Site">
+      <a href="index.html">Home</a>
+      <a href="index.html#chapters">Chapters</a>
+      <a href="index.html#texts">Other texts</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="copy">
+      <div class="eyebrow">Chapter 10 · pp. 474–544</div>
+      <h1>Predicate Logic: <em>Derivations</em></h1>
+      <p class="lede">SD plus four quantifier rules gives PD. The interesting part is the restrictions on ∀I and ∃E, which make sure the instantiating constant really is arbitrary.</p>
+      <nav class="toc" aria-label="On this page">
+        <a href="#s101">10.1 PD</a><a href="#s102">10.2 Properties</a><a href="#s103">10.3 PD+</a><a href="#s104">10.4 PDE</a><a href="#checker">Checker</a><a href="#practice">Practice</a>
+      </nav>
+    </div>
+    <div class="card" aria-label="Typing quantifier rules">
+      <div class="cap">Typing derivations in PL</div>
+      <pre style="margin:0;font-family:var(--mono);font-size:.92rem;line-height:1.6;overflow-x:auto">Derive: Ss
+| (∀y)(Py ⊃ Sy)    Assumption
+| Ps               Assumption
+| Ps ⊃ Ss          1 ∀E
+| Ss               2, 3 ⊃E</pre>
+      <p class="note">ASCII: <code>(Ax)</code> (∀x), <code>(Ex)</code> (∃x), rules <code>UE UI EE EI</code>. Here <code>=</code> is identity; use <code>&lt;-&gt;</code> for ≡.</p>
+    </div>
+  </div>
+</div>
+
+<main>
+<section id="s101">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 10.1</div>
+      <h2>The derivation system PD</h2>
+      <div class="meta">pp. 474–491 · exercises 10.1E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <p>PD keeps every rule of SD and adds an elimination and introduction rule for each quantifier. Each involves a quantified sentence and a substitution instance of it; the constant used is the <b>instantiating constant</b>.</p>
+        <ul>
+          <li><b>∀E</b>: from (∀x)P, enter any instance P(a/x). Let the goal tell you which constant to pick.</li>
+          <li><b>∃I</b>: from an instance P(a/x), enter (∃x)P. Since P(a/x) replaces every x, from Laa you can reach (∃x)Lxa, (∃x)Lax or (∃x)Lxx.</li>
+          <li><b>∀I</b>: from P(a/x), enter (∀x)P, provided (i) a occurs in no open assumption and (ii) a doesn't occur in (∀x)P.</li>
+          <li><b>∃E</b>: from (∃x)P and a subderivation assuming P(a/x) and ending in Q, enter Q, provided (i) a occurs in no open assumption, (ii) a doesn't occur in (∃x)P, and (iii) a doesn't occur in Q.</li>
+        </ul>
+        <p>The restrictions all express one idea: when you reason about a, nothing you've assumed may single a out. Then what holds of a holds of anything.</p>
+      </div>
+      <div class="side">
+        <h3>What each restriction blocks</h3>
+        <div class="ex"><span class="en">∀I (i): from Fb as an assumption, infer (∀x)Fx</span><span class="trap">One thing being F doesn't make everything F.</span></div>
+        <div class="ex"><span class="en">∀I (ii): from (∀x)Lxh get Lhh, then (∀x)Lxx</span><span class="trap">Everyone loving h doesn't mean everyone loves themselves.</span></div>
+        <div class="ex"><span class="en">∃E (iii): from (∃z)Fz, assume Fb and conclude Fb</span><span class="trap">Something being F doesn't make b F.</span></div>
+        <div class="ex"><span class="en">∃E (i): the witness gets a constant already in an open assumption</span><span class="trap">That would identify the witness with something we've assumed facts about.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s102">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 10.2</div>
+      <h2>Syntactic properties in PD, and strategy</h2>
+      <div class="meta">pp. 492–520 · exercises 10.2E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <p>Derivability, validity, theorems, equivalence and inconsistency in PD are defined exactly as in SD. A derivation establishes them; Chapter 11 proves PD is sound and complete.</p>
+        <h3>Strategies for quantifiers</h3>
+        <ul>
+          <li><b>Goal (∀x)P</b>: derive an instance P(a/x) with a fresh constant, then ∀I. Choose a constant that appears in no open assumption and not in the goal.</li>
+          <li><b>Goal (∃x)P</b>: derive an instance, then ∃I.</li>
+          <li><b>Accessible (∃x)P</b>: start ∃E early. Assume an instance with a brand-new constant and aim for the goal itself inside the subderivation.</li>
+          <li><b>Accessible (∀x)P</b>: use ∀E with whatever constants the goal and other lines need.</li>
+          <li>Negated quantifiers usually call for ~I or ~E, or in PD+, QN.</li>
+        </ul>
+      </div>
+      <div class="side">
+        <h3>A worked shape: ∃ to ∃</h3>
+        <pre style="margin:0;font-family:var(--mono);font-size:.88rem;line-height:1.55;overflow-x:auto">1 | (∀x)(Fx ⊃ Gx)   Assumption
+2 | (∃x)Fx          Assumption
+3 | | Fa            A / ∃E
+4 | | Fa ⊃ Ga       1 ∀E
+5 | | Ga            3, 4 ⊃E
+6 | | (∃x)Gx        5 ∃I
+7 | (∃x)Gx          2, 3–6 ∃E</pre>
+        <p class="trap">a is new at line 3 and gone by line 7, so all three ∃E restrictions hold.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s103">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 10.3</div>
+      <h2>The derivation system PD+</h2>
+      <div class="meta">pp. 521–525 · exercises 10.3E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <p>PD+ adds SD+'s rules (MT, HS, DS and the replacement rules) and one new replacement rule, <b>Quantifier Negation</b>. Replacement rules apply to subformulas too, even open ones inside a quantifier, so it matters to identify subformulas correctly: (∀x)[Lx ⊃ (∀y)(Bxy ⊃ Jxy)] is not of the form P ⊃ (Q ⊃ R) inside.</p>
+        <p>PD is the elegant system; PD+ is the practical one. They prove the same things.</p>
+      </div>
+      <div class="side">
+        <h3>Quantifier Negation (QN)</h3>
+        <div class="ex"><span class="sym">~ (∀x)P ◁▷ (∃x)~ P</span></div>
+        <div class="ex"><span class="sym">~ (∃x)P ◁▷ (∀x)~ P</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s104">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 10.4</div>
+      <h2>The derivation system PDE</h2>
+      <div class="meta">pp. 526–544 · exercises 10.4E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <p>PDE adds identity rules and lets ∀E and ∃I use any <b>closed term</b>, including complex terms like f(a) or g(a,b).</p>
+        <ul>
+          <li><b>=I</b>: enter (∀x)x = x on any line, citing nothing. It isn't an assumption; it's true on every interpretation. Then ∀E gives a = a.</li>
+          <li><b>=E</b>: from t<sub>1</sub> = t<sub>2</sub> and a sentence P, enter P with <i>one or more</i> occurrences of t<sub>1</sub> replaced by t<sub>2</sub>, or the other way round.</li>
+        </ul>
+        <p>These rules handle definite descriptions: from "the Roman general who defeated Pompey conquered Gaul" and "Caesar is a Roman general who defeated Pompey", PDE derives "Caesar conquered Gaul".</p>
+      </div>
+      <div class="side">
+        <h3>Symmetry of identity</h3>
+        <pre style="margin:0;font-family:var(--mono);font-size:.88rem;line-height:1.55;overflow-x:auto">1 | | a = b          A / ⊃I
+2 | | (∀x)x = x      =I
+3 | | a = a          2 ∀E
+4 | | b = a          1, 3 =E
+5 | a = b ⊃ b = a    1–4 ⊃I</pre>
+        <p class="trap">Line 4 replaces only the first a in line 3. Two ∀I steps then give (∀x)(∀y)(x = y ⊃ y = x).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="checker">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Tool</div>
+      <h2>Derivation checker for PD, PD+ and PDE</h2>
+      <p class="lede">The same checker as Chapter 5, now with the quantifier rules and all their restrictions, Quantifier Negation and the identity rules. Pick an exercise or write your own.</p>
+    </div>
+    <div class="lab">
+      <div class="exlist" id="exlist" aria-label="Exercises"></div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <div class="seg" role="group" aria-label="Derivation system" id="sys">
+          <button type="button" data-s="PD" aria-pressed="true">PD</button>
+          <button type="button" data-s="PD+" aria-pressed="false">PD+</button>
+          <button type="button" data-s="PDE" aria-pressed="false">PDE</button>
+        </div>
+        <span class="note" id="exnote"></span>
+      </div>
+      <div class="two" style="gap:20px">
+        <div class="stack">
+          <textarea class="formulas" id="src" spellcheck="false" aria-label="Derivation" style="min-height:280px"></textarea>
+          <div id="keys"></div>
+          <p class="note">Rules: everything in SD, plus ∀E, ∀I, ∃E, ∃I. PD+ adds MT, HS, DS, the replacement rules and QN. PDE adds =I and =E.</p>
+        </div>
+        <div class="stack">
+          <div class="status" id="verdict" aria-live="polite"></div>
+          <div id="out"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="practice">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Practice</div>
+      <h2>Practice sets for Chapter 10</h2>
+    </div>
+    <div class="tabs" role="tablist" id="ptabs">
+      <button type="button" class="tab" role="tab" aria-selected="true" data-p="pA">Legal step?</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-p="pB">Strategy</button>
+    </div>
+    <div id="pA" role="tabpanel"></div>
+    <div id="pB" role="tabpanel" hidden></div>
+  </div>
+</section>
+
+<section id="discuss">
+  <div class="wrap two">
+    <div class="stack">
+      <div class="sec-head">
+        <div class="eyebrow">For our session</div>
+        <h2>Discussion questions</h2>
+      </div>
+      <ol class="qlist">
+        <li>For each restriction on ∀I and ∃E, build an invalid "derivation" that the restriction blocks.</li>
+        <li>Why can ∀E and ∃I instantiate with any constant at all, while ∀I and ∃E can't?</li>
+        <li>Derive (∀x)Fx ⊃ (∃x)Fx. Which assumption of the semantics (Chapter 8) does this theorem depend on?</li>
+        <li>=I enters a sentence citing nothing. How is that different from an assumption?</li>
+        <li>Try to derive (∃x)(∀y)Lxy from (∀y)(∃x)Lxy. Where exactly does it break?</li>
+      </ol>
+    </div>
+    <div class="stack">
+      <div class="sec-head">
+        <div class="eyebrow">Your notes</div>
+        <h2>Questions for our session</h2>
+        <p class="note">Saved in this browser only.</p>
+      </div>
+      <textarea class="notes" id="notes" aria-label="Questions for our session"></textarea>
+      <div class="note" id="saved"></div>
+      <div class="sec-head" style="margin-top:12px"><h3>Supplementary reading</h3></div>
+      <div class="empty">Nothing assigned from other texts for this chapter yet.</div>
+    </div>
+  </div>
+</section>
+</main>
+
+<nav class="wrap chnav" aria-label="Chapters"><a href="chapter-9.html"><span>Previous</span>Chapter 9 · Predicate Logic: Truth-Trees</a><a href="chapter-11.html"><span>Next</span>Chapter 11 · Predicate Logic: Metatheory</a></nav>
+<footer><div class="wrap">Valid Moves · Chapter 10 notes for <i>The Logic Book</i>, 6th edition (Bergmann, Moor &amp; Nelson). Summaries, exercises and practice questions are our own; page numbers refer to the 6th edition.</div></footer>
+
+<script src="logic.js"></script>
+<script src="pl.js"></script>
+<script src="derive.js"></script>
+<script>
+(function(){
+const {esc,store}=SL;
+const EX=[
+  {id:'q1',sys:'PD',label:'{(∀x)(Fx ⊃ Gx), Fa} ⊢ Ga',t:'Derive: Ga\n| (∀x)(Fx ⊃ Gx)    Assumption\n| Fa               Assumption\n'},
+  {id:'q2',sys:'PD',label:'{(∀x)(Fx ⊃ Gx), (∀x)Fx} ⊢ (∀x)Gx',t:'Derive: (∀x)Gx\n| (∀x)(Fx ⊃ Gx)    Assumption\n| (∀x)Fx           Assumption\n'},
+  {id:'q3',sys:'PD',label:'{(∃x)Fx} ⊢ (∃x)(Fx ∨ Gx)',t:'Derive: (∃x)(Fx ∨ Gx)\n| (∃x)Fx           Assumption\n'},
+  {id:'q4',sys:'PD',label:'{(∀x)(Fx ⊃ Gx), (∃x)Fx} ⊢ (∃x)Gx',t:'Derive: (∃x)Gx\n| (∀x)(Fx ⊃ Gx)    Assumption\n| (∃x)Fx           Assumption\n'},
+  {id:'q5',sys:'PD',label:'{(∃x)(∀y)Lxy} ⊢ (∀y)(∃x)Lxy',t:'Derive: (∀y)(∃x)Lxy\n| (∃x)(∀y)Lxy      Assumption\n'},
+  {id:'q6',sys:'PD',label:'⊢ (∀x)Fx ⊃ (∃x)Fx',t:'Derive: (∀x)Fx ⊃ (∃x)Fx\n'},
+  {id:'q7',sys:'PD',label:'{~ (∃x)Fx} ⊢ (∀x)~ Fx',t:'Derive: (∀x)~ Fx\n| ~ (∃x)Fx         Assumption\n'},
+  {id:'q8',sys:'PD+',label:'PD+: {~ (∀x)Fx, (∀x)(Gx ⊃ Fx)} ⊢ (∃x)~ Gx',t:'Derive: (∃x)~ Gx\n| ~ (∀x)Fx         Assumption\n| (∀x)(Gx ⊃ Fx)    Assumption\n'},
+  {id:'q9',sys:'PDE',label:'PDE: {Fa, a = b} ⊢ Fb',t:'Derive: Fb\n| Fa               Assumption\n| a = b            Assumption\n'},
+  {id:'q10',sys:'PDE',label:'PDE: ⊢ (∀x)(∀y)(x = y ⊃ y = x)',t:'Derive: (∀x)(∀y)(x = y ⊃ y = x)\n'},
+  {id:'demo',sys:'PD',label:'Worked example (∃E)',t:'Derive: (∃x)Gx\n| (∀x)(Fx ⊃ Gx)    Assumption\n| (∃x)Fx           Assumption\n| | Fa             A / ∃E\n| | Fa ⊃ Ga        1 ∀E\n| | Ga             3, 4 ⊃E\n| | (∃x)Gx         5 ∃I\n| (∃x)Gx           2, 3–6 ∃E\n'}
+];
+const work=store.get('vm-ch10-work',{}),solved=store.get('vm-ch10-solved',{});
+let cur=store.get('vm-ch10-cur','demo');if(!EX.find(e=>e.id===cur))cur='demo';
+let sys='PD';
+const src=document.getElementById('src'),keys=document.getElementById('keys'),out=document.getElementById('out'),V=document.getElementById('verdict');
+keys.innerHTML=PL.KEYS_HTML.replace('<div class="keys" aria-label="Insert a symbol">','<div class="keys" aria-label="Insert a symbol"><button type="button" class="key" data-ins="| " title="Scope line">|</button>');
+function list(){document.getElementById('exlist').innerHTML=EX.map(e=>'<button type="button" data-id="'+e.id+'" aria-pressed="'+(e.id===cur)+'">'+(solved[e.id]?'<span class="done">✓ </span>':'')+esc(e.label)+'</button>').join('')}
+function setSys(s){sys=s;document.querySelectorAll('#sys button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.s===s));run()}
+function load(id){cur=id;store.set('vm-ch10-cur',id);const e=EX.find(x=>x.id===id);src.value=work[id]??e.t;setSys(e.sys);
+  document.getElementById('exnote').textContent={PD:'Use only the rules of PD.','PD+':'This exercise allows PD+ rules, including QN.',PDE:'This exercise uses PDE: =I and =E are allowed.'}[e.sys];list()}
+function run(){
+  work[cur]=src.value;store.set('vm-ch10-work',work);
+  const r=SDX.check(src.value,sys,PL);
+  if(!r.lines.length){V.innerHTML='<span class="note">Start typing the derivation.</span>';out.innerHTML=r.goal?SDX.render(r):'';return}
+  out.innerHTML=SDX.render(r);
+  const s=r.summary;
+  if(s.ok){
+    const prim=s.prim.map(a=>PL.showTop(a)),c=PL.showTop(s.concl);
+    V.innerHTML='<span class="pill good">Derivation checks out</span><span class="note">'+esc(prim.length?'{'+prim.join(', ')+'} ⊢ '+c+' in '+sys:'⊢ '+c+': a theorem of '+sys)+'</span>';
+    if(r.goal&&cur!=='demo'&&!solved[cur]){solved[cur]=true;store.set('vm-ch10-solved',solved);list()}
+  }else V.innerHTML='<span class="pill '+(r.lines.some(l=>l.errs.length)?'bad':'mid')+'">'+esc(s.text)+'</span>';
+}
+document.getElementById('exlist').addEventListener('click',e=>{const b=e.target.closest('button');if(b)load(b.dataset.id)});
+document.querySelectorAll('#sys button').forEach(b=>b.addEventListener('click',()=>setSys(b.dataset.s)));
+src.addEventListener('input',()=>{
+  const pos=src.selectionStart,before=src.value;
+  const after=before.split('\n').map(line=>{
+    const g=line.match(/^(\s*Derive\s*:)(.*)$/i);if(g)return g[1]+PL.normalize(g[2]);
+    const m=line.match(/^([\s\d.)]*[\s│|]*)(.*)$/);return m[1]+PL.normalize(m[2]).replace(/Equi∨/g,'Equiv');
+  }).join('\n');
+  if(after!==before){const d=after.length-before.length;src.value=after;try{src.setSelectionRange(pos+d,pos+d)}catch(e){}}
+  run();
+});
+keys.querySelectorAll('[data-ins]').forEach(b=>b.addEventListener('click',()=>{const s=src.selectionStart,e=src.selectionEnd,ins=b.dataset.ins;src.value=src.value.slice(0,s)+ins+src.value.slice(e);src.focus();src.setSelectionRange(s+ins.length,s+ins.length);run()}));
+load(cur);
+
+SL.tabs(document.getElementById('ptabs'),'vm-ch10-tab');
+/* A: legal step? each item is checked by the real checker */
+const YN=[{v:'ok',label:'Legal'},{v:'bad',label:'Not legal'}];
+const A=[
+  {d:'| (∀x)Lxa   Assumption\n| Lta       1 ∀E',why:'Any constant can instantiate a universal.'},
+  {d:'| Fb        Assumption\n| (∀x)Fx    1 ∀I',why:''},
+  {d:'| (∀x)Fx    Assumption\n| Fc        1 ∀E\n| (∀y)Fy    2 ∀I',why:'c appears in no open assumption and not in (∀y)Fy.'},
+  {d:'| Laa       Assumption\n| (∃x)Lxa   1 ∃I',why:'Laa is the instance of (∃x)Lxa with a.'},
+  {d:'| (∃z)Fz    Assumption\n| | Fb      A / ∃E\n| | Fb      2 R\n| Fb        1, 2–3 ∃E',why:''},
+  {d:'| (∀x)(Fx ⊃ Gx)   Assumption\n| Fa ⊃ Gb         1 ∀E',why:'Every x must be replaced by the same constant.'},
+  {d:'| ~ (∀x)Fx   Assumption\n| (∃x)~ Fx   1 QN',why:'QN belongs to PD+, not PD.'}
+].map(q=>{const r=SDX.check(q.d,'PD',PL),bad=r.lines.find(l=>l.errs.length);
+  return{html:'<pre class="fitch" style="white-space:pre;margin:0">'+esc(q.d.split('\n').map((l,i)=>(i+1)+' '+l).join('\n'))+'</pre><span style="font-size:1rem">Is the last step legal in PD?</span>',correct:bad?'bad':'ok',why:bad?bad.errs.join(' '):q.why}});
+SL.mcQuiz(document.getElementById('pA'),A,'vm-ch10-A',YN,true);
+const MC=arr=>arr.map(q=>Object.assign(q,{opts:q.o.map((l,i)=>({v:i,label:l}))}));
+SL.mcQuiz(document.getElementById('pB'),MC([
+  {s:'Goal: (∀x)(Fx ∨ ~ Fx), with no assumptions. First move?',o:['Derive Fa ∨ ~ Fa, then ∀I','Assume (∀x)Fx','Use ∀E on the goal','Derive (∃x)(Fx ∨ ~ Fx) first'],correct:0,why:'a appears in no assumption and not in the goal, so ∀I will be allowed.'},
+  {s:'(∃x)Hx is accessible and the goal is (∃y)(Hy ∨ Ky).',o:['∃E: assume Ha with a new constant, aim for the goal inside','∀E on (∃x)Hx','∃I straight from (∃x)Hx','~E'],correct:0,why:'Start ∃E early and derive the goal inside the subderivation.'},
+  {s:'Inside an ∃E subderivation you assumed Fb. Which goal can you NOT end the subderivation with?',o:['(∃x)Fx','Gc','Fb ∨ Gb','A'],correct:2,why:'Fb ∨ Gb contains b, breaking restriction (iii).'},
+  {s:'The goal is ~ (∃x)(Fx & ~ Fx).',o:['Assume (∃x)(Fx & ~ Fx) and aim for a contradiction (~I)','∀I','∃I','=E'],correct:0,why:'A negated goal suggests ~I; inside, use ∃E to reach Q and ~ Q.'}
+]),'vm-ch10-B',q=>q.opts,false);
+
+const notes=document.getElementById('notes'),saved=document.getElementById('saved');
+notes.value=store.get('vm-ch10-notes','');
+let tm;notes.addEventListener('input',()=>{clearTimeout(tm);tm=setTimeout(()=>{store.set('vm-ch10-notes',notes.value);saved.textContent='Saved in this browser.'},400)});
+})();
+</script>
+</body>
+</html>

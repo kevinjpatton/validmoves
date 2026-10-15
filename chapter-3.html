@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chapter 3 · Sentential Logic: Semantics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600&family=Spectral:ital,wght@0,400;0,500;1,400&display=swap">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html">Valid Moves <span>⊢</span></a>
+    <nav aria-label="Site">
+      <a href="index.html">Home</a>
+      <a href="index.html#chapters">Chapters</a>
+      <a href="index.html#texts">Other texts</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="copy">
+      <div class="eyebrow">Chapter 3 · pp. 69–109</div>
+      <h1>Sentential Logic: <em>Semantics</em></h1>
+      <p class="lede">Chapter 1's core concepts made precise for SL. Every one of them is defined by quantifying over truth-value assignments, and every one can be tested with a truth-table.</p>
+      <nav class="toc" aria-label="On this page">
+        <a href="#s31">3.1 Truth-tables</a><a href="#s32">3.2 Truth, falsity</a><a href="#s33">3.3 Equivalence</a><a href="#s34">3.4 Consistency</a><a href="#s35">3.5 Entailment, validity</a><a href="#s36">3.6 Via consistency</a><a href="#tester">Tester</a><a href="#practice">Practice</a>
+      </nav>
+    </div>
+    <div class="card" aria-label="How each property is shown">
+      <div class="cap">What a truth-table must show</div>
+      <table class="ref">
+        <thead><tr><th>Property</th><th>Full table</th><th>Shortened table</th></tr></thead>
+        <tbody>
+          <tr><td>TF-true</td><td>all T</td><td>shows it's <i>not</i></td></tr>
+          <tr><td>TF-false</td><td>all F</td><td>shows it's <i>not</i></td></tr>
+          <tr><td>Equivalent</td><td>columns match</td><td>shows <i>not</i></td></tr>
+          <tr><td>Consistent</td><td>—</td><td>one row, all T</td></tr>
+          <tr><td>Valid</td><td>no T…T/F row</td><td>shows <i>invalid</i></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<main>
+<section id="s31">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 3.1</div>
+      <h2>Truth-value assignments and truth-tables</h2>
+      <div class="meta">pp. 69–76 · exercises 3.1E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <div class="def"><b>Truth-value assignment</b><span>An assignment of T or F to every atomic sentence of SL. Think of it as one complete way the world might be.</span></div>
+        <p>Atomic sentences are treated as independent: what one is assigned never constrains another. Once an assignment fixes the atoms, the characteristic truth-tables fix the value of every compound, working from the smallest components up to the main connective.</p>
+        <h3>Building a table</h3>
+        <ul>
+          <li>With n distinct sentence letters there are 2<sup>n</sup> rows. Each row stands for the infinitely many assignments that agree on those letters.</li>
+          <li>List the letters in the book's alphabetical order: plain letters first, then those with subscript 1, then 2…</li>
+          <li>The first column alternates blocks of 2<sup>n−1</sup> Ts and Fs, the next halves the block, and the last alternates single T and F.</li>
+          <li>Write each component's column under its main connective. The column under the sentence's main connective is the answer.</li>
+        </ul>
+        <p>A <b>shortened truth-table</b> shows one row only: the value of a sentence on one particular assignment.</p>
+      </div>
+      <div class="side">
+        <h3>Row pattern for three letters</h3>
+        <div class="rscroll"><table class="tt" style="border:1px solid var(--rule)">
+          <thead><tr><th>A</th><th>B</th><th class="v">C</th></tr></thead>
+          <tbody id="pattern"></tbody>
+        </table></div>
+        <p class="trap">A: 4 T then 4 F · B: 2 and 2 · C: alternating.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s32">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 3.2</div>
+      <h2>Truth-functional truth, falsity and indeterminacy</h2>
+      <div class="meta">pp. 77–86 · exercises 3.2E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <div class="def"><b>Truth-functionally true</b><span><b>P</b> is true on every truth-value assignment.</span></div>
+        <div class="def"><b>Truth-functionally false</b><span><b>P</b> is false on every truth-value assignment.</span></div>
+        <div class="def"><b>Truth-functionally indeterminate</b><span>Neither: true on at least one assignment and false on at least one.</span></div>
+        <p>Other books say tautology, contradiction and contingent sentence. Every atomic sentence is indeterminate, and a compound's components don't have to share its status: <span class="f">A ⊃ (B ⊃ A)</span> is truth-functionally true although its parts are indeterminate.</p>
+        <h3>Shortened tables, systematically</h3>
+        <p>To show a sentence is <i>not</i> truth-functionally true, look for one row that makes it false. Put F under the main connective, then write down whatever that forces: a false disjunction has two false disjuncts, a true conjunction two true conjuncts, a negation has the opposite value of what it negates, and a letter has the same value everywhere it occurs.</p>
+        <p>When a value doesn't force anything (a false biconditional, a true conditional), pick a case and carry on. If it leads to a clash, back up and try the next case. Only when <i>every</i> case clashes have you learned the sentence can't take that value. The book notes that this search is an NP-complete problem: in the worst case you have to try everything.</p>
+      </div>
+      <div class="side">
+        <h3>Which value forces what</h3>
+        <table class="ref">
+          <thead><tr><th>Sentence is</th><th>Forced?</th></tr></thead>
+          <tbody>
+            <tr><td class="f">~ P true / false</td><td>P false / true</td></tr>
+            <tr><td class="f">P &amp; Q true</td><td>both true</td></tr>
+            <tr><td class="f">P &amp; Q false</td><td>choice: 3 cases</td></tr>
+            <tr><td class="f">P ∨ Q false</td><td>both false</td></tr>
+            <tr><td class="f">P ∨ Q true</td><td>choice: 3 cases</td></tr>
+            <tr><td class="f">P ⊃ Q false</td><td>P true, Q false</td></tr>
+            <tr><td class="f">P ⊃ Q true</td><td>choice: 3 cases</td></tr>
+            <tr><td class="f">P ≡ Q true / false</td><td>choice: 2 cases each</td></tr>
+          </tbody>
+        </table>
+        <p class="trap">Start with the forced moves: they cost nothing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s33">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 3.3</div>
+      <h2>Truth-functional equivalence</h2>
+      <div class="meta">pp. 87–91 · exercises 3.3E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <div class="def"><b>Truth-functionally equivalent</b><span>There is no truth-value assignment on which <b>P</b> and <b>Q</b> have different truth-values.</span></div>
+        <p>Show equivalence with one joint table whose main-connective columns are identical. Show non-equivalence with a shortened table: one row where they differ (the book boxes it). One row where they agree proves nothing.</p>
+        <p>All truth-functionally true sentences are equivalent to one another, and so are all truth-functionally false ones. Indeterminate sentences need not be.</p>
+        <h3>"Unless" revisited</h3>
+        <p>Chapter 2 symbolized "p unless q" as <span class="f">P ∨ Q</span>. Here we can check that <span class="f">~ P ⊃ Q</span> and <span class="f">~ Q ⊃ P</span> are equivalent to it, so all three symbolizations are correct. Try them in the tester below.</p>
+      </div>
+      <div class="side">
+        <h3>Equivalences worth knowing</h3>
+        <div class="ex"><span class="sym">P ∨ Q &nbsp;·&nbsp; ~ P ⊃ Q &nbsp;·&nbsp; ~ Q ⊃ P</span></div>
+        <div class="ex"><span class="sym">~ (P &amp; Q) &nbsp;·&nbsp; ~ P ∨ ~ Q</span></div>
+        <div class="ex"><span class="sym">~ (P ∨ Q) &nbsp;·&nbsp; ~ P &amp; ~ Q</span></div>
+        <div class="ex"><span class="sym">(P &amp; Q) ⊃ R &nbsp;·&nbsp; P ⊃ (Q ⊃ R)</span></div>
+        <div class="ex"><span class="sym">P ≡ Q &nbsp;·&nbsp; (P ⊃ Q) &amp; (Q ⊃ P)</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s34">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 3.4</div>
+      <h2>Truth-functional consistency</h2>
+      <div class="meta">pp. 92–94 · exercises 3.4E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <div class="def"><b>Truth-functionally consistent</b><span>There is at least one truth-value assignment on which every member of the set is true. Otherwise the set is inconsistent.</span></div>
+        <p>Sets are written with curly braces, and Γ (gamma) ranges over sets of sentences. The empty set ∅ has no members.</p>
+        <p>This time the shortened table does the positive job: one row where every member is true shows consistency. Inconsistency needs the full table, with at least one F in every row. A truth-functionally true member doesn't rescue an inconsistent set.</p>
+      </div>
+      <div class="side">
+        <h3>Asymmetry to remember</h3>
+        <p>A single row is enough to show that something <i>exists</i>: a row making the sentence false, a row where two sentences differ, a row where all members are true. Showing that <i>no</i> such row exists takes the whole table.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s35">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 3.5</div>
+      <h2>Truth-functional entailment and validity</h2>
+      <div class="meta">pp. 95–105 · exercises 3.5E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <div class="def"><b>Truth-functional entailment</b><span>Γ ⊨ <b>P</b> when there is no truth-value assignment on which every member of Γ is true and <b>P</b> is false.</span></div>
+        <div class="def"><b>Truth-functional validity</b><span>An argument of SL is valid when there is no truth-value assignment on which all the premises are true and the conclusion is false.</span></div>
+        <p>⊭ means "does not entail", and ⊨ <b>P</b> on its own means ∅ ⊨ <b>P</b>. The empty set entails exactly the truth-functionally true sentences.</p>
+        <h3>Corresponding material conditional</h3>
+        <p>Conjoin the premises in order, <span class="f">(…(P<sub>1</sub> &amp; P<sub>2</sub>) &amp; … &amp; P<sub>n</sub>)</span>, and make that the antecedent of a conditional whose consequent is the conclusion. An argument with finitely many premises is valid exactly when its corresponding material conditional is truth-functionally true. The section proves this both ways.</p>
+      </div>
+      <div class="side">
+        <h3>Reading the table for validity</h3>
+        <p>Look only at rows where every premise is T. If the conclusion is T in all of them, the argument is valid. A single row with all premises T and the conclusion F is a counterexample, and a shortened table showing it proves invalidity.</p>
+        <p class="trap">If no row makes every premise true, the argument is valid automatically: Chapter 1's special case 3, now in SL.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s36">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 3.6</div>
+      <h2>Truth-functional properties and consistency</h2>
+      <div class="meta">pp. 106–109 · exercises 3.6E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <p>Every property in this chapter can be restated as a question about consistency. That matters because Chapter 4's truth-trees test only for consistency, so these results let trees settle everything else too. Each result is proved straight from the definitions.</p>
+        <p>Γ ∪ {<b>P</b>} is the set containing <b>P</b> and every member of Γ. If <b>P</b> is already in Γ, it's just Γ.</p>
+      </div>
+      <div class="side">
+        <h3>Everything as (in)consistency</h3>
+        <div class="rscroll"><table class="ref">
+          <tbody>
+            <tr><td><b>P</b> is TF-false</td><td>{<b>P</b>} is inconsistent</td></tr>
+            <tr><td><b>P</b> is TF-true</td><td>{~ <b>P</b>} is inconsistent</td></tr>
+            <tr><td><b>P</b> is TF-indeterminate</td><td>{<b>P</b>} and {~ <b>P</b>} both consistent</td></tr>
+            <tr><td><b>P</b>, <b>Q</b> equivalent</td><td>{~ (<b>P</b> ≡ <b>Q</b>)} is inconsistent</td></tr>
+            <tr><td>Γ ⊨ <b>P</b></td><td>Γ ∪ {~ <b>P</b>} is inconsistent</td></tr>
+            <tr><td>Argument valid</td><td>premises plus negated conclusion inconsistent</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tester">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Tool</div>
+      <h2>Truth-functional property tester</h2>
+      <p class="lede">Choose what to test, then type one sentence per line. The tester builds the joint truth-table, marks the rows that decide the answer, and restates the result in terms of consistency as in 3.6.</p>
+    </div>
+    <div class="lab">
+      <div class="seg" role="group" aria-label="What to test" id="modes">
+        <button type="button" data-m="sentence" aria-pressed="true">One sentence</button>
+        <button type="button" data-m="pair" aria-pressed="false">Equivalence</button>
+        <button type="button" data-m="set" aria-pressed="false">Consistency</button>
+        <button type="button" data-m="arg" aria-pressed="false">Argument / entailment</button>
+      </div>
+      <p class="note" id="modehelp"></p>
+      <textarea class="formulas" id="src" spellcheck="false" aria-label="Sentences, one per line"></textarea>
+      <div id="keys"></div>
+      <div class="status" id="verdict" aria-live="polite"></div>
+      <div class="explain" id="explain"></div>
+      <div class="tscroll"><table class="tt" id="table"></table></div>
+    </div>
+  </div>
+</section>
+
+<section id="practice">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Practice</div>
+      <h2>Practice sets for Chapter 3</h2>
+      <p class="lede">Answers are worked out by the same truth-table code as the tester. "Find a row" practises shortened truth-tables: set the letters yourself, then check.</p>
+    </div>
+    <div class="tabs" role="tablist" id="ptabs">
+      <button type="button" class="tab" role="tab" aria-selected="true" data-p="pA">Find a row</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-p="pB">Classify</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-p="pC">Equivalent?</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-p="pD">Valid?</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-p="pE">Via consistency</button>
+    </div>
+    <div id="pA" role="tabpanel"></div>
+    <div id="pB" role="tabpanel" hidden></div>
+    <div id="pC" role="tabpanel" hidden></div>
+    <div id="pD" role="tabpanel" hidden></div>
+    <div id="pE" role="tabpanel" hidden></div>
+  </div>
+</section>
+
+<section id="discuss">
+  <div class="wrap two">
+    <div class="stack">
+      <div class="sec-head">
+        <div class="eyebrow">For our session</div>
+        <h2>Discussion questions</h2>
+      </div>
+      <ol class="qlist">
+        <li>A truth-value assignment assigns values to <i>infinitely many</i> sentence letters, yet a table has finitely many rows. Why is that enough?</li>
+        <li>Why does a single row suffice to show consistency but not inconsistency? Which other properties have the same asymmetry?</li>
+        <li>If Γ is inconsistent, what does Γ entail? Connect this to Chapter 1's special cases.</li>
+        <li>Is "truth-functionally true" the same as "logically true"? Find a logically true English sentence whose symbolization in SL is indeterminate.</li>
+        <li>Why might the book bother proving that every property reduces to consistency, rather than just testing each one with a table?</li>
+      </ol>
+    </div>
+    <div class="stack">
+      <div class="sec-head">
+        <div class="eyebrow">Your notes</div>
+        <h2>Questions for our session</h2>
+        <p class="note">Saved in this browser only.</p>
+      </div>
+      <textarea class="notes" id="notes" aria-label="Questions for our session"></textarea>
+      <div class="note" id="saved"></div>
+      <div class="sec-head" style="margin-top:12px"><h3>Supplementary reading</h3></div>
+      <div class="empty">Nothing assigned from other texts for this chapter yet.</div>
+    </div>
+  </div>
+</section>
+</main>
+
+<nav class="wrap chnav" aria-label="Chapters"><a href="chapter-2.html"><span>Previous</span>Chapter 2 · Syntax and Symbolization</a><a href="chapter-4.html"><span>Next</span>Chapter 4 · Sentential Logic: Truth-Trees</a></nav>
+<footer><div class="wrap">Valid Moves · Chapter 3 notes for <i>The Logic Book</i>, 6th edition (Bergmann, Moor &amp; Nelson). Summaries and practice questions are our own; page numbers refer to the 6th edition.</div></footer>
+
+<script src="logic.js"></script>
+<script>
+(function(){
+const {esc,store,parse,show,showTop,joint,tv,ev,letters,sortLetters,rows}=SL;
+
+/* row pattern */
+document.getElementById('pattern').innerHTML=rows(['A','B','C']).map(e=>'<tr><td>'+tv(e.A)+'</td><td>'+tv(e.B)+'</td><td class="v">'+tv(e.C)+'</td></tr>').join('');
+
+/* ---------- tester ---------- */
+const MODES={
+  sentence:{help:'Type one sentence.',ex:'(A ⊃ B) ⊃ A'},
+  pair:{help:'Type two sentences, one per line.',ex:'A ∨ B\n~ A ⊃ B'},
+  set:{help:'Type each member of the set on its own line.',ex:'(E ≡ H) ⊃ E\nH & ~ E'},
+  arg:{help:'Type the premises one per line, then the conclusion on the last line.',ex:'D ⊃ (~ W ∨ G)\nG ⊃ ~ D\n~ D'}
+};
+let mode=store.get('vm-ch3-mode','sentence');if(!MODES[mode])mode='sentence';
+const src=document.getElementById('src'),keys=document.getElementById('keys');
+const V=document.getElementById('verdict'),X=document.getElementById('explain'),TB=document.getElementById('table');
+keys.innerHTML=SL.KEYS_HTML;
+const drafts=store.get('vm-ch3-drafts',{});
+const conjAll=a=>a.reduce((acc,x)=>acc?{op:'&',l:acc,r:x}:x,null);
+const neg=a=>({op:'~',a});
+const rowText=(vs,env)=>vs.map(v=>v+' = '+(env[v]?'T':'F')).join(', ');
+
+function run(){
+  drafts[mode]=src.value;store.set('vm-ch3-drafts',drafts);
+  const lines=src.value.split('\n').map(s=>s.trim()).filter(Boolean);
+  V.innerHTML='';X.innerHTML='';TB.innerHTML='';
+  const need={sentence:[1,1],pair:[2,2],set:[1,8],arg:[2,8]}[mode];
+  if(lines.length<need[0]||lines.length>need[1]){
+    V.innerHTML='<span class="note">'+(mode==='sentence'?'Type one sentence.':mode==='pair'?'Type exactly two sentences, one per line.':mode==='set'?'Type between 1 and 8 sentences, one per line.':'Type at least one premise and a conclusion (up to 8 lines).')+'</span>';return;
+  }
+  let J;
+  try{J=joint(lines)}catch(e){V.innerHTML='<span class="err">'+(e.index>=0?'Line '+(e.index+1)+': ':'')+esc(e.message)+'</span>';return}
+  const {asts,vs,rows:R}=J,n=asts.length;
+  const labels=mode==='arg'?asts.map((a,i)=>i===n-1?'Conclusion':'Premise '+(i+1)):mode==='pair'?['P','Q']:mode==='set'?asts.map((a,i)=>'Member '+(i+1)):['P'];
+  let box=()=>false,verdict,expl=[];
+  if(mode==='sentence'){
+    const t=R.filter(r=>r.vals[0]).length,P=esc(showTop(asts[0]));
+    if(t===R.length){verdict=['good','Truth-functionally true'];expl.push('The column under the main connective is all T, so no assignment makes it false. By 3.6, {~ '+P+'} is truth-functionally inconsistent.')}
+    else if(t===0){verdict=['bad','Truth-functionally false'];expl.push('The column under the main connective is all F. By 3.6, {'+P+'} is truth-functionally inconsistent.')}
+    else{verdict=['mid','Truth-functionally indeterminate'];
+      const fr=R.find(r=>!r.vals[0]),trr=R.find(r=>r.vals[0]);box=r=>r===fr||r===trr;
+      expl.push('True on '+t+' of '+R.length+' rows. The marked rows are two shortened truth-tables: true when '+rowText(vs,trr.env)+'; false when '+rowText(vs,fr.env)+'.');}
+  }else if(mode==='pair'){
+    const d=R.filter(r=>r.vals[0]!==r.vals[1]);
+    if(!d.length){verdict=['good','Truth-functionally equivalent'];expl.push('The two main-connective columns match on every row. By 3.6, {~ ('+esc(show(asts[0]))+' ≡ '+esc(show(asts[1]))+')} is inconsistent.')}
+    else{verdict=['bad','Not equivalent'];box=r=>r===d[0];expl.push('They differ on '+d.length+' of '+R.length+' rows. The marked row is enough to show it: '+rowText(vs,d[0].env)+'.')}
+  }else if(mode==='set'){
+    const ok=R.filter(r=>r.vals.every(Boolean));
+    if(ok.length){verdict=['good','Truth-functionally consistent'];box=r=>ok.includes(r);expl.push('Every member is true on the marked row'+(ok.length>1?'s':'')+'. One such row is all a shortened table needs: '+rowText(vs,ok[0].env)+'.')}
+    else{verdict=['bad','Truth-functionally inconsistent'];expl.push('Every row has at least one F among the members, so no assignment makes them all true. A full table is needed to show this.')}
+  }else{
+    const ce=R.filter(r=>r.vals.slice(0,-1).every(Boolean)&&!r.vals[n-1]);
+    const allT=R.filter(r=>r.vals.slice(0,-1).every(Boolean));
+    if(!ce.length){verdict=['good','Truth-functionally valid'];box=r=>allT.includes(r);
+      expl.push(allT.length?'In every row where all the premises are true (marked), the conclusion is true too. So the premises entail the conclusion.':'No row makes all the premises true, so there can be no counterexample. The argument is valid, but no instance of it can be sound.')}
+    else{verdict=['bad','Truth-functionally invalid'];box=r=>ce.includes(r);expl.push('The marked row'+(ce.length>1?'s are counterexamples':' is a counterexample')+': all premises true, conclusion false. A shortened table showing '+rowText(vs,ce[0].env)+' proves invalidity.')}
+    const cmc={op:'⊃',l:conjAll(asts.slice(0,-1)),r:asts[n-1]};
+    expl.push('Corresponding material conditional: <span class="f">'+esc(showTop(cmc))+'</span>. It is '+(ce.length?'not truth-functionally true':'truth-functionally true')+', matching the result.');
+    expl.push('By 3.6: {'+asts.slice(0,-1).map(a=>esc(showTop(a))).join(', ')+', '+esc(show(neg(asts[n-1])))+'} is '+(ce.length?'consistent':'inconsistent')+'.');
+  }
+  V.innerHTML='<span class="pill '+verdict[0]+'">'+verdict[1]+'</span>';
+  X.innerHTML=expl.map(s=>'<p>'+s+'</p>').join('');
+  let h='<thead><tr>'+vs.map((v,i)=>'<th class="'+(i===vs.length-1?'v':'')+'">'+v+'</th>').join('')+
+    asts.map((a,i)=>'<th class="'+(mode==='arg'&&i===n-1?'c':'')+'" title="'+labels[i]+'">'+esc(showTop(a))+'</th>').join('')+'</tr></thead><tbody>';
+  R.forEach(r=>{h+='<tr'+(box(r)?' class="box"':'')+'>'+vs.map((v,i)=>'<td class="'+(i===vs.length-1?'v':'')+'">'+tv(r.env[v])+'</td>').join('')+r.vals.map((b,i)=>'<td class="'+(mode==='arg'&&i===n-1?'c ':'')+'main">'+tv(b)+'</td>').join('')+'</tr>'});
+  TB.innerHTML=h+'</tbody>';
+}
+function setMode(m){
+  mode=m;store.set('vm-ch3-mode',m);
+  document.querySelectorAll('#modes button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.m===m));
+  document.getElementById('modehelp').textContent=MODES[m].help;
+  src.value=drafts[m]??MODES[m].ex;run();
+}
+document.querySelectorAll('#modes button').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.m)));
+SL.wireInput(src,keys,run);
+setMode(mode);
+
+SL.tabs(document.getElementById('ptabs'),'vm-ch3-tab');
+
+/* ---------- A: find a row (shortened truth-tables) ---------- */
+(function(){
+  const el=document.getElementById('pA');
+  const T=[
+    {g:'Show that this sentence is not truth-functionally true: find a row that makes it false.',s:['(A ∨ B) ⊃ A'],want:r=>!r[0]},
+    {g:'Show that this sentence is not truth-functionally false: find a row that makes it true.',s:['J & (~ K ∨ ~ J)'],want:r=>r[0]},
+    {g:'Show that these two sentences are not equivalent: find a row where they differ.',s:['A ⊃ (B ⊃ C)','(A ⊃ B) ⊃ C'],want:r=>r[0]!==r[1]},
+    {g:'Show that this set is consistent: find a row where every member is true.',s:['A ⊃ B','B ⊃ ~ C','C ∨ ~ A'],want:r=>r.every(Boolean)},
+    {g:'Show that this argument is invalid: make every premise true and the conclusion false. The last line is the conclusion.',s:['P ⊃ Q','~ P ⊃ R','Q ∨ R','P'],want:r=>r.slice(0,-1).every(Boolean)&&!r[r.length-1]},
+    {g:'Show that this sentence is not truth-functionally true.',s:['[(A ≡ B) ∨ (B ≡ C)] ⊃ (A ≡ C)'],want:r=>!r[0]}
+  ];
+  let st=store.get('vm-ch3-row',{i:0,set:{}});if(!(st.i<T.length))st={i:0,set:{}};
+  const draw=(checked)=>{
+    const q=T[st.i],asts=q.s.map(s=>parse(s).ast),vs=sortLetters([...asts.reduce((S,a)=>letters(a,S),new Set())]);
+    const env=st.set[st.i]||{};vs.forEach(v=>{if(env[v]===undefined)env[v]=true});st.set[st.i]=env;
+    const vals=asts.map(a=>ev(a,env)),ok=q.want(vals);
+    el.innerHTML='<div class="qcard"><div class="qtop"><span class="qnum">Task '+(st.i+1)+' of '+T.length+'</span></div><div class="qtext" style="font-size:1.05rem">'+esc(q.g)+'</div>'+
+      '<div class="proof">'+q.s.map((s,i)=>'<div class="row" style="grid-template-columns:minmax(0,1fr) auto"><span class="f">'+esc(s)+'</span>'+(checked?'<span>'+tv(vals[i])+'</span>':'<span></span>')+'</div>').join('')+'</div>'+
+      '<div class="toggles" aria-label="Truth-values of the letters">'+vs.map(v=>'<button type="button" class="tog" data-v="'+v+'" aria-label="'+v+' is '+(env[v]?'true':'false')+', click to switch">'+v+' = '+tv(env[v])+'</button>').join('')+'</div>'+
+      (checked?'<div class="feedback '+(ok?'good':'bad')+'"><b>'+(ok?'That row works.':'Not this row.')+'</b><span>'+(ok?'This shortened truth-table does the job.':'Look at what the goal forces under the main connective first, then fill in letters.')+'</span></div>':'')+
+      '<div class="qnav"><button type="button" class="btn" data-check>Check this row</button><button type="button" class="btn ghost" data-next>'+(st.i===T.length-1?'Back to first task':'Next task')+'</button></div></div>';
+  };
+  el.addEventListener('click',e=>{
+    const b=e.target.closest('button');if(!b)return;
+    if(b.dataset.v){st.set[st.i][b.dataset.v]=!st.set[st.i][b.dataset.v];store.set('vm-ch3-row',st);draw(false)}
+    else if(b.hasAttribute('data-check'))draw(true);
+    else if(b.hasAttribute('data-next')){st.i=(st.i+1)%T.length;store.set('vm-ch3-row',st);draw(false)}
+  });
+  draw(false);
+})();
+
+/* ---------- B: classify ---------- */
+const CL=[{v:'true',label:'TF-true'},{v:'false',label:'TF-false'},{v:'ind',label:'TF-indeterminate'}];
+const B=['A ⊃ (B ⊃ A)','(A ⊃ B) ⊃ A','~ (C ∨ ~ C)','(A & ~ A) ∨ ~ A','[(A ⊃ B) & ~ B] ⊃ ~ A','(A ≡ B) ≡ ~ (A ≡ B)','~ [(U ⊃ (W ∨ ~ U)) ⊃ W]','(A ∨ B) ⊃ (A & B)'].map(s=>{
+  const J=joint([s]),t=J.rows.filter(r=>r.vals[0]).length;
+  const c=t===J.rows.length?'true':t===0?'false':'ind';
+  return{html:'<span class="f">'+esc(s)+'</span>',correct:c,why:c==='true'?'True on all '+J.rows.length+' rows.':c==='false'?'False on all '+J.rows.length+' rows.':'True on '+t+' of '+J.rows.length+' rows, false on the rest.'};
+});
+SL.mcQuiz(document.getElementById('pB'),B,'vm-ch3-B',CL,true);
+
+/* ---------- C: equivalent? ---------- */
+const EQ=[{v:'yes',label:'Equivalent'},{v:'no',label:'Not equivalent'}];
+const C=[['A ∨ B','~ A ⊃ B'],['A ⊃ B','B ⊃ A'],['A ⊃ B','~ B ⊃ ~ A'],['~ (A & B)','~ A & ~ B'],['(W & Y) ⊃ H','W ⊃ (Y ⊃ H)'],['A ≡ B','(A & B) ∨ (~ A & ~ B)'],['A & (B ∨ C)','(A & B) ∨ C'],['~ (A ≡ B)','~ A ≡ B']].map(p=>{
+  const J=joint(p),d=J.rows.find(r=>r.vals[0]!==r.vals[1]);
+  return{html:'<span class="f">'+esc(p[0])+'</span> &nbsp;and&nbsp; <span class="f">'+esc(p[1])+'</span>',correct:d?'no':'yes',why:d?'They differ when '+J.vs.map(v=>v+' = '+(d.env[v]?'T':'F')).join(', ')+'.':'Their columns match on all '+J.rows.length+' rows.'};
+});
+SL.mcQuiz(document.getElementById('pC'),C,'vm-ch3-C',EQ,true);
+
+/* ---------- D: valid? ---------- */
+const VA=[{v:'valid',label:'Valid'},{v:'invalid',label:'Invalid'}];
+const D=[[['F ≡ G','F ∨ G'],'F & G'],[['A ⊃ B','B'],'A'],[['A ∨ B','~ A'],'B'],[['~ A ∨ ~ B','B ⊃ A'],'~ A'],[['K ≡ J','~ (K ≡ J)'],'L'],[['A ⊃ B','B ⊃ C'],'C ⊃ A'],[['(A ⊃ B) & (C ⊃ D)','A ∨ C'],'B ∨ D'],[['P ⊃ (Q ⊃ R)'],'(P ⊃ Q) ⊃ R']].map(([ps,c])=>{
+  const J=joint([...ps,c]),ce=J.rows.find(r=>r.vals.slice(0,-1).every(Boolean)&&!r.vals[ps.length]);
+  return{html:'<div class="proof" style="max-width:360px">'+ps.map((p,i)=>'<div class="row" style="grid-template-columns:2.5ch minmax(0,1fr)"><span class="n">'+(i+1)+'</span><span>'+esc(p)+'</span></div>').join('')+'<div class="row" style="grid-template-columns:2.5ch minmax(0,1fr);border-top:1.5px solid var(--ink)"><span class="n"></span><span>'+esc(c)+'</span></div></div>',
+    correct:ce?'invalid':'valid',why:ce?'Counterexample: '+J.vs.map(v=>v+' = '+(ce.env[v]?'T':'F')).join(', ')+'.':(J.rows.some(r=>r.vals.slice(0,-1).every(Boolean))?'Every row with all premises true has a true conclusion.':'The premises can\'t all be true together, so there is no counterexample.')};
+});
+SL.mcQuiz(document.getElementById('pD'),D,'vm-ch3-D',VA,true);
+
+/* ---------- E: via consistency (3.6) ---------- */
+const E=[
+  {s:'P is truth-functionally true if and only if…',o:['{P} is inconsistent','{~ P} is inconsistent','{P} is consistent','{~ P} is consistent'],correct:1,why:'If P can never be false, ~ P can never be true.'},
+  {s:'P is truth-functionally false if and only if…',o:['{P} is inconsistent','{~ P} is inconsistent','{~ P} is consistent','both {P} and {~ P} are consistent'],correct:0,why:'The only member, P, can never be true.'},
+  {s:'Γ ⊨ P if and only if…',o:['Γ ∪ {P} is consistent','Γ ∪ {P} is inconsistent','Γ ∪ {~ P} is inconsistent','Γ is inconsistent'],correct:2,why:'Entailment fails only if the members of Γ can all be true with P false, that is, with ~ P true.'},
+  {s:'P and Q are truth-functionally equivalent if and only if…',o:['{P, Q} is consistent','{~ (P ≡ Q)} is inconsistent','{P ≡ Q} is inconsistent','{~ P, ~ Q} is inconsistent'],correct:1,why:'Equivalence means P ≡ Q is truth-functionally true, which means its negation can\'t be true.'},
+  {s:'If Γ is truth-functionally inconsistent, then Γ entails…',o:['only truth-functionally true sentences','nothing','every sentence of SL','only members of Γ'],correct:2,why:'No assignment makes every member of Γ true, so none makes them true and P false, whatever P is.'},
+  {s:'P is truth-functionally indeterminate if and only if…',o:['{P} is inconsistent','{P} and {~ P} are both consistent','{P, ~ P} is consistent','{~ P} is inconsistent'],correct:1,why:'P is true on some assignment and false on some, so each of P and ~ P can be true. Note {P, ~ P} is always inconsistent.'}
+].map(q=>Object.assign(q,{opts:q.o.map((l,i)=>({v:i,label:l}))}));
+SL.mcQuiz(document.getElementById('pE'),E,'vm-ch3-E',q=>q.opts,false);
+
+const notes=document.getElementById('notes'),saved=document.getElementById('saved');
+notes.value=store.get('vm-ch3-notes','');
+let t;notes.addEventListener('input',()=>{clearTimeout(t);t=setTimeout(()=>{store.set('vm-ch3-notes',notes.value);saved.textContent='Saved in this browser.'},400)});
+})();
+</script>
+</body>
+</html>

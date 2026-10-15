@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chapter 7 · Predicate Logic: Syntax and Symbolization</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600&family=Spectral:ital,wght@0,400;0,500;1,400&display=swap">
+<link rel="stylesheet" href="site.css">
+<style>.free{color:var(--false);font-weight:600}.bound{color:var(--true)}</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html">Valid Moves <span>⊢</span></a>
+    <nav aria-label="Site">
+      <a href="index.html">Home</a>
+      <a href="index.html#chapters">Chapters</a>
+      <a href="index.html#texts">Other texts</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="copy">
+      <div class="eyebrow">Chapter 7 · pp. 262–328</div>
+      <h1>Predicate Logic: <em>Syntax and Symbolization</em></h1>
+      <p class="lede">SL treats sentences as unbreakable. PL looks inside them, at predicates, singular terms and quantity expressions, so it can show why "None of David's friends supports Republicans" and two more premises make a valid argument.</p>
+      <nav class="toc" aria-label="On this page">
+        <a href="#s71">7.1 Predicates and terms</a><a href="#s72">7.2 Syntax of PL</a><a href="#s73">7.3 Symbolization</a><a href="#s74">7.4 Fine-tuned</a><a href="#s75">7.5 PLE</a><a href="#analyzer">Analyzer</a><a href="#practice">Practice</a>
+      </nav>
+    </div>
+    <div class="card" aria-label="Vocabulary of PL">
+      <div class="cap">Vocabulary of PL</div>
+      <table class="ref">
+        <tbody>
+          <tr><td>Sentence letters</td><td class="f">A … Z</td></tr>
+          <tr><td>Predicates</td><td class="f">Fx, Lxy, Bxyz</td></tr>
+          <tr><td>Constants</td><td class="f">a … v</td></tr>
+          <tr><td>Variables</td><td class="f">w, x, y, z</td></tr>
+          <tr><td>Quantifiers</td><td class="f">(∀x) &nbsp; (∃x)</td></tr>
+          <tr><td>PLE adds</td><td class="f">a = b &nbsp; f(a)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<main>
+<section id="s71">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 7.1</div>
+      <h2>Predicates, singular terms and quantity expressions</h2>
+      <div class="meta">pp. 262–267 · exercises 7.1E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <p>Atomic sentences of SL are independent of one another, so SL can't see that "Sarah supports Breitlow" and "Breitlow is a Republican" together mean Sarah supports a Republican. Nor can it show that "Each citizen will vote or will not vote" is a logical truth about each citizen.</p>
+        <h3>Singular terms</h3>
+        <p>A <b>singular term</b> designates, or purports to designate, one thing: a <b>proper name</b> ("Marie Curie"), a <b>definite description</b> ("the discoverer of radium"), or a pronoun standing in for one of those.</p>
+        <h3>Predicates</h3>
+        <p>Remove the singular terms from a sentence and you're left with a <b>predicate</b>. "Sarah supports Breitlow" yields the two-place predicate "x supports y". The number of gaps is the predicate's number of places.</p>
+        <h3>Quantity expressions</h3>
+        <p>"All", "some", "none", "each" don't name anything. They say how many things satisfy a predicate, and PL's quantifiers capture them.</p>
+      </div>
+      <div class="side">
+        <h3>From English to parts</h3>
+        <div class="ex"><span class="en">Sarah supports Breitlow.</span><span class="sym">Ssb</span></div>
+        <div class="ex"><span class="en">Breitlow is a Republican.</span><span class="sym">Rb</span></div>
+        <div class="ex"><span class="en">None of David's friends supports a Republican.</span><span class="sym">~ (∃x)[Fxd &amp; (∃y)(Ry &amp; Sxy)]</span></div>
+        <p class="trap">Key: s Sarah, b Breitlow, d David, Fxy x is a friend of y, Rx x is a Republican, Sxy x supports y.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s72">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 7.2</div>
+      <h2>The formal syntax of PL</h2>
+      <div class="meta">pp. 268–275 · exercises 7.2E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <p>Officially an n-place predicate carries n primes (F′, B″); informally they're dropped when the terms make the number of places clear. An <b>atomic formula</b> is a sentence letter, or an n-place predicate followed by n individual terms.</p>
+        <h3>Recursive definition of "formula of PL"</h3>
+        <ol>
+          <li>Every atomic formula is a formula.</li>
+          <li>If P is a formula, so is ~ P.</li>
+          <li>If P and Q are formulas, so are (P &amp; Q), (P ∨ Q), (P ⊃ Q), (P ≡ Q).</li>
+          <li>If P contains at least one occurrence of x and <i>no x-quantifier</i>, then (∀x)P and (∃x)P are formulas.</li>
+          <li>Nothing else is a formula.</li>
+        </ol>
+        <h3>Scope, free and bound</h3>
+        <p>The <b>scope</b> of a quantifier is the quantifier plus the subformula right after it. An occurrence of x is <b>bound</b> if it lies in the scope of an x-quantifier, otherwise <b>free</b>. A <b>sentence</b> of PL is a formula with no free variables.</p>
+        <p>Careful with dropped outer brackets: <span class="f">(∀x)(Fx ⊃ Ga)</span> is quantified, but <span class="f">(∀x)Fx ⊃ Ga</span> is a conditional whose antecedent is quantified.</p>
+        <h3>Substitution instances</h3>
+        <p>P(a/x) is P with a in place of x. If P is (∀x)Q or (∃x)Q, then Q(a/x) is a <b>substitution instance</b> of P, and a is the instantiating constant: <span class="f">Fab</span> is an instance of <span class="f">(∃z)Fzb</span>.</p>
+      </div>
+      <div class="side">
+        <h3>Not formulas, and why</h3>
+        <div class="ex"><span class="sym">(∀x)Fa</span><span class="trap">No x after the quantifier (clause 4).</span></div>
+        <div class="ex"><span class="sym">(∀y)(Fy ⊃ (∀y)Gy)</span><span class="trap">The formula already contains a y-quantifier.</span></div>
+        <div class="ex"><span class="sym">Fa &amp; Gb &amp; Hc</span><span class="trap">Each binary connective needs its own brackets.</span></div>
+        <h3 style="margin-top:8px">Formulas that aren't sentences</h3>
+        <div class="ex"><span class="sym">Rabz</span><span class="trap">z is free.</span></div>
+        <div class="ex"><span class="sym">(∀z)Gz ∨ Hz</span><span class="trap">The last z is outside the quantifier's scope.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s73">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 7.3</div>
+      <h2>Introduction to symbolization</h2>
+      <div class="meta">pp. 276–295 · exercises 7.3E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <p>A <b>symbolization key</b> fixes a <b>universe of discourse</b> (UD), what each predicate means, and what each constant names. The UD matters: with UD the set of people, "everyone is happy" is just (∀x)Hx; with a wider UD you need (∀x)(Px ⊃ Hx).</p>
+        <p>Variables range over the whole UD. The existential quantifier means "at least one". Translate in stages: first a quasi-English paraphrase with variables ("each x is such that if x is a dog then x barks"), then the formula.</p>
+        <h3>The pairing rule</h3>
+        <p>Universal claims pair with ⊃; existential claims pair with &amp;. <span class="f">(∀x)(Dx &amp; Bx)</span> says everything is a barking dog. <span class="f">(∃x)(Dx ⊃ Bx)</span> is true as soon as anything in the UD isn't a dog.</p>
+      </div>
+      <div class="side">
+        <h3>The four standard forms</h3>
+        <div class="ex"><span class="en">All dogs bark.</span><span class="sym">(∀x)(Dx ⊃ Bx)</span></div>
+        <div class="ex"><span class="en">Some dogs bark.</span><span class="sym">(∃x)(Dx &amp; Bx)</span></div>
+        <div class="ex"><span class="en">No dogs bark.</span><span class="sym">(∀x)(Dx ⊃ ~ Bx) &nbsp;or&nbsp; ~ (∃x)(Dx &amp; Bx)</span></div>
+        <div class="ex"><span class="en">Not all dogs bark.</span><span class="sym">~ (∀x)(Dx ⊃ Bx) &nbsp;or&nbsp; (∃x)(Dx &amp; ~ Bx)</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s74">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 7.4</div>
+      <h2>Symbolization fine-tuned</h2>
+      <div class="meta">pp. 296–309 · exercises 7.4E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <h3>Overlapping quantifiers</h3>
+        <p>With two-place predicates, quantifier order changes the meaning. "Everyone loves someone" is <span class="f">(∀x)(∃y)Lxy</span>; "someone is loved by everyone" is <span class="f">(∃y)(∀x)Lxy</span>. The second entails the first, not the other way round.</p>
+        <h3>Tricky English</h3>
+        <ul>
+          <li><b>"Only Fs are G"</b>: <span class="f">(∀x)(Gx ⊃ Fx)</span>, the arrow pointing the other way.</li>
+          <li><b>"Any"</b> often works like "every", but "if anything is broken, Sam will fix it" is <span class="f">(∀x)(Bx ⊃ Fsx)</span> while "if everything is broken, Sam will quit" is <span class="f">(∀x)Bx ⊃ Qs</span>.</li>
+          <li><b>Relative clauses</b> become conjunctions inside the scope: "every gorilla that likes a rhinoceros…" puts Gx &amp; (∃y)(Ry &amp; Lxy) in the antecedent.</li>
+          <li>Pronouns that cross-refer to a quantified phrase become the same bound variable.</li>
+        </ul>
+      </div>
+      <div class="side">
+        <h3>Same words, different order</h3>
+        <div class="ex"><span class="en">Every animal likes some animal.</span><span class="sym">(∀x)[Ax ⊃ (∃y)(Ay &amp; Lxy)]</span></div>
+        <div class="ex"><span class="en">Some animal is liked by every animal.</span><span class="sym">(∃y)[Ay &amp; (∀x)(Ax ⊃ Lxy)]</span></div>
+        <p class="trap">Read the outermost quantifier first: it says what the claim is about.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s75">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 7.5</div>
+      <h2>The language PLE</h2>
+      <div class="meta">pp. 310–328 · exercises 7.5E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <p>PLE adds two things to PL. The <b>identity predicate</b>, always interpreted as identity and written informally a = b (negated: ~ a = b). And <b>functors</b>, which name functions: if f(x) is "the successor of x", then f(a) is a complex term, and <span class="f">(∀x)(Ex ⊃ Of(x))</span> says the successor of an even number is odd.</p>
+        <p>Identity lets PLE count. Different variables don't mean different things, so "at least two" needs an explicit ~ x = y. It also handles "everyone else", "only", superlatives, and definite descriptions ("the F is G": exactly one thing is F, and it is G).</p>
+      </div>
+      <div class="side">
+        <h3>Counting with identity</h3>
+        <div class="ex"><span class="en">At least two apples</span><span class="sym">(∃x)(∃y)[(Ax &amp; Ay) &amp; ~ x = y]</span></div>
+        <div class="ex"><span class="en">At most one apple</span><span class="sym">(∀x)(∀y)[(Ax &amp; Ay) ⊃ x = y]</span></div>
+        <div class="ex"><span class="en">Exactly one apple</span><span class="sym">(∃x)[Ax &amp; (∀y)(Ay ⊃ y = x)]</span></div>
+        <div class="ex"><span class="en">The apple is red</span><span class="sym">(∃x)[(Ax &amp; (∀y)(Ay ⊃ y = x)) &amp; Rx]</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="analyzer">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Tool</div>
+      <h2>Formula analyzer</h2>
+      <p class="lede">Type an expression of PL or PLE. The analyzer checks it against the recursive definition, marks free variables, and lists every subformula with its main logical operator, as in the table in 7.2.</p>
+    </div>
+    <div class="lab">
+      <div class="entry"><input id="f" type="text" spellcheck="false" autocomplete="off" aria-label="Formula of PL" value="(∀x)Fx ⊃ (∃y)(Gy &amp; Rxy)"></div>
+      <div id="keys"></div>
+      <p class="note">Shortcuts: <code>(Ax)</code> for (∀x), <code>(Ex)</code> for (∃x), <code>~</code>, <code>&amp;</code>, <code> v </code> (with spaces), <code>&gt;</code> for ⊃, <code>&lt;-&gt;</code> for ≡. In PLE, <code>=</code> is identity.</p>
+      <div class="samples">Try:
+        <button type="button" data-f="(∀x)(Fx ⊃ Ga)">(∀x)(Fx ⊃ Ga)</button>
+        <button type="button" data-f="(∀x)Fx ⊃ Ga">(∀x)Fx ⊃ Ga</button>
+        <button type="button" data-f="(∃y)(Hay ≡ (Fy ∨ Gya))">book example</button>
+        <button type="button" data-f="(∀y)(Fy ⊃ (∀y)Gy)">re-quantified</button>
+        <button type="button" data-f="(∃x)(∃y)([(Ax &amp; Ay) &amp; (Nxb &amp; Nyb)] &amp; ~ x = y)">at least two</button>
+      </div>
+      <div class="verdict" id="out" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<section id="practice">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Practice</div>
+      <h2>Practice sets for Chapter 7</h2>
+    </div>
+    <div class="tabs" role="tablist" id="ptabs">
+      <button type="button" class="tab" role="tab" aria-selected="true" data-p="pA">Sentence?</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-p="pB">Main operator</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-p="pC">Symbolize</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-p="pD">PLE</button>
+    </div>
+    <div id="pA" role="tabpanel"></div>
+    <div id="pB" role="tabpanel" hidden></div>
+    <div id="pC" role="tabpanel" hidden></div>
+    <div id="pD" role="tabpanel" hidden></div>
+  </div>
+</section>
+
+<section id="discuss">
+  <div class="wrap two">
+    <div class="stack">
+      <div class="sec-head">
+        <div class="eyebrow">For our session</div>
+        <h2>Discussion questions</h2>
+      </div>
+      <ol class="qlist">
+        <li>Why does clause 4 forbid (∀x)Fa and (∀y)(Fy ⊃ (∀y)Gy)? What would they mean if allowed?</li>
+        <li>Translate "Everybody loves somebody" two ways and describe a situation where the readings come apart.</li>
+        <li>How does choosing a narrower UD simplify symbolizations? What can go wrong?</li>
+        <li>"Some" in PL means "at least one". Is that faithful to English? Does "some apples" ever mean "at least two"?</li>
+        <li>Why can't PL (without identity) say "there are at least two things"?</li>
+      </ol>
+    </div>
+    <div class="stack">
+      <div class="sec-head">
+        <div class="eyebrow">Your notes</div>
+        <h2>Questions for our session</h2>
+        <p class="note">Saved in this browser only.</p>
+      </div>
+      <textarea class="notes" id="notes" aria-label="Questions for our session"></textarea>
+      <div class="note" id="saved"></div>
+      <div class="sec-head" style="margin-top:12px"><h3>Supplementary reading</h3></div>
+      <div class="empty">Nothing assigned from other texts for this chapter yet.</div>
+    </div>
+  </div>
+</section>
+</main>
+
+<nav class="wrap chnav" aria-label="Chapters"><a href="chapter-6.html"><span>Previous</span>Chapter 6 · Sentential Logic: Metatheory</a><a href="chapter-8.html"><span>Next</span>Chapter 8 · Predicate Logic: Semantics</a></nav>
+<footer><div class="wrap">Valid Moves · Chapter 7 notes for <i>The Logic Book</i>, 6th edition (Bergmann, Moor &amp; Nelson). Summaries and practice questions are our own; page numbers refer to the 6th edition.</div></footer>
+
+<script src="logic.js"></script>
+<script src="pl.js"></script>
+<script>
+(function(){
+const {esc,store}=SL;
+const {parse,show,showTop,kind,immediate,subformulas,freeVars,isSentence}=PL;
+
+const inp=document.getElementById('f'),keys=document.getElementById('keys'),out=document.getElementById('out');
+keys.innerHTML=PL.KEYS_HTML;
+const mainOp=n=>n.op==='atom'?'none':(n.op==='∀'||n.op==='∃')?'('+n.op+n.v+')':n.op;
+/* mark free occurrences of variables in the display */
+function markFree(n,bound=new Set()){
+  const t=tm=>tm.t==='fn'?tm.n+'('+tm.args.map(t).join(',')+')':tm.t==='var'?'<span class="'+(bound.has(tm.n)?'bound':'free')+'">'+tm.n+'</span>':tm.n;
+  switch(n.op){
+    case 'atom':return n.pred==='='?t(n.args[0])+' = '+t(n.args[1]):esc(n.pred)+n.args.map(t).join('');
+    case '~':return '~ '+markFree(n.a,bound);
+    case '∀':case '∃':{const b=new Set(bound);b.add(n.v);return '('+n.op+n.v+')'+markFree(n.a,b)}
+    default:{const[o,c]=n.br==='['?['[',']']:['(',')'];return o+markFree(n.l,bound)+' '+esc(n.op)+' '+markFree(n.r,bound)+c}
+  }
+}
+function run(){
+  let r;
+  try{r=parse(inp.value)}catch(e){out.innerHTML=e.code==='empty'?'<span class="note">'+esc(e.message)+'</span>':'<div class="status"><span class="pill bad">Not a formula of PL</span></div><p>'+esc(e.message)+'</p>';return}
+  const a=r.ast,fv=[...freeVars(a)],sent=!fv.length;
+  let h='<div class="status"><span class="pill '+(sent?'good':'mid')+'">'+(sent?'Sentence of PL':'Formula, not a sentence')+'</span>'+(r.informal?'<span class="pill quiet">Outer brackets dropped</span>':'')+'</div>';
+  h+='<dl class="kv"><dt>Formula</dt><dd class="f" style="white-space:normal">'+(r.informal?markFree(a).replace(/^\(|\)$/g,''):markFree(a))+'</dd>';
+  h+='<dt>Type</dt><dd>'+kind(a)+'</dd><dt>Main operator</dt><dd class="f">'+esc(mainOp(a))+'</dd>';
+  h+='<dt>Free variables</dt><dd>'+(fv.length?fv.map(v=>'<span class="f free">'+v+'</span>').join(', ')+' <span class="note">(marked in red above)</span>':'none')+'</dd></dl>';
+  h+='<div class="rscroll"><table class="ref"><thead><tr><th>Subformula</th><th>Main operator</th><th>Type</th></tr></thead><tbody>'+
+    subformulas(a).map(s=>'<tr><td class="f">'+esc(show(s))+'</td><td class="f">'+esc(mainOp(s))+'</td><td>'+kind(s)+'</td></tr>').join('')+'</tbody></table></div>';
+  out.innerHTML=h;
+}
+PL.wireInput(inp,keys,run);
+document.querySelectorAll('.samples button').forEach(b=>b.addEventListener('click',()=>{inp.value=b.dataset.f;run()}));
+run();
+
+SL.tabs(document.getElementById('ptabs'),'vm-ch7-tab');
+const S3=[{v:'sent',label:'Sentence of PL'},{v:'formula',label:'Formula, not a sentence'},{v:'no',label:'Not a formula'}];
+SL.mcQuiz(document.getElementById('pA'),['(∀x)(Fx ⊃ Gx)','Fx ⊃ Gx','(∃x)Fa','(∀x)Fx ∨ Gx','(∀x)(∃y)Lxy','(∃y)(Fy & (∃y)Gy)','~ (∃z)Haz','(∀x)Rxy ⊃ (∃y)Ryx','A ⊃ (∀x)(Fx ∨ B)'].map(s=>{
+  try{const a=parse(s).ast,fv=[...freeVars(a)];return{html:'<span class="f">'+esc(s)+'</span>',correct:fv.length?'formula':'sent',why:fv.length?'Free: '+fv.join(', ')+'.':'Every variable is bound.'}}
+  catch(e){return{html:'<span class="f">'+esc(s)+'</span>',correct:'no',why:e.message}}
+}),'vm-ch7-A',S3,true);
+const OPS=['(∀x)','(∃x)','(∃y)','~','&','∨','⊃','≡'].map(v=>({v,label:v}));
+SL.mcQuiz(document.getElementById('pB'),['(∀x)Fx ⊃ Ga','(∀x)(Fx ⊃ Ga)','~ (∃x)(Fx & Gx)','(∃x)~ Fx','(∃y)(Fy ≡ Gy)','(∀x)Fx & (∃y)Gy','~ Fa ∨ (∀x)Gx'].map(s=>{
+  const a=parse(s).ast;return{html:'<span class="f">'+esc(s)+'</span>',correct:mainOp(a),why:'It is '+kind(a).toLowerCase()+'; its immediate subformula'+(immediate(a).length>1?'s are ':' is ')+immediate(a).map(x=>showTop(x)).join(' and ')+'.'};
+}),'vm-ch7-B',OPS,false);
+const MC=arr=>arr.map(q=>Object.assign(q,{opts:q.o.map((l,i)=>({v:i,label:l}))}));
+SL.mcQuiz(document.getElementById('pC'),MC([
+  {s:'Every student passed.',k:['UD: people','Sx: x is a student','Px: x passed'],o:['(∀x)(Sx & Px)','(∀x)(Sx ⊃ Px)','(∃x)(Sx & Px)','(∀x)Sx ⊃ (∀x)Px'],correct:1,why:'Universal claims pair with ⊃.'},
+  {s:'Some student failed.',k:['UD: people','Sx: x is a student','Px: x passed'],o:['(∃x)(Sx ⊃ ~ Px)','(∃x)(Sx & ~ Px)','~ (∃x)(Sx & Px)','(∃x)Sx & (∃x)~ Px'],correct:1,why:'Existential claims pair with &. The last option allows the student and the failer to be different people.'},
+  {s:'Only students passed.',k:['UD: people','Sx: x is a student','Px: x passed'],o:['(∀x)(Sx ⊃ Px)','(∀x)(Px ⊃ Sx)','(∃x)(Px & Sx)','(∀x)(Sx ≡ Px)'],correct:1,why:'"Only Fs are G" means every G is an F.'},
+  {s:'Everyone admires someone.',k:['UD: people','Axy: x admires y'],o:['(∃y)(∀x)Axy','(∀x)(∃y)Axy','(∀x)(∀y)Axy','(∃x)(∃y)Axy'],correct:1,why:'Each person admires some person or other, possibly a different one each time.'},
+  {s:'There is someone everyone admires.',k:['UD: people','Axy: x admires y'],o:['(∀x)(∃y)Axy','(∃y)(∀x)Axy','(∃x)(∀y)Axy','(∀y)(∃x)Axy'],correct:1,why:'One person, y, is admired by all x.'},
+  {s:'No one admires a liar.',k:['UD: people','Axy: x admires y','Lx: x is a liar'],o:['(∀x)(∀y)(Ly ⊃ ~ Axy)','(∃x)(∃y)(Ly & ~ Axy)','~ (∀x)(∀y)(Ly ⊃ Axy)','(∀x)(∃y)(Ly & ~ Axy)'],correct:0,why:'For every x and every liar y, x doesn\'t admire y.'},
+  {s:'If anyone is late, Kim will be annoyed.',k:['UD: people','Lx: x is late','Ax: x is annoyed','k: Kim'],o:['(∀x)(Lx ⊃ Ak)','(∀x)Lx ⊃ Ak','(∃x)(Lx ⊃ Ak)','(∃x)Lx & Ak'],correct:0,why:'"Anyone" here has wide scope: whoever is late, Kim is annoyed. Equivalent to (∃x)Lx ⊃ Ak.'}
+]),'vm-ch7-C',q=>q.opts,false);
+SL.mcQuiz(document.getElementById('pD'),MC([
+  {s:'There are at least two cats.',k:['Cx: x is a cat'],o:['(∃x)(∃y)(Cx & Cy)','(∃x)(∃y)[(Cx & Cy) & ~ x = y]','(∀x)(∀y)[(Cx & Cy) ⊃ x = y]','(∃x)Cx & (∃y)Cy'],correct:1,why:'Without ~ x = y, x and y could be the same cat.'},
+  {s:'There is at most one cat.',k:['Cx: x is a cat'],o:['(∀x)(∀y)[(Cx & Cy) ⊃ x = y]','(∃x)[Cx & (∀y)(Cy ⊃ y = x)]','~ (∃x)Cx','(∃x)(∃y)[(Cx & Cy) & ~ x = y]'],correct:0,why:'Any two cats are the same cat. True also if there are no cats.'},
+  {s:'Ada is the tallest student.',k:['Sx: x is a student','Txy: x is taller than y','a: Ada'],o:['Sa & (∀x)(Sx ⊃ Tax)','Sa & (∀x)[(Sx & ~ x = a) ⊃ Tax]','(∀x)(Sx ⊃ Tax)','(∃x)(Sx & Tax)'],correct:1,why:'Ada can\'t be taller than herself, so exclude her with ~ x = a.'},
+  {s:'Everyone except Bo came.',k:['Cx: x came','b: Bo','UD: people'],o:['(∀x)Cx & ~ Cb','~ Cb & (∀x)(~ x = b ⊃ Cx)','(∀x)(Cx ⊃ ~ x = b)','(∃x)(Cx & ~ x = b)'],correct:1,why:'Bo didn\'t come, and everyone other than Bo did. The first option contradicts itself.'}
+]),'vm-ch7-D',q=>q.opts,false);
+
+const notes=document.getElementById('notes'),saved=document.getElementById('saved');
+notes.value=store.get('vm-ch7-notes','');
+let tm;notes.addEventListener('input',()=>{clearTimeout(tm);tm=setTimeout(()=>{store.set('vm-ch7-notes',notes.value);saved.textContent='Saved in this browser.'},400)});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chapter 8 · Predicate Logic: Semantics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600&family=Spectral:ital,wght@0,400;0,500;1,400&display=swap">
+<link rel="stylesheet" href="site.css">
+<style>
+.ext{display:grid;gap:14px}
+.ext .blk{display:grid;gap:6px}
+.ext .blk b{font-family:var(--mono)}
+.grid2{border-collapse:collapse;font-family:var(--mono);font-size:.9rem}
+.grid2 th,.grid2 td{border:1px solid var(--rule);padding:3px 8px;text-align:center}
+.grid2 th{background:var(--accent-soft);font-weight:600}
+.chk{display:flex;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:.92rem}
+.chk label{display:flex;gap:4px;align-items:center}
+.res{display:grid;gap:6px}
+.res .row{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed var(--rule);padding:4px 0;font-family:var(--mono);flex-wrap:wrap}
+.res .row:last-child{border-bottom:0}
+.model{font-family:var(--mono);font-size:.92rem;display:grid;gap:2px;background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:10px 12px}
+select.cs{font-family:var(--mono);padding:2px 6px;border:1px solid var(--rule);border-radius:4px;background:var(--surface)}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html">Valid Moves <span>⊢</span></a>
+    <nav aria-label="Site">
+      <a href="index.html">Home</a>
+      <a href="index.html#chapters">Chapters</a>
+      <a href="index.html#texts">Other texts</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="copy">
+      <div class="eyebrow">Chapter 8 · pp. 329–401</div>
+      <h1>Predicate Logic: <em>Semantics</em></h1>
+      <p class="lede">In PL, truth-value assignments give way to interpretations: a universe of discourse, an extension for each predicate, and a referent for each constant. The core concepts return, now defined over every interpretation.</p>
+      <nav class="toc" aria-label="On this page">
+        <a href="#s81">8.1 Interpretations</a><a href="#s82">8.2–8.4 Properties</a><a href="#s85">8.5 Expansions</a><a href="#s86">8.6 PLE</a><a href="#builder">Builder</a><a href="#finder">Model finder</a><a href="#practice">Practice</a>
+      </nav>
+    </div>
+    <div class="card" aria-label="An interpretation">
+      <div class="cap">An interpretation, written out</div>
+      <div class="model" style="background:transparent;border:0;padding:0">
+        <span>UD: {1, 2, 3}</span>
+        <span>Fx: {1, 3} &nbsp; x is odd</span>
+        <span>Lxy: {&lt;1,2&gt;, &lt;1,3&gt;, &lt;2,3&gt;} &nbsp; x &lt; y</span>
+        <span>a: 2</span>
+      </div>
+      <p class="note">On this interpretation <span class="f">(∃x)(Fx &amp; Lax)</span> is true: 3 is odd and 2 &lt; 3.</p>
+    </div>
+  </div>
+</div>
+
+<main>
+<section id="s81">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 8.1</div>
+      <h2>Interpretations</h2>
+      <div class="meta">pp. 329–350 · exercises 8.1E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <div class="def"><b>Interpretation</b><span>Specifies a <i>nonempty</i> UD, assigns a truth-value to each sentence letter, a member of the UD to each constant, and to each n-place predicate a set of n-tuples of members of the UD, its <b>extension</b>.</span></div>
+        <p>Extensions can be listed or described ("{u : u is odd}"), and can be empty. A one-place predicate's extension is a set of 1-tuples, which the book writes as plain members.</p>
+        <h3>Variable assignments and satisfaction</h3>
+        <p>Open formulas like <span class="f">Gxy</span> aren't true or false. Instead, a <b>variable assignment</b> d gives each variable a member of the UD, and d either <b>satisfies</b> a formula or doesn't. d[u/x] is the assignment that agrees with d except that it gives x the value u.</p>
+        <ul>
+          <li>d satisfies (∀x)Q when d[u/x] satisfies Q for <i>every</i> u in the UD.</li>
+          <li>d satisfies (∃x)Q when d[u/x] satisfies Q for <i>at least one</i> u.</li>
+          <li>A sentence is <b>true</b> on I when every variable assignment satisfies it, and false when none does. (For sentences those are the only possibilities.)</li>
+        </ul>
+        <p>This is called satisfaction semantics.</p>
+      </div>
+      <div class="side">
+        <h3>Reading quantifiers on a small UD</h3>
+        <p>With UD {1, 2, 3}, <span class="f">(∀x)Fx</span> asks whether 1, 2 and 3 are all in F's extension. <span class="f">(∃x)(∀y)Lxy</span> asks whether some x stands in L to every y, including itself.</p>
+        <p class="trap">The UD is never empty, so (∀x)Fx ⊃ (∃x)Fx is quantificationally true.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s82">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Sections 8.2–8.4</div>
+      <h2>Quantificational properties</h2>
+      <div class="meta">pp. 351–368 · exercises 8.2E–8.4E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <p>The definitions copy Chapter 3's, with "interpretation" in place of "truth-value assignment".</p>
+        <ul>
+          <li><b>Quantificationally true / false / indeterminate</b>: true on every interpretation / false on every one / neither.</li>
+          <li><b>Equivalent</b>: no interpretation gives them different truth-values.</li>
+          <li><b>Consistent</b>: some interpretation makes every member true.</li>
+          <li><b>Γ entails P</b>, and <b>valid</b>: no interpretation makes Γ (the premises) true and P (the conclusion) false.</li>
+        </ul>
+        <p>Showing that something <i>exists</i> takes one interpretation: a model of a set, or a counterexample to an argument. Showing that nothing exists means reasoning about <i>all</i> interpretations, and there are infinitely many. That reasoning has to be general; Chapters 9 and 10 give methods for it.</p>
+      </div>
+      <div class="side">
+        <h3>Two theoretical points</h3>
+        <p><b>Löwenheim's theorem.</b> A sentence of PL without identity that is true on some interpretation is true on one whose UD is the positive integers. Some sentences are true only on infinite UDs, so small finite models aren't always enough.</p>
+        <p><b>Church's theorem.</b> Unlike SL, PL has no decision procedure that settles quantificational truth for every sentence. Sentences with only one-place predicates are the exception (Bernays and Schönfinkel).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s85">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 8.5</div>
+      <h2>Truth-functional expansions</h2>
+      <div class="meta">pp. 369–380 · exercises 8.5E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <p>If every member of a finite UD is named by one of a chosen set of constants, a universal sentence says the same as the conjunction of its substitution instances, and an existential sentence the same as their disjunction. Replacing every quantifier this way gives a <b>truth-functional expansion</b>, which can be studied with truth-tables.</p>
+        <p>The chosen set must include every constant already in the sentence. Expanding with two constants covers all interpretations with UDs of one or two members.</p>
+      </div>
+      <div class="side">
+        <h3>Expansion tool</h3>
+        <div class="entry"><input id="exin" type="text" spellcheck="false" autocomplete="off" aria-label="Sentence to expand" value="(∀y)(My ⊃ Jyy)"></div>
+        <div id="exkeys"></div>
+        <label class="note" style="display:flex;gap:8px;align-items:center">Constants: <input id="excs" type="text" value="a, b" style="font-family:var(--mono);width:9rem;padding:4px 8px;border:1px solid var(--rule);border-radius:4px;background:var(--surface)" aria-label="Constants for the expansion"></label>
+        <div id="exout" class="explain" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s86">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 8.6</div>
+      <h2>Semantics for PLE</h2>
+      <div class="meta">pp. 381–401 · exercises 8.6E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <p>The identity predicate always has the same extension: every pair &lt;u, u&gt; for u in the UD. So a = b is true exactly when a and b name the same member.</p>
+        <p>An n-place functor is assigned an n-place function defined on the whole UD, with values in the UD. A complex term like f(a) denotes the value of f's function at a's referent.</p>
+      </div>
+      <div class="side">
+        <h3>Why identity is "logical"</h3>
+        <p>Because its interpretation is fixed, sentences like <span class="f">(∀x)x = x</span> and <span class="f">(a = b &amp; Fa) ⊃ Fb</span> are quantificationally true, which no ordinary two-place predicate could make them.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="builder">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Tool</div>
+      <h2>Interpretation builder</h2>
+      <p class="lede">Type sentences of PL or PLE, one per line. Choose a UD size and set each extension; the truth-value of every sentence updates as you go.</p>
+    </div>
+    <div class="two" style="gap:24px">
+      <div class="stack">
+        <textarea class="formulas" id="src" spellcheck="false" aria-label="Sentences, one per line">(∀x)(Fx ⊃ (∃y)Lxy)
+(∃x)(Fx &amp; Lax)
+~ (∃x)Lxx</textarea>
+        <div id="keys"></div>
+        <div class="seg" role="group" aria-label="Size of the UD" id="ud">
+          <button type="button" data-n="1">UD {1}</button><button type="button" data-n="2">{1, 2}</button><button type="button" data-n="3">{1, 2, 3}</button><button type="button" data-n="4">{1, …, 4}</button>
+        </div>
+        <div class="ext" id="ext"></div>
+      </div>
+      <div class="stack">
+        <h3 style="font-size:1rem">Truth-values on this interpretation</h3>
+        <div class="res" id="res" aria-live="polite"></div>
+        <div class="model" id="desc"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="finder">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Tool</div>
+      <h2>Model and counterexample finder</h2>
+      <p class="lede">Searches every interpretation with a UD of 1, 2 or 3 members. Finding one settles the question. Finding none doesn't prove the opposite: a model might need a bigger or infinite UD, so use a tree or a derivation for that.</p>
+    </div>
+    <div class="lab">
+      <div class="seg" role="group" aria-label="What to look for" id="fmodes">
+        <button type="button" data-m="cons" aria-pressed="true">Model of a set</button>
+        <button type="button" data-m="arg" aria-pressed="false">Counterexample to an argument</button>
+        <button type="button" data-m="nottrue" aria-pressed="false">Makes a sentence false</button>
+        <button type="button" data-m="noteq" aria-pressed="false">Separates two sentences</button>
+      </div>
+      <p class="note" id="fhelp"></p>
+      <textarea class="formulas" id="fsrc" spellcheck="false" aria-label="Sentences, one per line"></textarea>
+      <div id="fkeys"></div>
+      <div class="cta"><button type="button" class="btn" id="fgo">Search</button><button type="button" class="btn ghost" id="fload" hidden>Open in the builder</button></div>
+      <div class="status" id="fverdict" aria-live="polite"></div>
+      <div id="fout"></div>
+    </div>
+  </div>
+</section>
+
+<section id="practice">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Practice</div>
+      <h2>Practice sets for Chapter 8</h2>
+    </div>
+    <div class="tabs" role="tablist" id="ptabs">
+      <button type="button" class="tab" role="tab" aria-selected="true" data-p="pA">True on this interpretation?</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-p="pB">Which property?</button>
+    </div>
+    <div id="pA" role="tabpanel"></div>
+    <div id="pB" role="tabpanel" hidden></div>
+  </div>
+</section>
+
+<section id="discuss">
+  <div class="wrap two">
+    <div class="stack">
+      <div class="sec-head">
+        <div class="eyebrow">For our session</div>
+        <h2>Discussion questions</h2>
+      </div>
+      <ol class="qlist">
+        <li>Why does the book require a nonempty UD? Which sentences would change status if the UD could be empty?</li>
+        <li>Why do open formulas need satisfaction rather than truth?</li>
+        <li>Find a sentence that is true on every interpretation with a UD of one or two members but isn't quantificationally true.</li>
+        <li>Church proved there's no decision procedure for PL. What does that mean for the model finder above?</li>
+        <li>When does a truth-functional expansion with two constants tell you something about all interpretations?</li>
+      </ol>
+    </div>
+    <div class="stack">
+      <div class="sec-head">
+        <div class="eyebrow">Your notes</div>
+        <h2>Questions for our session</h2>
+        <p class="note">Saved in this browser only.</p>
+      </div>
+      <textarea class="notes" id="notes" aria-label="Questions for our session"></textarea>
+      <div class="note" id="saved"></div>
+      <div class="sec-head" style="margin-top:12px"><h3>Supplementary reading</h3></div>
+      <div class="empty">Nothing assigned from other texts for this chapter yet.</div>
+    </div>
+  </div>
+</section>
+</main>
+
+<nav class="wrap chnav" aria-label="Chapters"><a href="chapter-7.html"><span>Previous</span>Chapter 7 · Predicate Logic: Syntax and Symbolization</a><a href="chapter-9.html"><span>Next</span>Chapter 9 · Predicate Logic: Truth-Trees</a></nav>
+<footer><div class="wrap">Valid Moves · Chapter 8 notes for <i>The Logic Book</i>, 6th edition (Bergmann, Moor &amp; Nelson). Summaries and practice questions are our own; page numbers refer to the 6th edition.</div></footer>
+
+<script src="logic.js"></script>
+<script src="pl.js"></script>
+<script>
+(function(){
+const {esc,store}=SL;
+const {parse,showTop,subst,vocab,evaluate,findModel,describe,NAMES,tuples}=PL;
+
+/* ---------- expansion tool ---------- */
+const exin=document.getElementById('exin'),excs=document.getElementById('excs'),exout=document.getElementById('exout');
+document.getElementById('exkeys').innerHTML=PL.KEYS_HTML;
+function expand(n,cs){
+  switch(n.op){
+    case 'atom':return n;
+    case '~':return{op:'~',a:expand(n.a,cs)};
+    case '∀':case '∃':{const parts=cs.map(c=>expand(subst(n.a,n.v,{t:'con',n:c}),cs));return parts.reduce((acc,x)=>acc?{op:n.op==='∀'?'&':'∨',l:acc,r:x}:x,null)}
+    default:return{op:n.op,l:expand(n.l,cs),r:expand(n.r,cs),br:n.br};
+  }
+}
+function runExp(){
+  let a;try{a=parse(exin.value).ast}catch(e){exout.innerHTML='<p class="err">'+esc(e.message)+'</p>';return}
+  if(!PL.isSentence(a)){exout.innerHTML='<p class="err">Expansions are for sentences; this formula has a free variable.</p>';return}
+  const cs=[...new Set(excs.value.split(/[\s,]+/).filter(x=>/^[a-v]\d*$/.test(x)))];
+  const own=[...PL.constants(a)].filter(c=>!cs.includes(c));
+  if(!cs.length){exout.innerHTML='<p class="err">List at least one constant from a to v.</p>';return}
+  const e=expand(a,cs);
+  exout.innerHTML=(own.length?'<p class="err">The set must include the sentence\'s own constants: add '+own.join(', ')+'.</p>':'')+'<p>Expansion for {'+cs.join(', ')+'}:</p><p class="f" style="white-space:normal">'+esc(showTop(e))+'</p>';
+}
+PL.wireInput(exin,document.getElementById('exkeys'),runExp);excs.addEventListener('input',runExp);runExp();
+
+/* ---------- interpretation builder ---------- */
+const src=document.getElementById('src'),ext=document.getElementById('ext'),res=document.getElementById('res'),desc=document.getElementById('desc');
+document.getElementById('keys').innerHTML=PL.KEYS_HTML;
+let st=store.get('vm-ch8-I',{n:3,preds:{F:['0','2'],L:['0,1','0,2','1,2']},letters:{},consts:{a:1},fns:{}});
+const saved0=store.get('vm-ch8-src',null);if(saved0)src.value=saved0;
+let asts=[],V=null;
+function I(){
+  const n=st.n,I={ud:[...Array(n).keys()],preds:{},letters:{},consts:{},fns:{}};
+  Object.keys(V.preds).forEach(p=>I.preds[p]=new Set((st.preds[p]||[]).filter(t=>t.split(',').every(i=>+i<n))));
+  [...V.letters].forEach(l=>I.letters[l]=!!st.letters[l]);
+  [...V.consts].forEach(c=>I.consts[c]=Math.min(st.consts[c]??0,n-1));
+  Object.entries(V.fns).forEach(([f,k])=>{const m={};tuples(n,k).forEach(t=>{const key=t.join(',');m[key]=Math.min((st.fns[f]||{})[key]??0,n-1)});I.fns[f]=m});
+  return I;
+}
+function buildUI(){
+  const n=st.n;let h='';
+  document.querySelectorAll('#ud button').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.n===n));
+  [...V.letters].sort().forEach(l=>h+='<div class="blk"><b>'+l+'</b><div class="chk"><label><input type="checkbox" data-l="'+l+'"'+(st.letters[l]?' checked':'')+'> true</label></div></div>');
+  [...V.consts].sort().forEach(c=>h+='<div class="blk"><b>'+c+' denotes</b><select class="cs" data-c="'+c+'" aria-label="Referent of '+c+'">'+[...Array(n).keys()].map(i=>'<option value="'+i+'"'+((st.consts[c]??0)===i?' selected':'')+'>'+NAMES[i]+'</option>').join('')+'</select></div>');
+  Object.entries(V.preds).sort().forEach(([p,k])=>{
+    const S=new Set(st.preds[p]||[]);
+    if(k===1)h+='<div class="blk"><b>'+p+' (1-place)</b><div class="chk">'+[...Array(n).keys()].map(i=>'<label><input type="checkbox" data-p="'+p+'" data-t="'+i+'"'+(S.has(''+i)?' checked':'')+'> '+NAMES[i]+'</label>').join('')+'</div></div>';
+    else if(k===2)h+='<div class="blk"><b>'+p+' (2-place: row x, column y)</b><div class="rscroll"><table class="grid2"><tr><th></th>'+[...Array(n).keys()].map(j=>'<th>'+NAMES[j]+'</th>').join('')+'</tr>'+[...Array(n).keys()].map(i=>'<tr><th>'+NAMES[i]+'</th>'+[...Array(n).keys()].map(j=>'<td><input type="checkbox" aria-label="'+p+' '+NAMES[i]+' '+NAMES[j]+'" data-p="'+p+'" data-t="'+i+','+j+'"'+(S.has(i+','+j)?' checked':'')+'></td>').join('')+'</tr>').join('')+'</table></div></div>';
+    else h+='<div class="blk"><b>'+p+' ('+k+'-place)</b><div class="chk">'+tuples(n,k).map(t=>'<label><input type="checkbox" data-p="'+p+'" data-t="'+t.join(',')+'"'+(S.has(t.join(','))?' checked':'')+'> &lt;'+t.map(i=>NAMES[i]).join(',')+'&gt;</label>').join('')+'</div></div>';
+  });
+  Object.entries(V.fns).sort().forEach(([f,k])=>{
+    h+='<div class="blk"><b>'+f+' ('+k+'-place functor)</b><div class="chk">'+tuples(n,k).map(t=>{const key=t.join(',');const v=(st.fns[f]||{})[key]??0;return '<label>'+f+'('+t.map(i=>NAMES[i]).join(',')+') = <select class="cs" data-f="'+f+'" data-t="'+key+'">'+[...Array(n).keys()].map(i=>'<option value="'+i+'"'+(Math.min(v,n-1)===i?' selected':'')+'>'+NAMES[i]+'</option>').join('')+'</select></label>'}).join('')+'</div></div>';
+  });
+  ext.innerHTML=h||'<p class="note">No predicates, constants or sentence letters yet.</p>';
+}
+function evalAll(){
+  const Iv=I();
+  res.innerHTML=asts.map(x=>x.err?'<div class="row"><span>'+esc(x.src)+'</span><span class="err">'+esc(x.err)+'</span></div>':
+    '<div class="row"><span>'+esc(showTop(x.ast))+'</span>'+(evaluate(x.ast,Iv)?'<span class="pill good">True</span>':'<span class="pill bad">False</span>')+'</div>').join('')||'<p class="note">Type a sentence.</p>';
+  desc.innerHTML=describe(Iv,V).map(s=>'<span>'+esc(s)+'</span>').join('');
+}
+function parseSrc(){
+  store.set('vm-ch8-src',src.value);
+  asts=src.value.split('\n').map(s=>s.trim()).filter(Boolean).map(s=>{try{const a=parse(s).ast;if(!PL.isSentence(a))return{src:s,err:'free variable'};return{src:s,ast:a}}catch(e){return{src:s,err:e.message}}});
+  V={preds:{},consts:new Set(),fns:{},letters:new Set()};asts.filter(x=>x.ast).forEach(x=>vocab(x.ast,V));
+  buildUI();evalAll();
+}
+ext.addEventListener('change',e=>{
+  const t=e.target;
+  if(t.dataset.l){st.letters[t.dataset.l]=t.checked}
+  else if(t.dataset.c){st.consts[t.dataset.c]=+t.value}
+  else if(t.dataset.f){(st.fns[t.dataset.f]=st.fns[t.dataset.f]||{})[t.dataset.t]=+t.value}
+  else if(t.dataset.p){const S=new Set(st.preds[t.dataset.p]||[]);t.checked?S.add(t.dataset.t):S.delete(t.dataset.t);st.preds[t.dataset.p]=[...S]}
+  store.set('vm-ch8-I',st);evalAll();
+});
+document.querySelectorAll('#ud button').forEach(b=>b.addEventListener('click',()=>{st.n=+b.dataset.n;store.set('vm-ch8-I',st);buildUI();evalAll()}));
+PL.wireInput(src,document.getElementById('keys'),parseSrc);
+parseSrc();
+
+/* ---------- model finder ---------- */
+const FM={
+  cons:{help:'Type the members of the set, one per line. Looks for an interpretation making all of them true.',ex:'(∀x)(Fx ⊃ ~ Gx)\n(∃x)Fx\n(∃x)Gx'},
+  arg:{help:'Premises one per line, conclusion last. Looks for an interpretation with true premises and a false conclusion.',ex:'(∀x)(∃y)Lxy\n(∃y)(∀x)Lxy'},
+  nottrue:{help:'Type one sentence. Looks for an interpretation on which it is false.',ex:'(∃x)Fx ⊃ (∀x)Fx'},
+  noteq:{help:'Type two sentences. Looks for an interpretation on which they differ.',ex:'(∀x)(Fx ∨ Gx)\n(∀x)Fx ∨ (∀x)Gx'}
+};
+let fm=store.get('vm-ch8-fm','cons');if(!FM[fm])fm='cons';
+const fsrc=document.getElementById('fsrc'),fdrafts=store.get('vm-ch8-fd',{});let found=null;
+document.getElementById('fkeys').innerHTML=PL.KEYS_HTML;
+function setFM(m){fm=m;store.set('vm-ch8-fm',m);document.querySelectorAll('#fmodes button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.m===m));document.getElementById('fhelp').textContent=FM[m].help;fsrc.value=fdrafts[m]??FM[m].ex;clearF()}
+function clearF(){document.getElementById('fverdict').innerHTML='';document.getElementById('fout').innerHTML='';document.getElementById('fload').hidden=true;found=null}
+document.querySelectorAll('#fmodes button').forEach(b=>b.addEventListener('click',()=>setFM(b.dataset.m)));
+PL.wireInput(fsrc,document.getElementById('fkeys'),()=>{fdrafts[fm]=fsrc.value;store.set('vm-ch8-fd',fdrafts);clearF()});
+document.getElementById('fgo').addEventListener('click',()=>{
+  const fv=document.getElementById('fverdict'),fo=document.getElementById('fout');clearF();
+  let A;try{A=fsrc.value.split('\n').map(s=>s.trim()).filter(Boolean).map((s,i)=>{const a=parse(s).ast;if(!PL.isSentence(a))throw new Error('Line '+(i+1)+' has a free variable.');return a})}catch(e){fv.innerHTML='<span class="err">'+esc(e.message)+'</span>';return}
+  const need={cons:[1,8],arg:[2,8],nottrue:[1,1],noteq:[2,2]}[fm];
+  if(A.length<need[0]||A.length>need[1]){fv.innerHTML='<span class="note">'+FM[fm].help+'</span>';return}
+  const test={cons:I=>A.every(a=>evaluate(a,I)),arg:I=>A.slice(0,-1).every(a=>evaluate(a,I))&&!evaluate(A[A.length-1],I),nottrue:I=>!evaluate(A[0],I),noteq:I=>evaluate(A[0],I)!==evaluate(A[1],I)}[fm];
+  const r=findModel(A,test,3);
+  if(r&&r.tooBig){fv.innerHTML='<span class="pill quiet">Too many interpretations to search at size '+r.n+'</span>';fo.innerHTML='<p class="note">Try fewer predicates or constants.</p>';return}
+  if(!r){fv.innerHTML='<span class="pill quiet">Nothing found with 3 or fewer members</span>';
+    fo.innerHTML='<p class="note">'+({cons:'The set may be inconsistent, or need a bigger UD.',arg:'The argument may be valid, or a counterexample may need a bigger UD.',nottrue:'The sentence may be quantificationally true, or need a bigger UD to falsify.',noteq:'The sentences may be equivalent, or differ only on bigger UDs.'}[fm])+' A tree (Chapter 9) or derivation (Chapter 10) can settle it.</p>';return}
+  found=r;
+  fv.innerHTML='<span class="pill good">'+({cons:'Consistent: here is a model',arg:'Invalid: here is a counterexample',nottrue:'Not quantificationally true',noteq:'Not equivalent'}[fm])+'</span>';
+  fo.innerHTML='<div class="model">'+describe(r.I,r.V).map(s=>'<span>'+esc(s)+'</span>').join('')+'</div>';
+  document.getElementById('fload').hidden=false;
+});
+document.getElementById('fload').addEventListener('click',()=>{
+  if(!found)return;const I=found.I;
+  st={n:I.ud.length,preds:Object.fromEntries(Object.entries(I.preds).map(([p,S])=>[p,[...S]])),letters:{...I.letters},consts:{...I.consts},fns:I.fns};
+  store.set('vm-ch8-I',st);src.value=fsrc.value;parseSrc();document.getElementById('builder').scrollIntoView();
+});
+setFM(fm);
+
+SL.tabs(document.getElementById('ptabs'),'vm-ch8-tab');
+/* A: evaluate on a fixed interpretation */
+const FIX={ud:[0,1,2],preds:{F:new Set(['0','2']),G:new Set(['1']),L:new Set(['0,1','1,2','0,2'])},letters:{},consts:{a:0,b:1},fns:{}};
+const fixHtml='<div class="model" style="margin-bottom:8px"><span>UD: {1, 2, 3} &nbsp; a: 1 &nbsp; b: 2</span><span>F: {1, 3} &nbsp; G: {2}</span><span>L: {&lt;1,2&gt;, &lt;2,3&gt;, &lt;1,3&gt;}</span></div>';
+const TFo=[{v:'T',label:'True'},{v:'F',label:'False'}];
+SL.mcQuiz(document.getElementById('pA'),['(∀x)(Fx ∨ Gx)','(∃x)(Fx & Gx)','(∃x)Lxa','(∀x)(Gx ⊃ Lax)','(∃x)(∀y)(~ x = y ⊃ Lxy)','(∀x)(∃y)Lxy','~ (∃x)Lxx','(∀x)(Fx ⊃ (∃y)Lyx)'].map(s=>{
+  const a=parse(s).ast,v=evaluate(a,FIX);return{html:fixHtml+'<span class="f">'+esc(s)+'</span>',correct:v?'T':'F',why:v?'True on this interpretation.':'False on this interpretation.'};
+}).map((q,i)=>Object.assign(q,{why:[
+  'Every member is F or G: 1 and 3 are F, 2 is G.',
+  'Nothing is both F and G.',
+  'Nothing bears L to 1: no pair ends in 1.',
+  'The only G is 2, and <1,2> is in L.',
+  '1 bears L to every other member (2 and 3).',
+  '3 bears L to nothing.',
+  'No member bears L to itself.',
+  '1 is F, but nothing bears L to 1.'][i]})),'vm-ch8-A',TFo,true);
+const MC=arr=>arr.map(q=>Object.assign(q,{opts:q.o.map((l,i)=>({v:i,label:l}))}));
+SL.mcQuiz(document.getElementById('pB'),MC([
+  {s:'(∀x)Fx ⊃ (∃x)Fx',o:['Quantificationally true','Quantificationally false','Indeterminate'],correct:0,why:'The UD is nonempty, so if everything is F, something is.'},
+  {s:'(∃x)Fx ⊃ (∀x)Fx',o:['Quantificationally true','Quantificationally false','Indeterminate'],correct:2,why:'True when nothing or everything is F, false when only some things are.'},
+  {s:'(∃x)(Fx & ~ Fx)',o:['Quantificationally true','Quantificationally false','Indeterminate'],correct:1,why:'No member satisfies Fx & ~ Fx.'},
+  {s:'(∀x)x = x',o:['Quantificationally true','Quantificationally false','Indeterminate'],correct:0,why:'Identity is always interpreted as identity.'},
+  {s:'(∀x)(∃y)Lxy and (∃y)(∀x)Lxy',o:['Equivalent','Not equivalent'],correct:1,why:'On UD {1, 2} with L = {<1,1>, <2,2>}, the first is true and the second false.'}
+]),'vm-ch8-B',q=>q.opts,false);
+
+const notes=document.getElementById('notes'),saved=document.getElementById('saved');
+notes.value=store.get('vm-ch8-notes','');
+let tm;notes.addEventListener('input',()=>{clearTimeout(tm);tm=setTimeout(()=>{store.set('vm-ch8-notes',notes.value);saved.textContent='Saved in this browser.'},400)});
+})();
+</script>
+</body>
+</html>

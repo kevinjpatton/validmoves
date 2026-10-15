@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chapter 4 · Sentential Logic: Truth-Trees</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600&family=Spectral:ital,wght@0,400;0,500;1,400&display=swap">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html">Valid Moves <span>⊢</span></a>
+    <nav aria-label="Site">
+      <a href="index.html">Home</a>
+      <a href="index.html#chapters">Chapters</a>
+      <a href="index.html#texts">Other texts</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="copy">
+      <div class="eyebrow">Chapter 4 · pp. 110–145</div>
+      <h1>Sentential Logic: <em>Truth-Trees</em></h1>
+      <p class="lede">A second way to answer Chapter 3's questions. Instead of listing every row, a tree searches for an assignment that makes a set of sentences true, breaking each sentence into what its truth requires.</p>
+      <nav class="toc" aria-label="On this page">
+        <a href="#s41">4.1 The method</a><a href="#rules">The nine rules</a><a href="#s42">4.2 Other properties</a><a href="#builder">Tree builder</a><a href="#practice">Practice</a>
+      </nav>
+    </div>
+    <div class="card" aria-label="Tree vocabulary">
+      <div class="cap">Reading a tree</div>
+      <table class="ref">
+        <tbody>
+          <tr><td class="f">SM</td><td>set member, written on lines 1, 2, …</td></tr>
+          <tr><td class="f">✓</td><td>sentence has been decomposed</td></tr>
+          <tr><td class="f">×</td><td>closed branch: contradictory literals</td></tr>
+          <tr><td class="f">o</td><td>completed open branch</td></tr>
+          <tr><td class="f">3 &amp;D</td><td>from line 3 by Conjunction Decomposition</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<main>
+<section id="s41">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 4.1</div>
+      <h2>The truth-tree method</h2>
+      <div class="meta">pp. 110–127 · exercises 4.1E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <p>A tree tests one thing directly: whether a finite set is truth-functionally consistent. Section 3.6 already showed that every other property reduces to consistency, so that is enough.</p>
+        <h3>How it works</h3>
+        <p>List the set members (SM). Then repeatedly pick a sentence that isn't a <b>literal</b> (an atom or the negation of an atom), decompose it by the rule for its form, and check it off. Each rule writes down what must be true for the sentence to be true. Group 1 sentences have one way to be true and get <b>non-branching</b> rules; Group 2 sentences have several and get <b>branching</b> rules.</p>
+        <p>Results go on <b>every open branch that runs through</b> the decomposed sentence, and nowhere else. Each line of the tree cites exactly one earlier line and one rule.</p>
+        <h3>Reading the result</h3>
+        <ul>
+          <li>A branch is <b>closed</b> when it contains contradictory literals, like <span class="f">C</span> and <span class="f">~ C</span>. Mark it × and stop working on it.</li>
+          <li>A <b>completed open branch</b> is open and every sentence on it is a literal or checked off. Mark it o.</li>
+          <li>A finite set is consistent if and only if it has a tree with at least one completed open branch; inconsistent if and only if it has a closed tree.</li>
+          <li>Read an assignment off a completed open branch: letters that appear make true, negated letters false, and absent letters can be either.</li>
+        </ul>
+        <p>The order of decomposition is up to you. Different completed trees for the same set always give the same verdict.</p>
+      </div>
+      <div class="side">
+        <h3>Guidelines for concise trees</h3>
+        <ol class="clauses">
+          <li>Stop when the tree answers the question being asked.</li>
+          <li>Decompose sentences that don't branch first.</li>
+          <li>Next, prefer decompositions that close one or more branches.</li>
+          <li>Otherwise, decompose the more complex sentence first.</li>
+        </ol>
+        <p class="trap">Complex sentences decomposed late have to be copied onto many branches. The builder below follows these guidelines when it suggests a move.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="rules">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Reference</div>
+      <h2>The nine decomposition rules</h2>
+    </div>
+    <div class="rules-group" style="display:grid;gap:12px">
+      <h3 style="font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">Group 1 · non-branching</h3>
+      <div class="rules9" id="g1"></div>
+      <h3 style="font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:12px">Group 2 · branching</h3>
+      <div class="rules9" id="g2"></div>
+    </div>
+  </div>
+</section>
+
+<section id="s42">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Section 4.2</div>
+      <h2>Using trees to test other properties</h2>
+      <div class="meta">pp. 128–145 · exercises 4.2E</div>
+    </div>
+    <div class="panel">
+      <div class="prose">
+        <p>Each test builds a tree for a carefully chosen set, using the results of section 3.6.</p>
+        <p>One subtlety: to show a sentence is truth-functionally <i>indeterminate</i> you need two trees, one for {<b>P</b>} and one for {~ <b>P</b>}, and neither may close.</p>
+        <p>The section's exercises also add rules for new connectives (such as the Sheffer stroke), a good test of whether you understand where the rules come from: each one records what must be true for the sentence to be true.</p>
+      </div>
+      <div class="side">
+        <h3>Which tree to build</h3>
+        <div class="rscroll"><table class="ref">
+          <thead><tr><th>Question</th><th>Build a tree for</th><th>Yes if</th></tr></thead>
+          <tbody>
+            <tr><td>Γ consistent?</td><td>Γ</td><td>an open branch completes</td></tr>
+            <tr><td><b>P</b> TF-false?</td><td>{<b>P</b>}</td><td>tree closes</td></tr>
+            <tr><td><b>P</b> TF-true?</td><td>{~ <b>P</b>}</td><td>tree closes</td></tr>
+            <tr><td><b>P</b> indeterminate?</td><td>{<b>P</b>} and {~ <b>P</b>}</td><td>neither closes</td></tr>
+            <tr><td><b>P</b>, <b>Q</b> equivalent?</td><td>{~ (<b>P</b> ≡ <b>Q</b>)}</td><td>tree closes</td></tr>
+            <tr><td>Γ ⊨ <b>P</b>?</td><td>Γ ∪ {~ <b>P</b>}</td><td>tree closes</td></tr>
+            <tr><td>Argument valid?</td><td>premises + ~ conclusion</td><td>tree closes</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="builder">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Tool</div>
+      <h2>Truth-tree builder</h2>
+      <p class="lede">Choose a question and type the sentences, one per line. Build the tree yourself by clicking the sentence to decompose next, or let the builder finish it using the book's guidelines.</p>
+    </div>
+    <div class="lab">
+      <div class="seg" role="group" aria-label="What to test" id="modes">
+        <button type="button" data-m="set" aria-pressed="true">Consistency</button>
+        <button type="button" data-m="arg" aria-pressed="false">Argument / entailment</button>
+        <button type="button" data-m="pair" aria-pressed="false">Equivalence</button>
+        <button type="button" data-m="sentence" aria-pressed="false">One sentence</button>
+      </div>
+      <p class="note" id="modehelp"></p>
+      <textarea class="formulas" id="src" spellcheck="false" aria-label="Sentences, one per line"></textarea>
+      <div id="keys"></div>
+      <div class="cta">
+        <button type="button" class="btn ghost" id="hint">Suggest a move</button>
+        <button type="button" class="btn ghost" id="undo">Undo</button>
+        <button type="button" class="btn ghost" id="restart">Start over</button>
+        <button type="button" class="btn" id="finish">Finish the tree</button>
+        <label class="note" style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="stop" checked> Stop once the answer is known</label>
+      </div>
+      <div class="status" id="verdict" aria-live="polite"></div>
+      <div class="explain" id="explain"></div>
+      <div id="trees" style="display:grid;gap:18px"></div>
+    </div>
+  </div>
+</section>
+
+<section id="practice">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Practice</div>
+      <h2>Practice sets for Chapter 4</h2>
+    </div>
+    <div class="tabs" role="tablist" id="ptabs">
+      <button type="button" class="tab" role="tab" aria-selected="true" data-p="pA">Which rule?</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-p="pB">What goes on the tree?</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-p="pC">Which set to test?</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-p="pD">Open or closed?</button>
+    </div>
+    <div id="pA" role="tabpanel"></div>
+    <div id="pB" role="tabpanel" hidden></div>
+    <div id="pC" role="tabpanel" hidden></div>
+    <div id="pD" role="tabpanel" hidden></div>
+  </div>
+</section>
+
+<section id="discuss">
+  <div class="wrap two">
+    <div class="stack">
+      <div class="sec-head">
+        <div class="eyebrow">For our session</div>
+        <h2>Discussion questions</h2>
+      </div>
+      <ol class="qlist">
+        <li>The rule for disjunctions puts P on one branch and Q on the other, with no ~ Q next to P. Why isn't anything lost?</li>
+        <li>Why may we stop working on a branch as soon as it closes, even with undecomposed sentences on it?</li>
+        <li>A closed tree for Γ ∪ {~ P} shows Γ ⊨ P. Explain why in your own words, without mentioning trees.</li>
+        <li>When is a truth-table quicker than a tree, and when is a tree quicker? Try a set with six sentence letters.</li>
+        <li>Write decomposition rules for "neither P nor Q" treated as a new connective, and for its negation.</li>
+      </ol>
+    </div>
+    <div class="stack">
+      <div class="sec-head">
+        <div class="eyebrow">Your notes</div>
+        <h2>Questions for our session</h2>
+        <p class="note">Saved in this browser only.</p>
+      </div>
+      <textarea class="notes" id="notes" aria-label="Questions for our session"></textarea>
+      <div class="note" id="saved"></div>
+      <div class="sec-head" style="margin-top:12px"><h3>Supplementary reading</h3></div>
+      <div class="empty">Nothing assigned from other texts for this chapter yet.</div>
+    </div>
+  </div>
+</section>
+</main>
+
+<nav class="wrap chnav" aria-label="Chapters"><a href="chapter-3.html"><span>Previous</span>Chapter 3 · Sentential Logic: Semantics</a><a href="chapter-5.html"><span>Next</span>Chapter 5 · Sentential Logic: Derivations</a></nav>
+<footer><div class="wrap">Valid Moves · Chapter 4 notes for <i>The Logic Book</i>, 6th edition (Bergmann, Moor &amp; Nelson). Summaries and practice questions are our own; page numbers refer to the 6th edition.</div></footer>
+
+<script src="logic.js"></script>
+<script src="trees.js"></script>
+<script>
+(function(){
+const {esc,store,parse,show,showTop}=SL;
+const {Tree,rule,replay,render,neg}=TT;
+
+/* rule cards */
+const P={v:'P'},Q={v:'Q'};
+const forms=[[{op:'~',a:{op:'~',a:P}},'Negated Negation'],[{op:'&',l:P,r:Q},'Conjunction'],[neg({op:'∨',l:P,r:Q}),'Negated Disjunction'],[neg({op:'⊃',l:P,r:Q}),'Negated Conditional'],
+  [{op:'∨',l:P,r:Q},'Disjunction'],[{op:'⊃',l:P,r:Q},'Conditional'],[neg({op:'&',l:P,r:Q}),'Negated Conjunction'],[{op:'≡',l:P,r:Q},'Biconditional'],[neg({op:'≡',l:P,r:Q}),'Negated Biconditional']];
+const bold=s=>esc(s).replace(/\b([PQ])\b/g,'<b>$1</b>');
+const card=([a,nm])=>{const r=rule(a);return '<div class="rcard"><div class="nm">'+nm+'<span>'+r.name+'</span></div><div class="rf"><div>'+bold(showTop(a))+' ✓</div>'+
+  (r.br.length===1?r.br[0].map(x=>'<div>'+bold(showTop(x))+'</div>').join(''):'<div class="br">'+r.br.map(b=>'<div>'+b.map(x=>bold(showTop(x))).join('<br>')+'</div>').join('')+'</div>')+'</div></div>'};
+document.getElementById('g1').innerHTML=forms.slice(0,4).map(card).join('');
+document.getElementById('g2').innerHTML=forms.slice(4).map(card).join('');
+
+/* builder */
+const MODES={
+  set:{help:'Type each member of the set on its own line.',ex:'A ⊃ (B ∨ C)\nA & ~ C'},
+  arg:{help:'Premises one per line, conclusion on the last line. The tree is for the premises plus the negated conclusion.',ex:'A ⊃ B\nB ⊃ C\nA ⊃ C'},
+  pair:{help:'Type two sentences. The tree is for the negation of their biconditional.',ex:'~ (A & B)\n~ A ∨ ~ B'},
+  sentence:{help:'Type one sentence. The builder grows a tree for {P} and one for {~ P}.',ex:'(A ⊃ B) ⊃ A'}
+};
+let mode=store.get('vm-ch4-mode','set');if(!MODES[mode])mode='set';
+const drafts=store.get('vm-ch4-drafts',{});
+const src=document.getElementById('src'),keys=document.getElementById('keys');
+const V=document.getElementById('verdict'),X=document.getElementById('explain'),TR=document.getElementById('trees');
+keys.innerHTML=SL.KEYS_HTML;
+let bases=[],labels=[],steps=[],hint=null,inputs=[];
+function setup(){
+  drafts[mode]=src.value;store.set('vm-ch4-drafts',drafts);
+  const lines=src.value.split('\n').map(s=>s.trim()).filter(Boolean);
+  hint=null;steps=[];bases=[];V.innerHTML='';X.innerHTML='';TR.innerHTML='';
+  const need={set:[1,8],arg:[2,8],pair:[2,2],sentence:[1,1]}[mode];
+  if(lines.length<need[0]||lines.length>need[1]){V.innerHTML='<span class="note">'+MODES[mode].help+'</span>';return}
+  let asts;
+  try{asts=lines.map((s,i)=>{try{return parse(s).ast}catch(e){throw new Error('Line '+(i+1)+': '+e.message)}})}catch(e){V.innerHTML='<span class="err">'+esc(e.message)+'</span>';return}
+  inputs=asts;
+  if(mode==='set'){bases=[asts];labels=['Tree for the set']}
+  else if(mode==='arg'){bases=[[...asts.slice(0,-1),neg(asts[asts.length-1])]];labels=['Premises plus the negation of the conclusion']}
+  else if(mode==='pair'){bases=[[neg({op:'≡',l:asts[0],r:asts[1]})]];labels=['Tree for {~ (P ≡ Q)}']}
+  else{bases=[[asts[0]],[neg(asts[0])]];labels=['Tree for {P}','Tree for {~ P}']}
+  steps=bases.map(()=>[]);
+  draw();
+}
+const trees=()=>bases.map((b,i)=>replay(b,steps[i]));
+function draw(){
+  const ts=trees();
+  TR.innerHTML=ts.map((t,i)=>'<div><h3 style="font-size:1rem;margin-bottom:8px">'+labels[i]+'</h3><div class="treebox" data-t="'+i+'">'+render(t,{clickable:true,hint:hint&&hint.t===i?hint.id:null})+'</div></div>').join('');
+  const known=ts.map(t=>t.answerKnown()),closed=ts.map(t=>t.isClosed()),anyOpen=ts.map(t=>t.leaves().some(l=>t.completedOpen(l)));
+  let v=null,ex=[];
+  if(mode==='set'){
+    if(closed[0])v=['bad','Truth-functionally inconsistent'],ex.push('Every branch closes, so no assignment makes all the members true.');
+    else if(anyOpen[0]){v=['good','Truth-functionally consistent'];const as=ts[0].assignments();ex.push('A completed open branch shows the members can all be true: '+esc(as[0])+'.'+(as.length>1?' ('+as.length+' completed open branches so far.)':''))}
+  }else if(mode==='arg'){
+    if(closed[0])v=['good','Truth-functionally valid'],ex.push('The tree closes, so the premises and the negated conclusion can\'t all be true. The premises entail the conclusion.');
+    else if(anyOpen[0])v=['bad','Truth-functionally invalid'],ex.push('A completed open branch gives a counterexample: '+esc(ts[0].assignments()[0])+'.');
+  }else if(mode==='pair'){
+    if(closed[0])v=['good','Truth-functionally equivalent'],ex.push('{~ (P ≡ Q)} has a closed tree, so P ≡ Q is truth-functionally true.');
+    else if(anyOpen[0])v=['bad','Not equivalent'],ex.push('A completed open branch shows an assignment where they differ: '+esc(ts[0].assignments()[0])+'.');
+  }else{
+    if(closed[0])v=['bad','Truth-functionally false'],ex.push('{P} has a closed tree.');
+    else if(closed[1])v=['good','Truth-functionally true'],ex.push('{~ P} has a closed tree.');
+    else if(anyOpen[0]&&anyOpen[1])v=['mid','Truth-functionally indeterminate'],ex.push('Both trees have a completed open branch. True when '+esc(ts[0].assignments()[0])+'; false when '+esc(ts[1].assignments()[0])+'.');
+  }
+  V.innerHTML=v?'<span class="pill '+v[0]+'">'+v[1]+'</span>':'<span class="note">Not finished. Click a highlighted sentence to decompose it, or use the buttons.</span>';
+  X.innerHTML=ex.map(s=>'<p>'+s+'</p>').join('')+(hint?'<p class="note">Suggested: line '+hint.line+', because '+hint.why+'.</p>':'');
+  document.getElementById('undo').disabled=!steps.some(s=>s.length);
+}
+TR.addEventListener('click',e=>{
+  const b=e.target.closest('.te-btn');if(!b)return;
+  const i=+b.closest('.treebox').dataset.t;steps[i].push(+b.dataset.id);hint=null;draw();
+});
+document.getElementById('hint').addEventListener('click',()=>{
+  const ts=trees();hint=null;
+  for(let i=0;i<ts.length;i++){if(ts[i].answerKnown()&&document.getElementById('stop').checked)continue;const s=ts[i].suggest();if(s){hint={t:i,id:s.e.id,line:s.e.line,why:s.why};break}}
+  if(!hint)X.innerHTML='<p class="note">Nothing left to decompose.</p>';else draw();
+});
+document.getElementById('undo').addEventListener('click',()=>{for(let i=steps.length-1;i>=0;i--)if(steps[i].length){steps[i].pop();break}hint=null;draw()});
+document.getElementById('restart').addEventListener('click',()=>{steps=bases.map(()=>[]);hint=null;draw()});
+document.getElementById('finish').addEventListener('click',()=>{
+  const stop=document.getElementById('stop').checked;
+  steps=bases.map((b,i)=>{const t=replay(b,steps[i]);t.auto(stop);return t.steps});hint=null;draw();
+});
+function setMode(m){mode=m;store.set('vm-ch4-mode',m);document.querySelectorAll('#modes button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.m===m));
+  document.getElementById('modehelp').textContent=MODES[m].help;src.value=drafts[m]??MODES[m].ex;setup()}
+document.querySelectorAll('#modes button').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.m)));
+SL.wireInput(src,keys,setup);
+setMode(mode);
+
+SL.tabs(document.getElementById('ptabs'),'vm-ch4-tab');
+
+/* A: which rule */
+const RN=['~~D','&D','~∨D','~⊃D','∨D','⊃D','~&D','≡D','~≡D'].map(v=>({v,label:v}));
+const A=['~ (A ⊃ ~ B)','(A ∨ B) & C','~ (A & ~ B)','~ ~ (A ⊃ B)','~ A ⊃ (B & C)','~ (A ∨ (B & C))','(A & B) ≡ C','~ (~ A ≡ B)','~ A ∨ ~ B'].map(s=>{const a=parse(s).ast,r=rule(a);
+  return{html:'<span class="f">'+esc(s)+'</span>',correct:r.name,why:r.full+(r.br.length>1?', a branching rule':', a non-branching rule')+'. Main connective: '+(a.op==='~'?'~ applied to '+SL.kind(a.a).toLowerCase():SL.kind(a).toLowerCase())+'.'}});
+SL.mcQuiz(document.getElementById('pA'),A,'vm-ch4-A',RN,false);
+
+/* B: what goes on the tree */
+const brText=a=>{const r=rule(a);return r.br.map(b=>b.map(showTop).join(' and ')).join('  |  ')};
+const B=['~ (A ∨ B)','A ⊃ ~ B','~ (A ≡ B)','~ (A & B)','A ≡ ~ B','~ (A ⊃ B)'].map((s,qi)=>{
+  const a=parse(s).ast,right=brText(a);
+  const others=['~ (A ∨ B)','A ⊃ ~ B','~ (A ≡ B)','~ (A & B)','A ≡ ~ B','~ (A ⊃ B)','A ∨ ~ B','A & ~ B'].map(x=>brText(parse(x).ast)).filter(x=>x!==right);
+  const pick=[...new Set(others)].slice(qi,qi+3).concat([...new Set(others)]).filter((x,i,arr)=>arr.indexOf(x)===i).slice(0,3);
+  const o=[right,...pick].sort();
+  return{html:'Decomposing <span class="f">'+esc(s)+'</span> adds…',opts:o.map(x=>({v:x,label:x})),correct:right,why:'"|" separates branches. '+rule(a).full+'.'};
+});
+SL.mcQuiz(document.getElementById('pB'),B,'vm-ch4-B',q=>q.opts,false);
+
+/* C: which set */
+const C=[
+  {s:'To test whether P is truth-functionally true, build a tree for…',o:['{P}','{~ P}','{P, ~ P}','{P ∨ ~ P}'],correct:1,why:'P is TF-true exactly when {~ P} is inconsistent, that is, has a closed tree.'},
+  {s:'To test whether {A, B} ⊨ C, build a tree for…',o:['{A, B, C}','{A, B, ~ C}','{~ A, ~ B, C}','{(A & B) ⊃ C}'],correct:1,why:'Entailment holds exactly when the set plus the negated sentence is inconsistent.'},
+  {s:'To test whether P and Q are equivalent, build a tree for…',o:['{P ≡ Q}','{P, Q}','{~ (P ≡ Q)}','{~ P, ~ Q}'],correct:2,why:'P and Q are equivalent when P ≡ Q is TF-true, so its negation must have a closed tree.'},
+  {s:'A tree for {~ P} has a completed open branch. What follows?',o:['P is TF-true','P is TF-false','P is not TF-true','P is indeterminate'],correct:2,why:'~ P can be true, so P can be false. P might still be TF-false; you\'d need a tree for {P} to tell.'},
+  {s:'The tree for an argument\'s premises plus its negated conclusion has a completed open branch. The argument is…',o:['valid','invalid','sound','can\'t tell'],correct:1,why:'The open branch gives an assignment with true premises and a false conclusion.'}
+].map(q=>Object.assign(q,{opts:q.o.map((l,i)=>({v:i,label:l}))}));
+SL.mcQuiz(document.getElementById('pC'),C,'vm-ch4-C',q=>q.opts,false);
+
+/* D: open or closed */
+const OC=[{v:'closed',label:'Closed tree (inconsistent)'},{v:'open',label:'Completed open branch (consistent)'}];
+const D=[['A ∨ B','~ A','~ B'],['A ⊃ B','~ B','A'],['A ≡ B','A ∨ B','~ (A & B)'],['~ (A ⊃ B)','B ∨ C'],['(A & B) ∨ (C & D)','~ A','~ C'],['A ⊃ (B ⊃ C)','A & B','~ C'],['~ (A ∨ B)','A ≡ B']].map(set=>{
+  const t=new Tree(set.map(s=>parse(s).ast)).auto(true);
+  return{html:'{'+set.map(s=>'<span class="f">'+esc(s)+'</span>').join(', ')+'}',correct:t.isClosed()?'closed':'open',why:t.isClosed()?'Every branch ends in contradictory literals.':'A completed open branch gives '+t.assignments()[0]+'.'};
+});
+SL.mcQuiz(document.getElementById('pD'),D,'vm-ch4-D',OC,true);
+
+const notes=document.getElementById('notes'),saved=document.getElementById('saved');
+notes.value=store.get('vm-ch4-notes','');
+let tm;notes.addEventListener('input',()=>{clearTimeout(tm);tm=setTimeout(()=>{store.set('vm-ch4-notes',notes.value);saved.textContent='Saved in this browser.'},400)});
+})();
+</script>
+</body>
+</html>
